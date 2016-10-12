@@ -9,4 +9,7 @@ licenses(["unencumbered"])
 java_library(
     name = "base",
     srcs = glob(["*.java"]),
+    deps = [
+        "//third_party/java/gwt:gwt-jsinterop-annotations",
+    ],
 )
