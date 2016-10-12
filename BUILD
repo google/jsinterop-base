@@ -15,7 +15,7 @@ licenses(["unencumbered"])
 
 exports_files(["LICENSE"])
 
-load("/third_party/java_src/jsinterop/generator_js", "generator_js")
+load("//:generator_js.bzl", "generator_js")
 
 # An implicit dependency of all "jsinterop_generator" skylark rules.
 # Expose the javascript file of the JsInterop Generator
