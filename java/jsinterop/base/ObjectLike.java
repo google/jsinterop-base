@@ -14,12 +14,22 @@
  * the License.
  *
  */
-
 package jsinterop.base;
 
+import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
-/** Empty placeholder class needed for JsInterop generator test. */
-@JsType(isNative = true, name = "Array", namespace = JsPackage.GLOBAL)
-public class JsArray<T> implements ArrayLike<T> {}
+/** Place holder fot ObjectLike interface. Complete implementation will be provided later. */
+@JsType(isNative = true, name = "IObject", namespace = JsPackage.GLOBAL)
+public interface ObjectLike<T> {
+  @JsOverlay
+  default T get(String propertyName) {
+    return JsObjects.get(this, propertyName);
+  }
+
+  @JsOverlay
+  default void set(String propertyName, T value) {
+    JsObjects.set(this, propertyName, value);
+  }
+}

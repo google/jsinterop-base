@@ -22,13 +22,21 @@ package jsinterop.base;
  *
  * <p>This class must not be referred directly. It will disappear in the next releases.
  */
-public class JsObjects {
-  public static native <T> T get(Object object, double key) /*-{
+class JsObjects {
+  public static native <T> T get(ArrayLike<T> object, int key) /*-{
       return object[key];
   }-*/;
 
-  public static native <T> T get(Object object, String propertyName) /*-{
+  public static native <T> T get(ObjectLike<T> object, String propertyName) /*-{
       return object[propertyName];
+  }-*/;
+
+  public static native <T> void set(ArrayLike<T> object, int key, T value) /*-{
+      object[key] = value;
+  }-*/;
+
+  public static native <T> void set(ObjectLike<T> object, String propertyName, T value) /*-{
+      object[propertyName] = value;
   }-*/;
 
   private JsObjects() {}

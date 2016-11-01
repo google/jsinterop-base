@@ -22,7 +22,7 @@
  * @return T
  * @public
  */
-JsObjects.m_get__java_lang_Object__double = function(object, key) {
+JsObjects.m_get__java_lang_Object__int = function(object, key) {
   return object[key];
 };
 
@@ -36,4 +36,26 @@ JsObjects.m_get__java_lang_Object__double = function(object, key) {
 JsObjects.m_get__java_lang_Object__java_lang_String = function(
     object, propertyName) {
   return object[propertyName];
+};
+
+/**
+ * @param {*} object
+ * @param {number} key
+ * @param {*} value
+ * @public
+ */
+JsObjects.m_set__java_lang_Object__int__java_lang_Object = function(
+    object, key, value) {
+  object[key] = value;
+};
+
+/**
+ * @param {*} object
+ * @param {string} propertyName
+ * @param {*} value
+ * @public
+ */
+JsObjects.m_set__java_lang_Object__java_lang_String__java_lang_Object =
+    function(object, propertyName, value) {
+  object[propertyName] = value;
 };
