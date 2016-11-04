@@ -22,7 +22,7 @@
  * @return T
  * @public
  */
-JsObjects.m_get__java_lang_Object__int = function(object, key) {
+JsObjects.m_get__jsinterop_base_ArrayLike__int = function(object, key) {
   return object[key];
 };
 
@@ -33,7 +33,7 @@ JsObjects.m_get__java_lang_Object__int = function(object, key) {
  * @return T
  * @public
  */
-JsObjects.m_get__java_lang_Object__java_lang_String = function(
+JsObjects.m_get__jsinterop_base_ObjectLike__java_lang_String = function(
     object, propertyName) {
   return object[propertyName];
 };
@@ -44,7 +44,7 @@ JsObjects.m_get__java_lang_Object__java_lang_String = function(
  * @param {*} value
  * @public
  */
-JsObjects.m_set__java_lang_Object__int__java_lang_Object = function(
+JsObjects.m_set__jsinterop_base_ArrayLike__int__java_lang_Object = function(
     object, key, value) {
   object[key] = value;
 };
@@ -55,7 +55,7 @@ JsObjects.m_set__java_lang_Object__int__java_lang_Object = function(
  * @param {*} value
  * @public
  */
-JsObjects.m_set__java_lang_Object__java_lang_String__java_lang_Object =
+JsObjects.m_set__jsinterop_base_ObjectLike__java_lang_String__java_lang_Object =
     function(object, propertyName, value) {
   object[propertyName] = value;
 };
