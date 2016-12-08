@@ -17,6 +17,7 @@
 package jsinterop.base;
 
 import static com.google.common.truth.Truth.assertThat;
+import static jsinterop.base.ExceptionAssert.assertThrowsClassCastException;
 
 import com.google.gwt.junit.client.GWTTestCase;
 
@@ -117,14 +118,5 @@ public class AnyTest extends GWTTestCase {
   public void testAsUnchecked() {
     Double fakeNumber = Any.of("dangerous").uncheckedCast();
     assertThat(fakeNumber).isEqualTo("dangerous");
-  }
-
-  private static void assertThrowsClassCastException(Runnable runnable) {
-    try {
-      runnable.run();
-      fail("Exception not thrown");
-    } catch (ClassCastException excepted) {
-      // Expected.
-    }
   }
 }

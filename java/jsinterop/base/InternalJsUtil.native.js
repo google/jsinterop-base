@@ -74,6 +74,15 @@ InternalJsUtil.isLong = function(obj) {
 
 /**
  * @param {IArrayLike} obj
+ * @return {boolean}
+ * @public
+ */
+InternalJsUtil.hasLength = function(obj) {
+  return typeof obj == 'object' && typeof obj.length == 'number';
+};
+
+/**
+ * @param {IArrayLike} obj
  * @return {number}
  * @public
  */

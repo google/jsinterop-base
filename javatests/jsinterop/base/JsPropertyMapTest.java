@@ -32,6 +32,13 @@ public class JsPropertyMapTest extends GWTTestCase {
   @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
   private static class NativeObject {}
 
+  public void testOf() {
+    JsPropertyMap.of(1d);
+    JsPropertyMap.of("");
+    JsPropertyMap.of(new NativeObject());
+    JsPropertyMap.of(null); // JsPropertyMap.of is similar to casting so null should be accepted.
+  }
+
   public void testSetGet() {
     JsPropertyMap o = JsPropertyMap.of(new NativeObject());
     assertThat(o.get("foo")).isNull();

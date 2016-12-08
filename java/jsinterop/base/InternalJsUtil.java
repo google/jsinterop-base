@@ -176,6 +176,11 @@ class InternalJsUtil {
   }-*/;
 
   //J2CL_ONLY @JsMethod
+  public static native boolean hasLength(Object obj) /*-{
+    return typeof obj == 'object' && typeof obj.length == 'number';
+  }-*/;
+
+  //J2CL_ONLY @JsMethod
   public static native int getLength(Object obj) /*-{
     return obj.length;
   }-*/;

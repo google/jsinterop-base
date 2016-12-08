@@ -26,7 +26,7 @@ public interface JsArrayLike<T> {
 
   @JsOverlay
   static JsArrayLikeOfAny of(Object obj) {
-    // TODO(goktug): check length property and maybe others (see closure)
+    javaemul.internal.InternalPreconditions.checkType(obj == null || InternalJsUtil.hasLength(obj));
     return (JsArrayLikeOfAny) obj;
   }
 
