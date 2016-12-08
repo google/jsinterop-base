@@ -67,6 +67,12 @@ public interface Any {
   }
 
   @JsOverlay
+  default long asLong() {
+    javaemul.internal.InternalPreconditions.checkType(InternalJsUtil.isLong(this));
+    return InternalJsUtil.asLong(this);
+  }
+
+  @JsOverlay
   default int asInt() {
     double num = asDouble();
     javaemul.internal.InternalPreconditions.checkType(num == ((int) num));
@@ -74,12 +80,25 @@ public interface Any {
   }
 
   @JsOverlay
-  default long asLong() {
-    javaemul.internal.InternalPreconditions.checkType(InternalJsUtil.isLong(this));
-    return InternalJsUtil.asLong(this);
+  default short asShort() {
+    double num = asDouble();
+    javaemul.internal.InternalPreconditions.checkType(num == ((short) num));
+    return InternalJsUtil.asShort(this);
   }
 
-  // TODO(goktug): other primitives
+  @JsOverlay
+  default char asChar() {
+    double num = asDouble();
+    javaemul.internal.InternalPreconditions.checkType(num == ((char) num));
+    return InternalJsUtil.asChar(this);
+  }
+
+  @JsOverlay
+  default byte asByte() {
+    double num = asDouble();
+    javaemul.internal.InternalPreconditions.checkType(num == ((byte) num));
+    return InternalJsUtil.asByte(this);
+  }
 
   /**
    * Performs unchecked cast to lefthand-side type. You should always prefer regular casting over

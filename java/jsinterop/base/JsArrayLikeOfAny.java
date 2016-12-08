@@ -20,41 +20,26 @@ import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
-/** Provides abstraction for JavaScript array-like objects. */
+/** Provides abstraction for JavaScript array-like object of {@link Any}. */
 @JsType(isNative = true, name = "IArrayLike", namespace = JsPackage.GLOBAL)
-public interface JsArrayLike<T> {
-
+public interface JsArrayLikeOfAny extends JsArrayLike<Object> {
   @JsOverlay
-  static JsArrayLikeOfAny of(Object obj) {
-    // TODO(goktug): check length property and maybe others (see closure)
-    return (JsArrayLikeOfAny) obj;
+  default void setAt(int index, float value) {
+    InternalJsUtil.setAt(this, index, Any.of(value));
   }
 
   @JsOverlay
-  default int getLength() {
-    return InternalJsUtil.getLength(this);
+  default void setAt(int index, int value) {
+    InternalJsUtil.setAt(this, index, Any.of(value));
   }
 
   @JsOverlay
-  default void setLength(int length) {
-    InternalJsUtil.setLength(this, length);
+  default void setAt(int index, long value) {
+    InternalJsUtil.setAt(this, index, Any.of(value));
   }
 
   @JsOverlay
-  @SuppressWarnings("unchecked")
-  default T getAt(int index) {
-    return (T) InternalJsUtil.getAt(this, index);
-  }
-
-  @JsOverlay
-  default void setAt(int index, T value) {
-    InternalJsUtil.setAt(this, index, value);
-  }
-
-  @JsOverlay
-  default T[] asArray() {
-    // It is 'mostly' safe since there will be a real cast at the erasure call site when the
-    // elements are accessed.
-    return Any.of(this).uncheckedCast();
+  default Any getAnyAt(int index) {
+    return (Any) InternalJsUtil.getAt(this, index);
   }
 }

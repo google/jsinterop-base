@@ -41,6 +41,27 @@ public class JsArrayLikeTest extends GWTTestCase {
     assertThat(arrayLike.getAt(1)).isEqualTo("bb");
   }
 
+  public void testSetAny() {
+    JsArrayLikeOfAny arrayLike = getArrayLikeOf();
+    arrayLike.setAt(0, 15.5d);
+    arrayLike.setAt(1, 15.5f);
+    arrayLike.setAt(2, 15L);
+    arrayLike.setAt(3, 15);
+    arrayLike.setAt(4, (short) 15);
+    arrayLike.setAt(5, (char) 15);
+    arrayLike.setAt(6, (byte) 15);
+    arrayLike.setAt(7, true);
+
+    assertThat(arrayLike.getAnyAt(0).asDouble()).isEqualTo(15.5);
+    assertThat(arrayLike.getAnyAt(1).asDouble()).isEqualTo(15.5);
+    assertThat(arrayLike.getAnyAt(2).asLong()).isEqualTo(15L);
+    assertThat(arrayLike.getAnyAt(3).asInt()).isEqualTo(15);
+    assertThat(arrayLike.getAnyAt(4).asShort()).isEqualTo(15);
+    assertThat(arrayLike.getAnyAt(5).asChar()).isEqualTo(15);
+    assertThat(arrayLike.getAnyAt(6).asByte()).isEqualTo(15);
+    assertThat(arrayLike.getAnyAt(7).asBoolean()).isTrue();
+  }
+
   public void testToArray() {
     JsArrayLike<Object> arrayLike = getArrayLikeOf("a", "b", "c");
     String all = "";
@@ -53,7 +74,7 @@ public class JsArrayLikeTest extends GWTTestCase {
     assertThat(all).isEqualTo("abc");
   }
 
-  private static JsArrayLike<Object> getArrayLikeOf(Object... args) {
+  private static JsArrayLikeOfAny getArrayLikeOf(Object... args) {
     return JsArrayLike.of(args);
   }
 }

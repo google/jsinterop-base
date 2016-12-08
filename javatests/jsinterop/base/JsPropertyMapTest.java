@@ -48,6 +48,26 @@ public class JsPropertyMapTest extends GWTTestCase {
     assertThat(o.has("foo")).isFalse();
   }
 
+  public void testSetGetAny() {
+    JsPropertyMapOfAny o = JsPropertyMap.of(new NativeObject());
+    o.set("p0", 15.5d);
+    o.set("p1", 15.5f);
+    o.set("p2", 15L);
+    o.set("p3", 15);
+    o.set("p4", (short) 15);
+    o.set("p5", (char) 15);
+    o.set("p6", (byte) 15);
+    o.set("p7", true);
+
+    assertThat(o.getAny("p0").asDouble()).isEqualTo(15.5);
+    assertThat(o.getAny("p1").asDouble()).isEqualTo(15.5);
+    assertThat(o.getAny("p2").asLong()).isEqualTo(15L);
+    assertThat(o.getAny("p3").asInt()).isEqualTo(15);
+    assertThat(o.getAny("p4").asShort()).isEqualTo(15);
+    assertThat(o.getAny("p5").asChar()).isEqualTo(15);
+    assertThat(o.getAny("p6").asByte()).isEqualTo(15);
+    assertThat(o.getAny("p7").asBoolean()).isTrue();
+  }
   public void testForEach() {
     JsPropertyMap o = JsPropertyMap.of(new NativeObject());
     o.set("foo", "");

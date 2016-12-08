@@ -34,7 +34,7 @@ public final class Js {
   public static native void debugger();
 
   @JsProperty(namespace = "<window>", name = "arguments")
-  public static native JsArrayLike<Object> arguments();
+  public static native JsArrayLikeOfAny arguments();
 
   @JsProperty(namespace = "<window>", name = "undefined")
   public static native Object undefined();

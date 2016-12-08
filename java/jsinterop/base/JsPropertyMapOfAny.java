@@ -20,38 +20,26 @@ import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
-/** Provides abstraction of JavaScript objects as property maps. */
+/** Provides abstraction for JavaScript objects as property map of {@link Any}. */
 @JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
-public interface JsPropertyMap<T> {
-
+interface JsPropertyMapOfAny extends JsPropertyMap<Object> {
   @JsOverlay
-  static JsPropertyMapOfAny of(Object obj) {
-    return (JsPropertyMapOfAny) obj;
+  default void set(String propertyName, float value) {
+    InternalJsUtil.set(this, propertyName, Any.of(value));
   }
 
   @JsOverlay
-  @SuppressWarnings("unchecked")
-  default T get(String propertyName) {
-    return (T) InternalJsUtil.get(this, propertyName);
+  default void set(String propertyName, int value) {
+    InternalJsUtil.set(this, propertyName, Any.of(value));
   }
 
   @JsOverlay
-  default boolean has(String propertyName) {
-    return InternalJsUtil.has(this, propertyName);
+  default void set(String propertyName, long value) {
+    InternalJsUtil.set(this, propertyName, Any.of(value));
   }
 
   @JsOverlay
-  default void delete(String propertyName) {
-    InternalJsUtil.delete(this, propertyName);
-  }
-
-  @JsOverlay
-  default void set(String propertyName, T value) {
-    InternalJsUtil.set(this, propertyName, value);
-  }
-
-  @JsOverlay
-  default void forEach(JsForEachCallbackFn cb) {
-    InternalJsUtil.forEach(this, cb);
+  default Any getAny(String propertyName) {
+    return (Any) InternalJsUtil.get(this, propertyName);
   }
 }

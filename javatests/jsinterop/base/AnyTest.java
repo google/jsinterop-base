@@ -52,15 +52,6 @@ public class AnyTest extends GWTTestCase {
     assertThat(Any.of(15.5d).asFloat()).isEqualTo(15.5f);
   }
 
-  public void testAsInt() {
-    // Note: int is represented as number and double test alrready covers issues around
-    // conversions to number.
-    assertThat(Any.of(15).asInt()).isEqualTo(15);
-    assertThat(Any.of(15d).asInt()).isEqualTo(15);
-
-    assertThrowsClassCastException(() -> Any.of(15.5d).asInt());
-  }
-
   public void testAsLong() {
     assertThat(Any.of(0L).asLong()).isEqualTo(0L);
     assertThat(Any.of(Long.MIN_VALUE).asLong()).isEqualTo(Long.MIN_VALUE);
@@ -73,6 +64,42 @@ public class AnyTest extends GWTTestCase {
     assertThrowsClassCastException(() -> Any.of("1").asLong());
     assertThrowsClassCastException(() -> Any.of("").asLong());
     assertThrowsClassCastException(() -> Any.of(null).asLong());
+  }
+
+  public void testAsInt() {
+    // Note: int is represented as number and double test already covers issues around
+    // conversions to number.
+    assertThat(Any.of(15).asInt()).isEqualTo(15);
+    assertThat(Any.of(15d).asInt()).isEqualTo(15);
+
+    assertThrowsClassCastException(() -> Any.of(15.5d).asInt());
+  }
+
+  public void testAsShort() {
+    // Note: short is represented as number and double test already covers issues around
+    // conversions to number.
+    assertThat(Any.of(15).asShort()).isEqualTo(15);
+
+    assertThrowsClassCastException(() -> Any.of(15.5d).asShort());
+    assertThrowsClassCastException(() -> Any.of(Short.MAX_VALUE + 1).asShort());
+  }
+
+  public void testAsChar() {
+    // Note: char is represented as number and double test already covers issues around
+    // conversions to number.
+    assertThat(Any.of(15).asChar()).isEqualTo(15);
+
+    assertThrowsClassCastException(() -> Any.of(15.5d).asChar());
+    assertThrowsClassCastException(() -> Any.of(Character.MAX_VALUE + 1).asChar());
+  }
+
+  public void testAsByte() {
+    // Note: byte is represented as number and double test already covers issues around
+    // conversions to number.
+    assertThat(Any.of(15).asByte()).isEqualTo(15);
+
+    assertThrowsClassCastException(() -> Any.of(15.5d).asByte());
+    assertThrowsClassCastException(() -> Any.of(Byte.MAX_VALUE + 1).asByte());
   }
 
   public void testAsBoolean() {

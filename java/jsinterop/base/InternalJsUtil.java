@@ -143,6 +143,21 @@ class InternalJsUtil {
     return obj;
   }-*/;
 
+  //J2CL_ONLY @JsMethod(name="castToAny")
+  public static native short asShort(Object obj) /*-{
+    return obj;
+  }-*/;
+
+  //J2CL_ONLY @JsMethod(name="castToAny")
+  public static native char asChar(Object obj) /*-{
+    return obj;
+  }-*/;
+
+  //J2CL_ONLY @JsMethod(name="castToAny")
+  public static native byte asByte(Object obj) /*-{
+    return obj;
+  }-*/;
+
   @UnsafeNativeLong
   //J2CL_ONLY @JsMethod(name="castToAny")
   public static native long asLong(Object obj) /*-{
