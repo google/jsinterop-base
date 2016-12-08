@@ -20,6 +20,7 @@ package jsinterop.base;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
+// TODO(b/33437732): remove
 /** Empty placeholder class needed for JsInterop generator test. */
 @JsType(isNative = true, name = "Array", namespace = JsPackage.GLOBAL)
 public class JsArray<T> implements ArrayLike<T> {}

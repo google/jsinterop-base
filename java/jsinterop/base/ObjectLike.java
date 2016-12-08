@@ -16,20 +16,10 @@
  */
 package jsinterop.base;
 
-import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
+// TODO(b/33437732): remove
 /** Place holder fot ObjectLike interface. Complete implementation will be provided later. */
 @JsType(isNative = true, name = "IObject", namespace = JsPackage.GLOBAL)
-public interface ObjectLike<T> {
-  @JsOverlay
-  default T get(String propertyName) {
-    return JsObjects.get(this, propertyName);
-  }
-
-  @JsOverlay
-  default void set(String propertyName, T value) {
-    JsObjects.set(this, propertyName, value);
-  }
-}
+public interface ObjectLike<T> extends JsPropertyMap<T> {}
