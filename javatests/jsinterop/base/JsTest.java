@@ -34,12 +34,6 @@ public class JsTest extends GWTTestCase {
     assertThat(Js.typeof(new Object())).isEqualTo("object");
   }
 
-  public void testUnsafe() throws Exception {
-    //long fakeNumber = Js.cast("dangerous").toLong();
-    //String myString = Js.cast(fakeNumber).asAny();
-    //assertEquals("dangerous", myString);
-  }
-
   public void testTruthyFalsey() {
     assertThat(Js.isTruthy("abc")).isTrue();
     assertThat(Js.isTruthy("1")).isTrue();

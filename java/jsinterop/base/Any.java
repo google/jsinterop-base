@@ -21,8 +21,11 @@ import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
-/** Provides JavaScript utilities that are not checked at runtime. */
-// TODO(goktug): name should be * here.
+/**
+ * Abstracts 'any' type in the type system (or '*' in Closure). This is the super type of all types
+ * and provides helpers for casting into subtypes that are not otherwise castable (i.e. primitives).
+ */
+// TODO(goktug): name should be * here but GWT will not be happy.
 @JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 public interface Any {
 
@@ -78,6 +81,10 @@ public interface Any {
 
   // TODO(goktug): other primitives
 
+  /**
+   * Performs unchecked cast to lefthand-side type. You should always prefer regular casting over
+   * this (unless you know what you are doing!).
+   */
   @JsOverlay
   @UncheckedCast
   @SuppressWarnings({"TypeParameterUnusedInFormals", "unchecked"})

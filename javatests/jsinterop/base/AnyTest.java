@@ -87,6 +87,11 @@ public class AnyTest extends GWTTestCase {
     assertThrowsClassCastException(() -> Any.of(null).asBoolean());
   }
 
+  public void testAsUnchecked() {
+    Double fakeNumber = Any.of("dangerous").uncheckedCast();
+    assertThat(fakeNumber).isEqualTo("dangerous");
+  }
+
   private static void assertThrowsClassCastException(Runnable runnable) {
     try {
       runnable.run();
