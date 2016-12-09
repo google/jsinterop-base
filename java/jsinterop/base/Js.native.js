@@ -1,16 +1,5 @@
 /**
  * @param {*} obj
- * @return {Object}
- * @public
- */
-Js.cast = function(obj) {
-  // TODO(goktug): Shouldn't be required when we move to * for JsUnsafeObject
-  return /** @type {Object} */ (obj);
-};
-
-
-/**
- * @param {*} obj
  * @return {boolean}
  * @public
  */
