@@ -73,7 +73,7 @@ InternalJsUtil.isLong = function(obj) {
 };
 
 /**
- * @param {IArrayLike} obj
+ * @param {*} obj
  * @return {boolean}
  * @public
  */

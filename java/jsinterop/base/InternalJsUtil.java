@@ -181,12 +181,12 @@ class InternalJsUtil {
   }-*/;
 
   //J2CL_ONLY @JsMethod
-  public static native int getLength(Object obj) /*-{
+  public static native int getLength(JsArrayLike<?> obj) /*-{
     return obj.length;
   }-*/;
 
   //J2CL_ONLY @JsMethod
-  public static native void setLength(Object obj, int length) /*-{
+  public static native void setLength(JsArrayLike<?> obj, int length) /*-{
     return obj.length = length;
   }-*/;
 
