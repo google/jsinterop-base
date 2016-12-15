@@ -50,14 +50,16 @@ public interface Any {
   }
 
   @JsOverlay
+  @SuppressWarnings("ReferenceEquality") // GWT is not good at optimizing equals
   default boolean asBoolean() {
-    javaemul.internal.InternalPreconditions.checkType(Js.typeof(this).equals("boolean"));
+    javaemul.internal.InternalPreconditions.checkType(Js.typeof(this) == "boolean");
     return InternalJsUtil.asBoolean(this);
   }
 
   @JsOverlay
+  @SuppressWarnings("ReferenceEquality") // GWT is not good at optimizing equals
   default double asDouble() {
-    javaemul.internal.InternalPreconditions.checkType(Js.typeof(this).equals("number"));
+    javaemul.internal.InternalPreconditions.checkType(Js.typeof(this) == "number");
     return InternalJsUtil.asDouble(this);
   }
 

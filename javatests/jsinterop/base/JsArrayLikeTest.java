@@ -82,7 +82,7 @@ public class JsArrayLikeTest extends GWTTestCase {
     assertThat(arrayLike.getAnyAt(7).asBoolean()).isTrue();
   }
 
-  public void testToArray() {
+  public void testAsArray() {
     JsArrayLike<Object> arrayLike = getArrayLikeOf("a", "b", "c");
     String all = "";
     int count = 0;

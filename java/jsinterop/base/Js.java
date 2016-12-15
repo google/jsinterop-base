@@ -16,6 +16,7 @@
  */
 package jsinterop.base;
 
+import javaemul.internal.annotations.HasNoSideEffects;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsProperty;
 
@@ -27,23 +28,25 @@ import jsinterop.annotations.JsProperty;
  * pure Java or Elemental and enforce safe (runtime-checked) coding practices.
  */
 public final class Js {
-  @JsMethod(namespace = "<window>")
-  public static native String typeof(Object obj);
-
-  @JsProperty(namespace = "<window>", name = "debugger")
-  public static native void debugger();
+  @JsProperty(namespace = "<window>", name = "undefined")
+  public static native Object undefined();
 
   @JsProperty(namespace = "<window>", name = "arguments")
   public static native JsArrayLikeOfAny arguments();
 
-  @JsProperty(namespace = "<window>", name = "undefined")
-  public static native Object undefined();
+  @JsProperty(namespace = "<window>", name = "debugger")
+  public static native void debugger();
+
+  @JsMethod(namespace = "<window>")
+  @HasNoSideEffects
+  public static native String typeof(Object obj);
 
   public static boolean isTruthy(Object obj) {
     return !isFalsy(obj);
   }
 
   //J2CL_ONLY @JsMethod
+  @HasNoSideEffects
   public static native boolean isFalsy(Object obj) /*-{
     return !obj;
   }-*/;
@@ -55,6 +58,7 @@ public final class Js {
    * {@code true} for {@code null==undefined} comparison.
    */
   //J2CL_ONLY @JsMethod
+  @HasNoSideEffects
   public static native boolean isTripleEqual(Object o1, Object o2) /*-{
     return o1 === o2;
   }-*/;

@@ -17,6 +17,7 @@
 package jsinterop.base;
 
 import com.google.gwt.core.client.UnsafeNativeLong;
+import javaemul.internal.annotations.HasNoSideEffects;
 //J2CL_ONLY import jsinterop.annotations.JsMethod;
 
 /** Utilities used internally to interact with native code. */
@@ -165,6 +166,7 @@ class InternalJsUtil {
   }-*/;
 
   //J2CL_ONLY @JsMethod
+  @HasNoSideEffects
   public static native boolean isLong(Object obj) /*-{
     if (typeof obj == 'number') {
       return @com.google.gwt.lang.LongLib::isSafeIntegerRange(*)(obj) && Math.floor(obj) === obj;
@@ -176,11 +178,13 @@ class InternalJsUtil {
   }-*/;
 
   //J2CL_ONLY @JsMethod
+  @HasNoSideEffects
   public static native boolean hasLength(Object obj) /*-{
     return typeof obj == 'object' && typeof obj.length == 'number';
   }-*/;
 
   //J2CL_ONLY @JsMethod
+  @HasNoSideEffects
   public static native int getLength(JsArrayLike<?> obj) /*-{
     return obj.length;
   }-*/;
