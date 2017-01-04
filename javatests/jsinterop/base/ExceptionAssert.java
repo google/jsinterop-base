@@ -16,6 +16,7 @@
  */
 package jsinterop.base;
 
+import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 
 /** Utilities for asserting exceptions. */
@@ -25,8 +26,8 @@ final class ExceptionAssert {
     try {
       runnable.run();
       fail("Exception not thrown");
-    } catch (ClassCastException excepted) {
-      // Expected.
+    } catch (AssertionError expected) {
+      assertTrue(expected.toString(), expected.getCause() instanceof ClassCastException);
     }
   }
 

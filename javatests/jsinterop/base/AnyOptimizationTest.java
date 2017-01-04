@@ -45,7 +45,7 @@ public class AnyOptimizationTest extends GWTTestCase {
   @JsProperty
   private static native Object getAsPrimitive();
 
-  public void testAsDouble() {
+  public void testAsPrimitive() {
     assertFunctionMatches(getAsPrimitive(), "");
   }
 

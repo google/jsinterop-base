@@ -16,6 +16,8 @@
  */
 package jsinterop.base;
 
+import static jsinterop.base.InternalPreconditions.checkType;
+
 import javaemul.internal.annotations.UncheckedCast;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
@@ -52,14 +54,14 @@ public interface Any {
   @JsOverlay
   @SuppressWarnings("ReferenceEquality") // GWT is not good at optimizing equals
   default boolean asBoolean() {
-    javaemul.internal.InternalPreconditions.checkType(Js.typeof(this) == "boolean");
+    checkType(Js.typeof(this) == "boolean");
     return InternalJsUtil.asBoolean(this);
   }
 
   @JsOverlay
   @SuppressWarnings("ReferenceEquality") // GWT is not good at optimizing equals
   default double asDouble() {
-    javaemul.internal.InternalPreconditions.checkType(Js.typeof(this) == "number");
+    checkType(Js.typeof(this) == "number");
     return InternalJsUtil.asDouble(this);
   }
 
@@ -70,35 +72,34 @@ public interface Any {
 
   @JsOverlay
   default long asLong() {
-    javaemul.internal.InternalPreconditions.checkType(InternalJsUtil.isLong(this));
+    checkType(InternalJsUtil.isLong(this));
     return InternalJsUtil.asLong(this);
   }
 
   @JsOverlay
   default int asInt() {
-    double num = asDouble();
-    javaemul.internal.InternalPreconditions.checkType(num == ((int) num));
+    checkType(InternalJsUtil.isInt(this));
     return InternalJsUtil.asInt(this);
   }
 
   @JsOverlay
   default short asShort() {
-    double num = asDouble();
-    javaemul.internal.InternalPreconditions.checkType(num == ((short) num));
+    int num = asInt();
+    checkType(num == ((short) num));
     return InternalJsUtil.asShort(this);
   }
 
   @JsOverlay
   default char asChar() {
-    double num = asDouble();
-    javaemul.internal.InternalPreconditions.checkType(num == ((char) num));
+    int num = asInt();
+    checkType(num == ((char) num));
     return InternalJsUtil.asChar(this);
   }
 
   @JsOverlay
   default byte asByte() {
-    double num = asDouble();
-    javaemul.internal.InternalPreconditions.checkType(num == ((byte) num));
+    int num = asInt();
+    checkType(num == ((byte) num));
     return InternalJsUtil.asByte(this);
   }
 

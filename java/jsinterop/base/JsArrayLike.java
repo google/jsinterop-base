@@ -16,6 +16,8 @@
  */
 package jsinterop.base;
 
+import static jsinterop.base.InternalPreconditions.checkType;
+
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
@@ -26,7 +28,8 @@ public interface JsArrayLike<T> {
 
   @JsOverlay
   static JsArrayLikeOfAny of(Object obj) {
-    javaemul.internal.InternalPreconditions.checkType(obj == null || InternalJsUtil.hasLength(obj));
+    // TODO(goktug): switch to custom $isInstance
+    checkType(obj == null || InternalJsUtil.hasLength(obj));
     return (JsArrayLikeOfAny) obj;
   }
 

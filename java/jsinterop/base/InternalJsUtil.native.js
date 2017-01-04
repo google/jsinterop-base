@@ -77,6 +77,15 @@ InternalJsUtil.isLong = function(obj) {
  * @return {boolean}
  * @public
  */
+InternalJsUtil.isInt = function(obj) {
+  return (obj | 0) === obj;
+};
+
+/**
+ * @param {*} obj
+ * @return {boolean}
+ * @public
+ */
 InternalJsUtil.hasLength = function(obj) {
   return typeof obj == 'object' && typeof obj.length == 'number';
 };

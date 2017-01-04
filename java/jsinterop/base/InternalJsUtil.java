@@ -179,6 +179,12 @@ class InternalJsUtil {
 
   //J2CL_ONLY @JsMethod
   @HasNoSideEffects
+  public static native boolean isInt(Object obj) /*-{
+    return (obj|0) === obj;
+  }-*/;
+
+  //J2CL_ONLY @JsMethod
+  @HasNoSideEffects
   public static native boolean hasLength(Object obj) /*-{
     return typeof obj == 'object' && typeof obj.length == 'number';
   }-*/;
