@@ -17,7 +17,7 @@
 package jsinterop.base;
 
 import static com.google.common.truth.Truth.assertThat;
-import static jsinterop.base.ExceptionAssert.assertThrowsClassCastException;
+import static jsinterop.base.ExceptionAssert.assertThrowsHiddenClassCastException;
 
 import com.google.gwt.junit.client.GWTTestCase;
 
@@ -39,11 +39,11 @@ public class AnyTest extends GWTTestCase {
     assertThat(Any.of((short) 15).asDouble()).isEqualTo(15d);
 
     // GWT represents small longs as 'number'
-    // assertThrowsClassCastException(() -> Any.of(15L).asDouble());
-    assertThrowsClassCastException(() -> Any.of(new Object()).asDouble());
-    assertThrowsClassCastException(() -> Any.of("1").asDouble());
-    assertThrowsClassCastException(() -> Any.of("").asDouble());
-    assertThrowsClassCastException(() -> Any.of(null).asDouble());
+    // assertThrowsHiddenClassCastException(() -> Any.of(15L).asDouble());
+    assertThrowsHiddenClassCastException(() -> Any.of(new Object()).asDouble());
+    assertThrowsHiddenClassCastException(() -> Any.of("1").asDouble());
+    assertThrowsHiddenClassCastException(() -> Any.of("").asDouble());
+    assertThrowsHiddenClassCastException(() -> Any.of(null).asDouble());
   }
 
   public void testAsFloat() {
@@ -59,12 +59,12 @@ public class AnyTest extends GWTTestCase {
     assertThat(Any.of(Long.MAX_VALUE).asLong()).isEqualTo(Long.MAX_VALUE);
 
     // GWT represents small longs as 'number'
-    // assertThrowsClassCastException(() -> Any.of(15).asLong());
-    assertThrowsClassCastException(() -> Any.of(15.5d).asLong());
-    assertThrowsClassCastException(() -> Any.of(new Object()).asLong());
-    assertThrowsClassCastException(() -> Any.of("1").asLong());
-    assertThrowsClassCastException(() -> Any.of("").asLong());
-    assertThrowsClassCastException(() -> Any.of(null).asLong());
+    // assertThrowsHiddenClassCastException(() -> Any.of(15).asLong());
+    assertThrowsHiddenClassCastException(() -> Any.of(15.5d).asLong());
+    assertThrowsHiddenClassCastException(() -> Any.of(new Object()).asLong());
+    assertThrowsHiddenClassCastException(() -> Any.of("1").asLong());
+    assertThrowsHiddenClassCastException(() -> Any.of("").asLong());
+    assertThrowsHiddenClassCastException(() -> Any.of(null).asLong());
   }
 
   public void testAsInt() {
@@ -73,7 +73,7 @@ public class AnyTest extends GWTTestCase {
     assertThat(Any.of(15).asInt()).isEqualTo(15);
     assertThat(Any.of(15d).asInt()).isEqualTo(15);
 
-    assertThrowsClassCastException(() -> Any.of(15.5d).asInt());
+    assertThrowsHiddenClassCastException(() -> Any.of(15.5d).asInt());
   }
 
   public void testAsShort() {
@@ -81,8 +81,8 @@ public class AnyTest extends GWTTestCase {
     // conversions to number.
     assertThat(Any.of(15).asShort()).isEqualTo(15);
 
-    assertThrowsClassCastException(() -> Any.of(15.5d).asShort());
-    assertThrowsClassCastException(() -> Any.of(Short.MAX_VALUE + 1).asShort());
+    assertThrowsHiddenClassCastException(() -> Any.of(15.5d).asShort());
+    assertThrowsHiddenClassCastException(() -> Any.of(Short.MAX_VALUE + 1).asShort());
   }
 
   public void testAsChar() {
@@ -90,8 +90,8 @@ public class AnyTest extends GWTTestCase {
     // conversions to number.
     assertThat(Any.of(15).asChar()).isEqualTo(15);
 
-    assertThrowsClassCastException(() -> Any.of(15.5d).asChar());
-    assertThrowsClassCastException(() -> Any.of(Character.MAX_VALUE + 1).asChar());
+    assertThrowsHiddenClassCastException(() -> Any.of(15.5d).asChar());
+    assertThrowsHiddenClassCastException(() -> Any.of(Character.MAX_VALUE + 1).asChar());
   }
 
   public void testAsByte() {
@@ -99,20 +99,20 @@ public class AnyTest extends GWTTestCase {
     // conversions to number.
     assertThat(Any.of(15).asByte()).isEqualTo(15);
 
-    assertThrowsClassCastException(() -> Any.of(15.5d).asByte());
-    assertThrowsClassCastException(() -> Any.of(Byte.MAX_VALUE + 1).asByte());
+    assertThrowsHiddenClassCastException(() -> Any.of(15.5d).asByte());
+    assertThrowsHiddenClassCastException(() -> Any.of(Byte.MAX_VALUE + 1).asByte());
   }
 
   public void testAsBoolean() {
     assertThat(Any.of(false).asBoolean()).isFalse();
     assertThat(Any.of(true).asBoolean()).isTrue();
 
-    assertThrowsClassCastException(() -> Any.of(15.5d).asBoolean());
-    assertThrowsClassCastException(() -> Any.of(15L).asBoolean());
-    assertThrowsClassCastException(() -> Any.of(new Object()).asBoolean());
-    assertThrowsClassCastException(() -> Any.of("1").asBoolean());
-    assertThrowsClassCastException(() -> Any.of("").asBoolean());
-    assertThrowsClassCastException(() -> Any.of(null).asBoolean());
+    assertThrowsHiddenClassCastException(() -> Any.of(15.5d).asBoolean());
+    assertThrowsHiddenClassCastException(() -> Any.of(15L).asBoolean());
+    assertThrowsHiddenClassCastException(() -> Any.of(new Object()).asBoolean());
+    assertThrowsHiddenClassCastException(() -> Any.of("1").asBoolean());
+    assertThrowsHiddenClassCastException(() -> Any.of("").asBoolean());
+    assertThrowsHiddenClassCastException(() -> Any.of(null).asBoolean());
   }
 
   public void testAsUnchecked() {

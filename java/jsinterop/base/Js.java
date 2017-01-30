@@ -16,7 +16,10 @@
  */
 package jsinterop.base;
 
+import static jsinterop.base.InternalPreconditions.checkType;
+
 import javaemul.internal.annotations.HasNoSideEffects;
+import javaemul.internal.annotations.UncheckedCast;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsProperty;
 
@@ -40,6 +43,69 @@ public final class Js {
   @JsMethod(namespace = "<window>")
   @HasNoSideEffects
   public static native String typeof(Object obj);
+
+  @SuppressWarnings("ReferenceEquality") // GWT is not good at optimizing equals
+  public static boolean castToBoolean(Object obj) {
+    checkType(Js.typeof(obj) == "boolean");
+    return InternalJsUtil.asBoolean(obj);
+  }
+
+  @SuppressWarnings("ReferenceEquality") // GWT is not good at optimizing equals
+  public static double castToDouble(Object obj) {
+    checkType(Js.typeof(obj) == "number");
+    return InternalJsUtil.asDouble(obj);
+  }
+
+  public static float castToFloat(Object obj) {
+    return (float) castToDouble(obj);
+  }
+
+  public static long castToLong(Object obj) {
+    checkType(InternalJsUtil.isLong(obj));
+    return InternalJsUtil.asLong(obj);
+  }
+
+  public static int castToInt(Object obj) {
+    checkType(InternalJsUtil.isInt(obj));
+    return InternalJsUtil.asInt(obj);
+  }
+
+  public static short castToShort(Object obj) {
+    int num = castToInt(obj);
+    checkType(num == ((short) num));
+    return InternalJsUtil.asShort(obj);
+  }
+
+  public static char castToChar(Object obj) {
+    int num = castToInt(obj);
+    checkType(num == ((char) num));
+    return InternalJsUtil.asChar(obj);
+  }
+
+  public static byte castToByte(Object obj) {
+    int num = castToInt(obj);
+    checkType(num == ((byte) num));
+    return InternalJsUtil.asByte(obj);
+  }
+
+  /**
+   * Performs checked cast to lefthand-side type. This is useful for cases when Java won't allow you
+   * otherwise, like casting from a native interface to a final Java type (like String).
+   */
+  @SuppressWarnings({"TypeParameterUnusedInFormals", "unchecked"})
+  public static <T> T cast(Object obj) {
+    return (T) obj;
+  }
+
+  /**
+   * Performs unchecked cast to lefthand-side type. You should always prefer regular casting over
+   * this (unless you know what you are doing!).
+   */
+  @UncheckedCast
+  @SuppressWarnings({"TypeParameterUnusedInFormals", "unchecked"})
+  public static <T> T uncheckedCast(Object obj) {
+    return (T) obj;
+  }
 
   public static boolean isTruthy(Object obj) {
     return !isFalsy(obj);

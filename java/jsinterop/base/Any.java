@@ -16,8 +16,6 @@
  */
 package jsinterop.base;
 
-import static jsinterop.base.InternalPreconditions.checkType;
-
 import javaemul.internal.annotations.UncheckedCast;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
@@ -52,55 +50,43 @@ public interface Any {
   }
 
   @JsOverlay
-  @SuppressWarnings("ReferenceEquality") // GWT is not good at optimizing equals
   default boolean asBoolean() {
-    checkType(Js.typeof(this) == "boolean");
-    return InternalJsUtil.asBoolean(this);
+    return Js.castToBoolean(this);
   }
 
   @JsOverlay
-  @SuppressWarnings("ReferenceEquality") // GWT is not good at optimizing equals
   default double asDouble() {
-    checkType(Js.typeof(this) == "number");
-    return InternalJsUtil.asDouble(this);
+    return Js.castToDouble(this);
   }
 
   @JsOverlay
   default float asFloat() {
-    return (float) asDouble();
+    return Js.castToFloat(this);
   }
 
   @JsOverlay
   default long asLong() {
-    checkType(InternalJsUtil.isLong(this));
-    return InternalJsUtil.asLong(this);
+    return Js.castToLong(this);
   }
 
   @JsOverlay
   default int asInt() {
-    checkType(InternalJsUtil.isInt(this));
-    return InternalJsUtil.asInt(this);
+    return Js.castToInt(this);
   }
 
   @JsOverlay
   default short asShort() {
-    int num = asInt();
-    checkType(num == ((short) num));
-    return InternalJsUtil.asShort(this);
+    return Js.castToShort(this);
   }
 
   @JsOverlay
   default char asChar() {
-    int num = asInt();
-    checkType(num == ((char) num));
-    return InternalJsUtil.asChar(this);
+    return Js.castToChar(this);
   }
 
   @JsOverlay
   default byte asByte() {
-    int num = asInt();
-    checkType(num == ((byte) num));
-    return InternalJsUtil.asByte(this);
+    return Js.castToByte(this);
   }
 
   /**

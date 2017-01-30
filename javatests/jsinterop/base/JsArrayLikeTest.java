@@ -17,7 +17,7 @@
 package jsinterop.base;
 
 import static com.google.common.truth.Truth.assertThat;
-import static jsinterop.base.ExceptionAssert.assertThrowsClassCastException;
+import static jsinterop.base.ExceptionAssert.assertThrowsHiddenClassCastException;
 
 import com.google.gwt.junit.client.GWTTestCase;
 
@@ -35,16 +35,16 @@ public class JsArrayLikeTest extends GWTTestCase {
   }
 
   public void testOf_nonArrayLike() {
-    assertThrowsClassCastException(() -> JsArrayLike.of(5));
-    assertThrowsClassCastException(() -> JsArrayLike.of("str"));
-    assertThrowsClassCastException(() -> JsArrayLike.of(new Object()));
+    assertThrowsHiddenClassCastException(() -> JsArrayLike.of(5));
+    assertThrowsHiddenClassCastException(() -> JsArrayLike.of("str"));
+    assertThrowsHiddenClassCastException(() -> JsArrayLike.of(new Object()));
 
     Object objectWithNonconformingLength = new Object();
     JsPropertyMap.of(objectWithNonconformingLength).set("length", null);
-    assertThrowsClassCastException(() -> JsArrayLike.of(objectWithNonconformingLength));
+    assertThrowsHiddenClassCastException(() -> JsArrayLike.of(objectWithNonconformingLength));
 
     JsPropertyMap.of(objectWithNonconformingLength).set("length", "1");
-    assertThrowsClassCastException(() -> JsArrayLike.of(objectWithNonconformingLength));
+    assertThrowsHiddenClassCastException(() -> JsArrayLike.of(objectWithNonconformingLength));
   }
 
   public void testGet() {

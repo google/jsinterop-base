@@ -26,6 +26,15 @@ final class ExceptionAssert {
     try {
       runnable.run();
       fail("Exception not thrown");
+    } catch (ClassCastException expected) {
+      // Expected
+    }
+  }
+
+  public static void assertThrowsHiddenClassCastException(Runnable runnable) {
+    try {
+      runnable.run();
+      fail("Exception not thrown");
     } catch (AssertionError expected) {
       assertTrue(expected.toString(), expected.getCause() instanceof ClassCastException);
     }

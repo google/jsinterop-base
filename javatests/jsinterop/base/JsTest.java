@@ -17,6 +17,8 @@
 package jsinterop.base;
 
 import static com.google.common.truth.Truth.assertThat;
+import static jsinterop.base.ExceptionAssert.assertThrowsClassCastException;
+import static jsinterop.base.ExceptionAssert.assertThrowsHiddenClassCastException;
 
 import com.google.gwt.junit.client.GWTTestCase;
 import jsinterop.annotations.JsMethod;
@@ -32,6 +34,96 @@ public class JsTest extends GWTTestCase {
     assertThat(Js.typeof(1.0d)).isEqualTo("number");
     assertThat(Js.typeof("str")).isEqualTo("string");
     assertThat(Js.typeof(new Object())).isEqualTo("object");
+  }
+
+  public void testUncheckedCast() {
+    String s = Js.uncheckedCast(3.5);
+  }
+
+  public void testCast() {
+    Double d = Js.cast(3.5);
+    assertThrowsClassCastException(
+        () -> {
+          String s = Js.cast(3.5);
+        });
+  }
+
+  public void testCastToDouble() {
+    assertThat(Js.castToDouble(15.5d)).isEqualTo(15.5d);
+
+    // GWT represents small longs as 'number'
+    // assertThrowsHiddenClassCastException(() -> castToDouble(15L));
+    assertThrowsHiddenClassCastException(() -> Js.castToDouble(new Object()));
+    assertThrowsHiddenClassCastException(() -> Js.castToDouble("1"));
+    assertThrowsHiddenClassCastException(() -> Js.castToDouble(""));
+    assertThrowsHiddenClassCastException(() -> Js.castToDouble(null));
+  }
+
+  public void testCastToFloat() {
+    // Note: float is represented as number and double test alrready covers issues around
+    // conversions to number.
+    assertThat(Js.castToFloat(15.5d)).isEqualTo(15.5f);
+  }
+
+  public void testCastToLong() {
+    assertThat(Js.castToLong(Any.of(15L))).isEqualTo(15L);
+    assertThat(Js.castToLong(Any.of(Long.MAX_VALUE))).isEqualTo(Long.MAX_VALUE);
+    assertThat(Js.castToLong(Any.of(Long.MIN_VALUE))).isEqualTo(Long.MIN_VALUE);
+
+    // GWT represents small longs as 'number'
+    // assertThrowsHiddenClassCastException(() -> Js.castToLong(15d));
+    assertThrowsHiddenClassCastException(() -> Js.castToLong(15.5d));
+    assertThrowsHiddenClassCastException(() -> Js.castToLong(new Object()));
+    assertThrowsHiddenClassCastException(() -> Js.castToLong("1"));
+    assertThrowsHiddenClassCastException(() -> Js.castToLong(""));
+    assertThrowsHiddenClassCastException(() -> Js.castToLong(null));
+  }
+
+  public void testCastToInt() {
+    // Note: int is represented as number and double test alrready covers issues around
+    // conversions to number.
+    assertThat(Js.castToInt(15d)).isEqualTo(15);
+
+    assertThrowsHiddenClassCastException(() -> Js.castToInt(15.5d));
+    assertThrowsHiddenClassCastException(() -> Js.castToInt(Integer.MAX_VALUE + 1d));
+  }
+
+  public void testCastToShort() {
+    // Note: short is represented as number and double test alrready covers issues around
+    // conversions to number.
+    assertThat(Js.castToShort(15d)).isEqualTo(15);
+
+    assertThrowsHiddenClassCastException(() -> Js.castToShort(15.5d));
+    assertThrowsHiddenClassCastException(() -> Js.castToShort(Short.MAX_VALUE + 1d));
+  }
+
+  public void testCastToChar() {
+    // Note: char is represented as number and double test alrready covers issues around
+    // conversions to number.
+    assertThat(Js.castToChar(15d)).isEqualTo(15);
+
+    assertThrowsHiddenClassCastException(() -> Js.castToChar(15.5d));
+    assertThrowsHiddenClassCastException(() -> Js.castToChar(Character.MAX_VALUE + 1d));
+  }
+
+  public void testCastToByte() {
+    // Note: byte is represented as number and double test alrready covers issues around
+    // conversions to number.
+    assertThat(Js.castToByte(15d)).isEqualTo(15);
+
+    assertThrowsHiddenClassCastException(() -> Js.castToByte(15.5d));
+    assertThrowsHiddenClassCastException(() -> Js.castToByte(Byte.MAX_VALUE + 1d));
+  }
+
+  public void testCastToBoolean() {
+    assertThat(Js.castToBoolean(true)).isEqualTo(true);
+    assertThat(Js.castToBoolean(false)).isEqualTo(false);
+
+    assertThrowsHiddenClassCastException(() -> Js.castToBoolean(15));
+    assertThrowsHiddenClassCastException(() -> Js.castToBoolean(new Object()));
+    assertThrowsHiddenClassCastException(() -> Js.castToBoolean("1"));
+    assertThrowsHiddenClassCastException(() -> Js.castToBoolean(""));
+    assertThrowsHiddenClassCastException(() -> Js.castToBoolean(null));
   }
 
   public void testTruthyFalsey() {
