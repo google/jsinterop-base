@@ -20,7 +20,9 @@ import static jsinterop.base.FunctionAssert.assertFunctionMatches;
 
 import com.google.gwt.junit.client.GWTTestCase;
 import jsinterop.annotations.JsMethod;
+import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
 
 /** Tests for verifying {@link Any} optimize out by compiler. */
 public class AnyOptimizationTest extends GWTTestCase {
@@ -31,7 +33,7 @@ public class AnyOptimizationTest extends GWTTestCase {
   }
 
   @JsMethod
-  private static void asPrimitive(String objectField) {
+  private void asPrimitive(String objectField) {
     double d = Any.of(objectField).asDouble();
     float f = Any.of(objectField).asFloat();
     long l = Any.of(objectField).asLong();
@@ -42,22 +44,25 @@ public class AnyOptimizationTest extends GWTTestCase {
     boolean bool = Any.of(objectField).asBoolean();
   }
 
-  @JsProperty
-  private static native Object getAsPrimitive();
-
   public void testAsPrimitive() {
-    assertFunctionMatches(getAsPrimitive(), "");
+    assertFunctionMatches(((MethodsAsProperties) this).getAsPrimitive(), "");
   }
 
   @JsMethod
-  private static void uncheckedCast(Object objectField) {
+  private void uncheckedCast(Object objectField) {
     String s = Any.of(objectField).uncheckedCast();
   }
 
-  @JsProperty
-  private static native Object getUncheckedCast();
-
   public void testUncheckedCast() {
-    assertFunctionMatches(getUncheckedCast(), "");
+    assertFunctionMatches(((MethodsAsProperties) this).getUncheckedCast(), "");
+  }
+
+  @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "?")
+  private interface MethodsAsProperties {
+    @JsProperty
+    Object getAsPrimitive();
+
+    @JsProperty
+    Object getUncheckedCast();
   }
 }

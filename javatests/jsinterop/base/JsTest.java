@@ -22,6 +22,8 @@ import static jsinterop.base.ExceptionAssert.assertThrowsHiddenClassCastExceptio
 
 import com.google.gwt.junit.client.GWTTestCase;
 import jsinterop.annotations.JsMethod;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsType;
 
 public class JsTest extends GWTTestCase {
 
@@ -144,19 +146,22 @@ public class JsTest extends GWTTestCase {
   }
 
   public void testArguments() throws Exception {
-    JsArrayLike<Object> arrayLike = getArguments("a", "b", "c");
+    JsArrayLike<Object> arrayLike = ((IndirectMethodAccess) this).getArguments("a", "b", "c");
     assertThat(arrayLike.getLength()).isEqualTo(3);
     assertThat(arrayLike.getAt(0)).isEqualTo("a");
     assertThat(arrayLike.getAt(1)).isEqualTo("b");
     assertThat(arrayLike.getAt(2)).isEqualTo("c");
   }
 
-  // The extra indirection here prevents GWT optimization over params.
-  @JsMethod(name = "getArgumentsHack")
-  private static native JsArrayLike<Object> getArguments(Object arg1, Object arg2, Object arg3);
-
   @JsMethod
-  private static JsArrayLike<Object> getArgumentsHack(Object arg1, Object arg2, Object arg3) {
+  private JsArrayLike<Object> getArgumentsHack(Object arg1, Object arg2, Object arg3) {
     return Js.arguments();
+  }
+
+  @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "?")
+  private interface IndirectMethodAccess {
+    // The extra indirection here prevents GWT optimization over params.
+    @JsMethod(name = "getArgumentsHack")
+    JsArrayLike<Object> getArguments(Object arg1, Object arg2, Object arg3);
   }
 }

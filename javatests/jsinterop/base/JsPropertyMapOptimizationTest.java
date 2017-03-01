@@ -20,7 +20,9 @@ import static jsinterop.base.FunctionAssert.assertFunctionMatches;
 
 import com.google.gwt.junit.client.GWTTestCase;
 import jsinterop.annotations.JsMethod;
+import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
 
 /** Tests for verifying {@link JsPropertyMap} optimize out by compiler. */
 public class JsPropertyMapOptimizationTest extends GWTTestCase {
@@ -31,74 +33,78 @@ public class JsPropertyMapOptimizationTest extends GWTTestCase {
   }
 
   @JsMethod
-  private static void modifyObject(Object objectField) {
+  private void modifyObject(Object objectField) {
     JsPropertyMap.of(objectField).set("x-x", "ABC");
   }
 
-  @JsProperty
-  private static native Object getModifyObject();
-
   public void testSet() {
-    assertFunctionMatches(getModifyObject(), "<obf>['x-x']='ABC'");
+    assertFunctionMatches(((MethodsAsProperties) this).getModifyObject(), "<obf>['x-x']='ABC'");
   }
 
   @JsMethod
-  private static void modifyObjectInt(Object objectField) {
+  private void modifyObjectInt(Object objectField) {
     JsPropertyMap.of(objectField).set("x-x", 42);
   }
 
-  @JsProperty
-  private static native Object getModifyObjectInt();
-
   public void testSetInt() {
-    assertFunctionMatches(getModifyObjectInt(), "<obf>['x-x']=42");
+    assertFunctionMatches(((MethodsAsProperties) this).getModifyObjectInt(), "<obf>['x-x']=42");
   }
 
   @JsMethod
-  private static void modifyObjectLong(Object objectField, long local) {
+  private void modifyObjectLong(Object objectField, long local) {
     JsPropertyMap.of(objectField).set("x-x", local);
   }
 
-  @JsProperty
-  private static native Object getModifyObjectLong();
-
   public void testSetLong() {
-    assertFunctionMatches(getModifyObjectLong(), "<obf>['x-x']=<obf>");
+    assertFunctionMatches(((MethodsAsProperties) this).getModifyObjectLong(), "<obf>['x-x']=<obf>");
   }
 
   @JsMethod
-  private static Object accessObject(Object objectField) {
+  private Object accessObject(Object objectField) {
     return JsPropertyMap.of(objectField).get("x-x");
   }
 
-  @JsProperty
-  private static native Object getAccessObject();
-
   public void testGet() {
-    assertFunctionMatches(getAccessObject(), "return <obf>['x-x']");
+    assertFunctionMatches(((MethodsAsProperties) this).getAccessObject(), "return <obf>['x-x']");
   }
 
   @JsMethod
-  private static int accessObjectInt(Object objectField) {
+  private int accessObjectInt(Object objectField) {
     return JsPropertyMap.of(objectField).getAny("x-x").asInt();
   }
 
-  @JsProperty
-  private static native Object getAccessObjectInt();
-
   public void testGetAsInt() {
-    assertFunctionMatches(getAccessObjectInt(), "return <obf>['x-x']");
+    assertFunctionMatches(((MethodsAsProperties) this).getAccessObjectInt(), "return <obf>['x-x']");
   }
 
   @JsMethod
-  private static long accessObjectLong(Object objectField) {
+  private long accessObjectLong(Object objectField) {
     return JsPropertyMap.of(objectField).getAny("x-x").asLong();
   }
 
-  @JsProperty
-  private static native Object getAccessObjectLong();
-
   public void testGetAsLong() {
-    assertFunctionMatches(getAccessObjectLong(), "return <obf>['x-x']");
+    assertFunctionMatches(
+        ((MethodsAsProperties) this).getAccessObjectLong(), "return <obf>['x-x']");
+  }
+
+  @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "?")
+  private interface MethodsAsProperties {
+    @JsProperty
+    Object getModifyObject();
+
+    @JsProperty
+    Object getModifyObjectInt();
+
+    @JsProperty
+    Object getModifyObjectLong();
+
+    @JsProperty
+    Object getAccessObject();
+
+    @JsProperty
+    Object getAccessObjectInt();
+
+    @JsProperty
+    Object getAccessObjectLong();
   }
 }
