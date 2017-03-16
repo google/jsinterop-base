@@ -107,3 +107,13 @@ InternalJsUtil.getLength = function(obj) {
 InternalJsUtil.setLength = function(obj, length) {
   obj.length = length;
 };
+
+/**
+ * @param {Class<T>} clazz
+ * @return {function(new:T)}
+ * @template T
+ * @public
+ */
+InternalJsUtil.toCtor = function(clazz) {
+  return clazz.f_ctor__java_lang_Class_;
+};

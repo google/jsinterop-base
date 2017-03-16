@@ -200,5 +200,20 @@ class InternalJsUtil {
     return obj.length = length;
   }-*/;
 
+  //J2CL_ONLY @JsMethod
+  public static native <T> JsConstructorFn<T> toCtor(Class<T> clazz) /*-{
+    return clazz.@java.lang.Class::jsConstructor;
+  }-*/;
+
+  //J2CL_ONLY @JsMethod(namespace="java.lang.Class", name="$get")
+  public static native <T> Class<T> toClass(JsConstructorFn<T> ctor) /*-{
+    return ctor.prototype.@java.lang.Object::___clazz;
+  }-*/;
+
+  //J2CL_ONLY @JsMethod(namespace=jsinterop.annotations.JsPackage.GLOBAL, name="Reflect.construct")
+  public static native <T> T construct(JsConstructorFn<T> ctor, Object[] args) /*-{
+    return new (ctor.bind.apply(ctor, arguments));
+  }-*/;
+
   private InternalJsUtil() {} // Hide constructor for utility class.
 }

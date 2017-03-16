@@ -26,6 +26,7 @@ public class AllGwtTests {
 
     suite.addTestSuite(AnyTest.class);
     suite.addTestSuite(JsArrayLikeTest.class);
+    suite.addTestSuite(JsConstructorFnTest.class);
     suite.addTestSuite(JsPropertyMapTest.class);
     suite.addTestSuite(JsTest.class);
 

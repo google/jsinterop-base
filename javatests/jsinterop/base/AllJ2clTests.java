@@ -21,5 +21,11 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({AnyTest.class, JsArrayLikeTest.class, JsPropertyMapTest.class, JsTest.class})
+@SuiteClasses({
+  AnyTest.class,
+  JsArrayLikeTest.class,
+  JsConstructorFnTest.class,
+  JsPropertyMapTest.class,
+  JsTest.class
+})
 public class AllJ2clTests {}
