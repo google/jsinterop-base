@@ -19,8 +19,6 @@ package jsinterop.base;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.google.gwt.junit.client.GWTTestCase;
-import jsinterop.annotations.JsPackage;
-import jsinterop.annotations.JsType;
 
 public class JsPropertyMapTest extends GWTTestCase {
 
@@ -29,25 +27,21 @@ public class JsPropertyMapTest extends GWTTestCase {
     return "jsinterop.base.TestModule";
   }
 
-  @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
-  private static class NativeObject {}
-
   public void testOf() {
     JsPropertyMap.of(1d);
     JsPropertyMap.of("");
-    JsPropertyMap.of(new NativeObject());
     JsPropertyMap.of(null); // JsPropertyMap.of is similar to casting so null should be accepted.
   }
 
   public void testSetGet() {
-    JsPropertyMap o = JsPropertyMap.of(new NativeObject());
+    JsPropertyMap o = JsPropertyMap.of();
     assertThat(o.get("foo")).isNull();
     o.set("foo", "str");
     assertThat(o.get("foo")).isEqualTo("str");
   }
 
   public void testDeleteHas() {
-    JsPropertyMap o = JsPropertyMap.of(new NativeObject());
+    JsPropertyMap o = JsPropertyMap.of();
     assertThat(o.has("foo")).isFalse();
     o.set("foo", null);
     assertThat(o.has("foo")).isTrue();
@@ -56,7 +50,7 @@ public class JsPropertyMapTest extends GWTTestCase {
   }
 
   public void testSetGetAny() {
-    JsPropertyMapOfAny o = JsPropertyMap.of(new NativeObject());
+    JsPropertyMapOfAny o = JsPropertyMap.of();
     o.set("p0", 15.5d);
     o.set("p1", 15.5f);
     o.set("p2", 15L);
@@ -76,12 +70,8 @@ public class JsPropertyMapTest extends GWTTestCase {
     assertThat(o.getAny("p7").asBoolean()).isTrue();
   }
   public void testForEach() {
-    JsPropertyMap o = JsPropertyMap.of(new NativeObject());
-    o.set("foo", "");
-    o.set("bar", "");
-
     StringBuilder result = new StringBuilder();
-    o.forEach(t -> result.append(t));
+    JsPropertyMap.of("foo", "", "bar", "").forEach(t -> result.append(t));
     assertThat(result.toString()).isEqualTo("foobar");
   }
 }

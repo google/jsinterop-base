@@ -1,4 +1,12 @@
 /**
+ * @return {Object}
+ * @public
+ */
+InternalJsUtil.emptyObjectLiteral = function() {
+  return {};
+};
+
+/**
  * @template T
  * @param {*} obj
  * @param {string|number} key

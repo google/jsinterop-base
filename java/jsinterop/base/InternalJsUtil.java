@@ -23,6 +23,11 @@ import javaemul.internal.annotations.HasNoSideEffects;
 /** Utilities used internally to interact with native code. */
 class InternalJsUtil {
 
+  //J2CL_ONLY @JsMethod
+  public static native JsPropertyMapOfAny emptyObjectLiteral() /*-{
+    return {};
+  }-*/;
+
   //J2CL_ONLY @JsMethod(name="getIndexed")
   public static native Object get(Object obj, String key) /*-{
     return obj[key];

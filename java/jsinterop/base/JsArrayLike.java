@@ -58,6 +58,6 @@ public interface JsArrayLike<T> {
   default T[] asArray() {
     // It is 'mostly' safe since there will be a real cast at the erasure call site when the
     // elements are accessed.
-    return Any.of(this).uncheckedCast();
+    return Js.uncheckedCast(this);
   }
 }

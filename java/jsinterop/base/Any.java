@@ -49,6 +49,26 @@ public interface Any {
   }
 
   @JsOverlay
+  default JsPropertyMapOfAny asPropertyMap() {
+    return JsPropertyMap.of(this);
+  }
+
+  @JsOverlay
+  default JsArrayLikeOfAny asArrayLike() {
+    return JsArrayLike.of(this);
+  }
+
+  @JsOverlay
+  default Any[] asArray() {
+    return Js.castToArray(this);
+  }
+
+  @JsOverlay
+  default String asString() {
+    return Js.castToString(this);
+  }
+
+  @JsOverlay
   default boolean asBoolean() {
     return Js.castToBoolean(this);
   }
@@ -86,6 +106,12 @@ public interface Any {
   @JsOverlay
   default byte asByte() {
     return Js.castToByte(this);
+  }
+
+  @JsOverlay
+  @SuppressWarnings({"TypeParameterUnusedInFormals", "unchecked"})
+  default <T> T cast() {
+    return (T) this;
   }
 
   /**

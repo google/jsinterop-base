@@ -44,6 +44,17 @@ public final class Js {
   @HasNoSideEffects
   public static native String typeof(Object obj);
 
+  public static Any[] castToArray(Object obj) {
+    checkType(obj instanceof Any[]);
+    return uncheckedCast(obj);
+  }
+
+  @SuppressWarnings("ReferenceEquality") // GWT is not good at optimizing equals
+  public static String castToString(Object obj) {
+    checkType(Js.typeof(obj) == "string");
+    return uncheckedCast(obj);
+  }
+
   @SuppressWarnings("ReferenceEquality") // GWT is not good at optimizing equals
   public static boolean castToBoolean(Object obj) {
     checkType(Js.typeof(obj) == "boolean");

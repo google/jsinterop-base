@@ -17,6 +17,7 @@
 package jsinterop.base;
 
 import static com.google.common.truth.Truth.assertThat;
+import static jsinterop.base.ExceptionAssert.assertThrowsClassCastException;
 import static jsinterop.base.ExceptionAssert.assertThrowsHiddenClassCastException;
 
 import com.google.gwt.junit.client.GWTTestCase;
@@ -29,6 +30,31 @@ public class AnyTest extends GWTTestCase {
   }
 
   // would have been much nicer with JUnitParams... :/
+
+  public void testAsPropertyMap() {
+    assertThat(Any.of("abc").asPropertyMap().getAny("toString")).isNotNull();
+    assertThat(Any.of("abc").asPropertyMap().getAny("something")).isNull();
+  }
+
+  public void testAsArrayLike() {
+    String[] stringArray = {"abc"};
+    assertThat(Any.of(stringArray).asArrayLike().getAt(0)).isEqualTo("abc");
+
+    assertThrowsHiddenClassCastException(() -> Any.of(new Object()).asArrayLike());
+  }
+
+  public void testAsArray() {
+    String[] stringArray = {"abc"};
+    assertThat(Any.of(stringArray).asArray()[0]).isEqualTo("abc");
+
+    assertThrowsHiddenClassCastException(() -> Any.of(new Object()).asArray());
+  }
+
+  public void testAsString() {
+    assertThat(Any.of("abc").asString()).isEqualTo("abc");
+
+    assertThrowsHiddenClassCastException(() -> Any.of(new Object()).asString());
+  }
 
   public void testAsDouble() {
     assertThat(Any.of(15.5d).asDouble()).isEqualTo(15.5d);
@@ -115,7 +141,14 @@ public class AnyTest extends GWTTestCase {
     assertThrowsHiddenClassCastException(() -> Any.of(null).asBoolean());
   }
 
-  public void testAsUnchecked() {
+  public void testCast() {
+    assertThrowsClassCastException(
+        () -> {
+          String s = Any.of(5).cast();
+        });
+  }
+
+  public void testUncheckedCast() {
     Double fakeNumber = Any.of("dangerous").uncheckedCast();
     assertThat(fakeNumber).isEqualTo("dangerous");
   }

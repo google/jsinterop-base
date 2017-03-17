@@ -25,6 +25,35 @@ import jsinterop.annotations.JsType;
 public interface JsPropertyMap<T> {
 
   @JsOverlay
+  static JsPropertyMapOfAny of() {
+    return InternalJsUtil.emptyObjectLiteral();
+  }
+
+  @JsOverlay
+  static JsPropertyMapOfAny of(String k, Object v) {
+    JsPropertyMapOfAny map = of();
+    map.set(k, v);
+    return map;
+  }
+
+  @JsOverlay
+  static JsPropertyMapOfAny of(String k1, Object v1, String k2, Object v2) {
+    JsPropertyMapOfAny map = of();
+    map.set(k1, v1);
+    map.set(k2, v2);
+    return map;
+  }
+
+  @JsOverlay
+  static JsPropertyMapOfAny of(String k1, Object v1, String k2, Object v2, String k3, Object v3) {
+    JsPropertyMapOfAny map = of();
+    map.set(k1, v1);
+    map.set(k2, v2);
+    map.set(k3, v3);
+    return map;
+  }
+
+  @JsOverlay
   static JsPropertyMapOfAny of(Object obj) {
     return (JsPropertyMapOfAny) obj;
   }
