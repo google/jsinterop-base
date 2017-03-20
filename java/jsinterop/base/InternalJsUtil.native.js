@@ -86,7 +86,7 @@ InternalJsUtil.isLong = function(obj) {
  * @public
  */
 InternalJsUtil.isInt = function(obj) {
-  return (obj | 0) === obj;
+  return ( /** @type {?} */ (obj) | 0) === obj;
 };
 
 /**
@@ -123,5 +123,5 @@ InternalJsUtil.setLength = function(obj, length) {
  * @public
  */
 InternalJsUtil.toCtor = function(clazz) {
-  return clazz.f_ctor__java_lang_Class_;
+  return /** @type {?} */ (clazz.f_ctor__java_lang_Class_);
 };
