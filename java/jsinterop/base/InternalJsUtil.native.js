@@ -116,6 +116,8 @@ InternalJsUtil.setLength = function(obj, length) {
   obj.length = length;
 };
 
+var Class = goog.forwardDeclare("java.lang.Class");
+
 /**
  * @param {Class<T>} clazz
  * @return {function(new:T)}
