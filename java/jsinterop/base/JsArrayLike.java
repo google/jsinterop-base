@@ -18,6 +18,7 @@ package jsinterop.base;
 
 import static jsinterop.base.InternalPreconditions.checkType;
 
+import javaemul.internal.annotations.DoNotAutobox;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
@@ -50,7 +51,12 @@ public interface JsArrayLike<T> {
   }
 
   @JsOverlay
-  default void setAt(int index, T value) {
+  default Any getAnyAt(int index) {
+    return (Any) InternalJsUtil.getAt(this, index);
+  }
+
+  @JsOverlay
+  default void setAt(int index, @DoNotAutobox T value) {
     InternalJsUtil.setAt(this, index, value);
   }
 

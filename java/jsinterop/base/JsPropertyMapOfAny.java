@@ -16,30 +16,10 @@
  */
 package jsinterop.base;
 
-import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
 /** Provides abstraction for JavaScript objects as property map of {@link Any}. */
 @JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 public interface JsPropertyMapOfAny extends JsPropertyMap<Object> {
-  @JsOverlay
-  default void set(String propertyName, float value) {
-    InternalJsUtil.set(this, propertyName, Any.of(value));
-  }
-
-  @JsOverlay
-  default void set(String propertyName, int value) {
-    InternalJsUtil.set(this, propertyName, Any.of(value));
-  }
-
-  @JsOverlay
-  default void set(String propertyName, long value) {
-    InternalJsUtil.set(this, propertyName, Any.of(value));
-  }
-
-  @JsOverlay
-  default Any getAny(String propertyName) {
-    return (Any) InternalJsUtil.get(this, propertyName);
-  }
 }

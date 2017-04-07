@@ -16,6 +16,7 @@
  */
 package jsinterop.base;
 
+import javaemul.internal.annotations.DoNotAutobox;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
@@ -30,14 +31,15 @@ public interface JsPropertyMap<T> {
   }
 
   @JsOverlay
-  static JsPropertyMapOfAny of(String k, Object v) {
+  static JsPropertyMapOfAny of(String k, @DoNotAutobox Object v) {
     JsPropertyMapOfAny map = of();
     map.set(k, v);
     return map;
   }
 
   @JsOverlay
-  static JsPropertyMapOfAny of(String k1, Object v1, String k2, Object v2) {
+  static JsPropertyMapOfAny of(
+      String k1, @DoNotAutobox Object v1, String k2, @DoNotAutobox Object v2) {
     JsPropertyMapOfAny map = of();
     map.set(k1, v1);
     map.set(k2, v2);
@@ -45,7 +47,13 @@ public interface JsPropertyMap<T> {
   }
 
   @JsOverlay
-  static JsPropertyMapOfAny of(String k1, Object v1, String k2, Object v2, String k3, Object v3) {
+  static JsPropertyMapOfAny of(
+      String k1,
+      @DoNotAutobox Object v1,
+      String k2,
+      @DoNotAutobox Object v2,
+      String k3,
+      @DoNotAutobox Object v3) {
     JsPropertyMapOfAny map = of();
     map.set(k1, v1);
     map.set(k2, v2);
@@ -65,6 +73,11 @@ public interface JsPropertyMap<T> {
   }
 
   @JsOverlay
+  default Any getAny(String propertyName) {
+    return (Any) InternalJsUtil.get(this, propertyName);
+  }
+
+  @JsOverlay
   default boolean has(String propertyName) {
     return InternalJsUtil.has(this, propertyName);
   }
@@ -75,7 +88,7 @@ public interface JsPropertyMap<T> {
   }
 
   @JsOverlay
-  default void set(String propertyName, T value) {
+  default void set(String propertyName, @DoNotAutobox T value) {
     InternalJsUtil.set(this, propertyName, value);
   }
 

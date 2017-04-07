@@ -48,25 +48,6 @@ class InternalJsUtil {
     obj[key] = value;
   }-*/;
 
-  // This overload prevents boxing of numbers.
-  //J2CL_ONLY @JsMethod(name="setIndexed")
-  public static native void set(Object obj, String key, double value) /*-{
-    obj[key] = value;
-  }-*/;
-
-  // This overload prevents conversion of long to double.
-  //J2CL_ONLY @JsMethod(name="setIndexed")
-  @UnsafeNativeLong
-  public static native void set(Object obj, String key, long value) /*-{
-    obj[key] = value;
-  }-*/;
-
-  // This overload prevents conversion of int to long.
-  //J2CL_ONLY @JsMethod(name="setIndexed")
-  public static native void set(Object obj, String key, int value) /*-{
-    obj[key] = value;
-  }-*/;
-
   //J2CL_ONLY @JsMethod(name="getIndexed")
   public static native Object getAt(Object obj, int key) /*-{
     return obj[key];
@@ -87,25 +68,6 @@ class InternalJsUtil {
     obj[key] = value;
   }-*/;
 
-  // This overload prevents boxing of numbers.
-  //J2CL_ONLY @JsMethod(name="setIndexed")
-  public static native void setAt(Object obj, int key, double value) /*-{
-    obj[key] = value;
-  }-*/;
-
-  // This overload prevents conversion of long to double.
-  //J2CL_ONLY @JsMethod(name="setIndexed")
-  @UnsafeNativeLong
-  public static native void setAt(Object obj, int key, long value) /*-{
-    obj[key] = value;
-  }-*/;
-
-  // This overload prevents conversion of int to long.
-  //J2CL_ONLY @JsMethod(name="setIndexed")
-  public static native void setAt(Object obj, String key, int value) /*-{
-    obj[key] = value;
-  }-*/;
-
   //J2CL_ONLY @JsMethod
   public static native void forEach(Object obj, JsForEachCallbackFn cb) /*-{
     for (var element in obj) {
@@ -115,22 +77,6 @@ class InternalJsUtil {
 
   //J2CL_ONLY @JsMethod
   public static native Any castToAny(Object obj) /*-{
-    return obj;
-  }-*/;
-
-  //J2CL_ONLY @JsMethod
-  public static native Any castToAny(float obj) /*-{
-    return obj;
-  }-*/;
-
-  //J2CL_ONLY @JsMethod
-  public static native Any castToAny(int obj) /*-{
-    return obj;
-  }-*/;
-
-  //J2CL_ONLY @JsMethod
-  @UnsafeNativeLong
-  public static native Any castToAny(long obj) /*-{
     return obj;
   }-*/;
 
@@ -217,7 +163,7 @@ class InternalJsUtil {
 
   //J2CL_ONLY @JsMethod(namespace=jsinterop.annotations.JsPackage.GLOBAL, name="Reflect.construct")
   public static native <T> T construct(JsConstructorFn<T> ctor, Object[] args) /*-{
-    return new (ctor.bind.apply(ctor, arguments));
+    return new (ctor.bind.apply(ctor, [null].concat(args)));
   }-*/;
 
   private InternalJsUtil() {} // Hide constructor for utility class.

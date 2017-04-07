@@ -33,6 +33,14 @@ public class JsPropertyMapTest extends GWTTestCase {
     JsPropertyMap.of(null); // JsPropertyMap.of is similar to casting so null should be accepted.
   }
 
+  public void testOf_notboxed() {
+
+    // Check primitives not boxed.
+    assertThat(JsPropertyMap.of("a", 42).getAny("a").asInt()).isEqualTo(42);
+    assertThat(JsPropertyMap.of("", "", "a", 42).getAny("a").asInt()).isEqualTo(42);
+    assertThat(JsPropertyMap.of("", "", "", "", "a", 42).getAny("a").asInt()).isEqualTo(42);
+  }
+
   public void testSetGet() {
     JsPropertyMap o = JsPropertyMap.of();
     assertThat(o.get("foo")).isNull();

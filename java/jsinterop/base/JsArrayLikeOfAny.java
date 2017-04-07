@@ -16,30 +16,11 @@
  */
 package jsinterop.base;
 
-import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
 /** Provides abstraction for JavaScript array-like object of {@link Any}. */
 @JsType(isNative = true, name = "IArrayLike", namespace = JsPackage.GLOBAL)
 public interface JsArrayLikeOfAny extends JsArrayLike<Object> {
-  @JsOverlay
-  default void setAt(int index, float value) {
-    InternalJsUtil.setAt(this, index, Any.of(value));
-  }
 
-  @JsOverlay
-  default void setAt(int index, int value) {
-    InternalJsUtil.setAt(this, index, Any.of(value));
-  }
-
-  @JsOverlay
-  default void setAt(int index, long value) {
-    InternalJsUtil.setAt(this, index, Any.of(value));
-  }
-
-  @JsOverlay
-  default Any getAnyAt(int index) {
-    return (Any) InternalJsUtil.getAt(this, index);
-  }
 }

@@ -30,9 +30,9 @@ public class JsConstructorFnTest extends GWTTestCase {
 
   @JsType
   public static class Abc {
-    private final boolean called;
-    public Abc() {
-      called = true;
+    private final int param;
+    public Abc(int param) {
+      this.param = param;
     }
   }
 
@@ -40,7 +40,7 @@ public class JsConstructorFnTest extends GWTTestCase {
     JsConstructorFn<Abc> ctor = JsConstructorFn.of(Abc.class);
     // Casting to Object to get the correct overload (due to b/30126552).
     assertThat((Object) ctor.asClass()).isSameAs(Abc.class);
-    assertThat(ctor.construct().called).isTrue();
+    assertThat(ctor.construct(42).param).isEqualTo(42);
 
     // TODO(b/36232750): Fix following after JsConstructor classes are marked in J2CL.
     // assertThrowsHiddenClassCastException(() -> JsConstructorFn.of(Object.class));

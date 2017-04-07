@@ -18,6 +18,7 @@ package jsinterop.base;
 
 import static jsinterop.base.InternalPreconditions.checkType;
 
+import javaemul.internal.annotations.DoNotAutobox;
 import jsinterop.annotations.JsFunction;
 import jsinterop.annotations.JsOverlay;
 
@@ -40,11 +41,11 @@ public interface JsConstructorFn<T> {
    * Most of the time you don't want to call this method but call {@link #construct} instead since
    * this is a constructor function.
    */
-  void onInvoke(Object... args);
+  void onInvoke(@DoNotAutobox Object... args);
 
   /** Invokes 'new' operator on this constructor. */
   @JsOverlay
-  default T construct(Object... args) {
+  default T construct(@DoNotAutobox Object... args) {
     return InternalJsUtil.construct(this, args);
   }
 

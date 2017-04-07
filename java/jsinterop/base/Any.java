@@ -16,6 +16,7 @@
  */
 package jsinterop.base;
 
+import javaemul.internal.annotations.DoNotAutobox;
 import javaemul.internal.annotations.UncheckedCast;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
@@ -29,22 +30,7 @@ import jsinterop.annotations.JsType;
 public interface Any {
 
   @JsOverlay
-  public static Any of(Object obj) {
-    return InternalJsUtil.castToAny(obj);
-  }
-
-  @JsOverlay
-  public static Any of(float obj) {
-    return InternalJsUtil.castToAny(obj);
-  }
-
-  @JsOverlay
-  public static Any of(int obj) {
-    return InternalJsUtil.castToAny(obj);
-  }
-
-  @JsOverlay
-  public static Any of(long obj) {
+  public static Any of(@DoNotAutobox Object obj) {
     return InternalJsUtil.castToAny(obj);
   }
 
