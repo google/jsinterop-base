@@ -35,12 +35,12 @@ public interface Any {
   }
 
   @JsOverlay
-  default JsPropertyMapOfAny asPropertyMap() {
+  default JsPropertyMap<Object> asPropertyMap() {
     return JsPropertyMap.of(this);
   }
 
   @JsOverlay
-  default JsArrayLikeOfAny asArrayLike() {
+  default JsArrayLike<Object> asArrayLike() {
     return JsArrayLike.of(this);
   }
 

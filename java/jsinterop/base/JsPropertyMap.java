@@ -25,45 +25,50 @@ import jsinterop.annotations.JsType;
 @JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 public interface JsPropertyMap<T> {
 
+  /** Returns an empty object literal as {@code JsPropertyMap}. */
   @JsOverlay
-  static JsPropertyMapOfAny of() {
+  static JsPropertyMap<Object> of() {
     return InternalJsUtil.emptyObjectLiteral();
   }
 
+  /** Returns an object literal as {@code JsPropertyMap} that has provided key-value pairs. */
   @JsOverlay
-  static JsPropertyMapOfAny of(String k, @DoNotAutobox Object v) {
-    JsPropertyMapOfAny map = of();
+  static JsPropertyMap<Object> of(String k, @DoNotAutobox Object v) {
+    JsPropertyMap<Object> map = of();
     map.set(k, v);
     return map;
   }
 
+  /** Returns an object literal as {@code JsPropertyMap} that has provided key-value pairs. */
   @JsOverlay
-  static JsPropertyMapOfAny of(
+  static JsPropertyMap<Object> of(
       String k1, @DoNotAutobox Object v1, String k2, @DoNotAutobox Object v2) {
-    JsPropertyMapOfAny map = of();
+    JsPropertyMap<Object> map = of();
     map.set(k1, v1);
     map.set(k2, v2);
     return map;
   }
 
+  /** Returns an object literal as {@code JsPropertyMap} that has provided key-value pairs. */
   @JsOverlay
-  static JsPropertyMapOfAny of(
+  static JsPropertyMap<Object> of(
       String k1,
       @DoNotAutobox Object v1,
       String k2,
       @DoNotAutobox Object v2,
       String k3,
       @DoNotAutobox Object v3) {
-    JsPropertyMapOfAny map = of();
+    JsPropertyMap<Object> map = of();
     map.set(k1, v1);
     map.set(k2, v2);
     map.set(k3, v3);
     return map;
   }
 
+  /** Returns {@code JsPropertyMap} view of provided object. */
   @JsOverlay
-  static JsPropertyMapOfAny of(Object obj) {
-    return (JsPropertyMapOfAny) obj;
+  static JsPropertyMap<Object> of(Object obj) {
+    return Js.uncheckedCast(obj);
   }
 
   @JsOverlay

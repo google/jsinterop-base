@@ -27,11 +27,12 @@ import jsinterop.annotations.JsType;
 @JsType(isNative = true, name = "IArrayLike", namespace = JsPackage.GLOBAL)
 public interface JsArrayLike<T> {
 
+  /** Returns {@code JsArrayLike} view of provided array-like object. */
   @JsOverlay
-  static JsArrayLikeOfAny of(Object obj) {
+  static JsArrayLike<Object> of(Object obj) {
     // TODO(goktug): switch to custom $isInstance
     checkType(obj == null || InternalJsUtil.hasLength(obj));
-    return (JsArrayLikeOfAny) obj;
+    return Js.uncheckedCast(obj);
   }
 
   @JsOverlay

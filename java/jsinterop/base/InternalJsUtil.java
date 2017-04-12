@@ -24,7 +24,7 @@ import javaemul.internal.annotations.HasNoSideEffects;
 class InternalJsUtil {
 
   //J2CL_ONLY @JsMethod
-  public static native JsPropertyMapOfAny emptyObjectLiteral() /*-{
+  public static native JsPropertyMap<Object> emptyObjectLiteral() /*-{
     return {};
   }-*/;
 

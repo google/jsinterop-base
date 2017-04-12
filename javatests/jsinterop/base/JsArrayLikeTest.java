@@ -62,7 +62,7 @@ public class JsArrayLikeTest extends GWTTestCase {
   }
 
   public void testSetAny() {
-    JsArrayLikeOfAny arrayLike = getArrayLikeOf();
+    JsArrayLike<Object> arrayLike = getArrayLikeOf();
     arrayLike.setAt(0, 15.5d);
     arrayLike.setAt(1, 15.5f);
     arrayLike.setAt(2, 15L);
@@ -94,7 +94,7 @@ public class JsArrayLikeTest extends GWTTestCase {
     assertThat(all).isEqualTo("abc");
   }
 
-  private static JsArrayLikeOfAny getArrayLikeOf(Object... args) {
+  private static JsArrayLike<Object> getArrayLikeOf(Object... args) {
     return JsArrayLike.of(args);
   }
 }

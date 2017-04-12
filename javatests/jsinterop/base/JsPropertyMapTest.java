@@ -34,7 +34,6 @@ public class JsPropertyMapTest extends GWTTestCase {
   }
 
   public void testOf_notboxed() {
-
     // Check primitives not boxed.
     assertThat(JsPropertyMap.of("a", 42).getAny("a").asInt()).isEqualTo(42);
     assertThat(JsPropertyMap.of("", "", "a", 42).getAny("a").asInt()).isEqualTo(42);
@@ -42,14 +41,14 @@ public class JsPropertyMapTest extends GWTTestCase {
   }
 
   public void testSetGet() {
-    JsPropertyMap o = JsPropertyMap.of();
+    JsPropertyMap<Object> o = JsPropertyMap.of();
     assertThat(o.get("foo")).isNull();
     o.set("foo", "str");
     assertThat(o.get("foo")).isEqualTo("str");
   }
 
   public void testDeleteHas() {
-    JsPropertyMap o = JsPropertyMap.of();
+    JsPropertyMap<Object> o = JsPropertyMap.of();
     assertThat(o.has("foo")).isFalse();
     o.set("foo", null);
     assertThat(o.has("foo")).isTrue();
@@ -58,7 +57,7 @@ public class JsPropertyMapTest extends GWTTestCase {
   }
 
   public void testSetGetAny() {
-    JsPropertyMapOfAny o = JsPropertyMap.of();
+    JsPropertyMap<Object> o = JsPropertyMap.of();
     o.set("p0", 15.5d);
     o.set("p1", 15.5f);
     o.set("p2", 15L);
