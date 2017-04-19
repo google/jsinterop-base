@@ -16,20 +16,16 @@
  */
 package jsinterop.base;
 
-import com.google.gwt.junit.tools.GWTTestSuite;
-import junit.framework.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
-public class AllGwtTests {
-
-  public static Test suite() {
-    GWTTestSuite suite = new GWTTestSuite();
-
-    suite.addTestSuite(AnyTest.class);
-    suite.addTestSuite(JsArrayLikeTest.class);
-    suite.addTestSuite(JsConstructorFnTest.class);
-    suite.addTestSuite(JsPropertyMapTest.class);
-    suite.addTestSuite(JsTest.class);
-
-    return suite;
-  }
-}
+@RunWith(Suite.class)
+@SuiteClasses({
+  AnyTest.class,
+  JsArrayLikeTest.class,
+  JsConstructorFnTest.class,
+  JsPropertyMapTest.class,
+  JsTest.class
+})
+public class AllTests {}

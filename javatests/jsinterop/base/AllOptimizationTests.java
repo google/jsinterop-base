@@ -26,4 +26,4 @@ import org.junit.runners.Suite.SuiteClasses;
   JsArrayLikeOptimizationTest.class,
   JsPropertyMapOptimizationTest.class
 })
-public class AllJ2clOptimizationTests {}
+public class AllOptimizationTests {}
