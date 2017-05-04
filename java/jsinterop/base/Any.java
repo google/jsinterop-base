@@ -16,7 +16,6 @@
  */
 package jsinterop.base;
 
-import javaemul.internal.annotations.DoNotAutobox;
 import javaemul.internal.annotations.UncheckedCast;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
@@ -30,68 +29,63 @@ import jsinterop.annotations.JsType;
 public interface Any {
 
   @JsOverlay
-  public static Any of(@DoNotAutobox Object obj) {
-    return InternalJsUtil.castToAny(obj);
-  }
-
-  @JsOverlay
   default JsPropertyMap<Object> asPropertyMap() {
-    return JsPropertyMap.of(this);
+    return Js.asPropertyMap(this);
   }
 
   @JsOverlay
   default JsArrayLike<Object> asArrayLike() {
-    return JsArrayLike.of(this);
+    return Js.asArrayLike(this);
   }
 
   @JsOverlay
   default Any[] asArray() {
-    return Js.castToArray(this);
+    return Js.asArray(this);
   }
 
   @JsOverlay
   default String asString() {
-    return Js.castToString(this);
+    return Js.asString(this);
   }
 
   @JsOverlay
   default boolean asBoolean() {
-    return Js.castToBoolean(this);
+    return Js.asBoolean(this);
   }
 
   @JsOverlay
   default double asDouble() {
-    return Js.castToDouble(this);
+    return Js.asDouble(this);
   }
 
   @JsOverlay
   default float asFloat() {
-    return Js.castToFloat(this);
+    return Js.asFloat(this);
   }
 
   @JsOverlay
   default long asLong() {
-    return Js.castToLong(this);
+    return Js.asLong(this);
   }
 
   @JsOverlay
   default int asInt() {
-    return Js.castToInt(this);
+    return Js.asInt(this);
   }
 
   @JsOverlay
   default short asShort() {
-    return Js.castToShort(this);
+    return Js.asShort(this);
   }
 
   @JsOverlay
   default char asChar() {
-    return Js.castToChar(this);
+    return Js.asChar(this);
   }
 
   @JsOverlay
   default byte asByte() {
-    return Js.castToByte(this);
+    return Js.asByte(this);
   }
 
   @JsOverlay

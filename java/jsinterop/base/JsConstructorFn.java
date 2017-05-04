@@ -30,13 +30,6 @@ import jsinterop.annotations.JsOverlay;
 @JsFunction
 public interface JsConstructorFn<T> {
 
-  @JsOverlay
-  public static <T> JsConstructorFn<T> of(Class<T> clazz) {
-    JsConstructorFn<T> fn = InternalJsUtil.toCtor(clazz);
-    checkType(fn != null);
-    return fn;
-  }
-
   /**
    * Most of the time you don't want to call this method but call {@link #construct} instead since
    * this is a constructor function.

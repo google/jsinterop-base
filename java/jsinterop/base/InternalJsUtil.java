@@ -75,11 +75,6 @@ class InternalJsUtil {
     }
   }-*/;
 
-  //J2CL_ONLY @JsMethod
-  public static native Any castToAny(Object obj) /*-{
-    return obj;
-  }-*/;
-
   //J2CL_ONLY @JsMethod(name="castToAny")
   public static native boolean asBoolean(Object obj) /*-{
    return obj;

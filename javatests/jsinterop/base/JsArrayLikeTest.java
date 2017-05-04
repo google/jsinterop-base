@@ -17,7 +17,6 @@
 package jsinterop.base;
 
 import static com.google.common.truth.Truth.assertThat;
-import static jsinterop.base.ExceptionAssert.assertThrowsHiddenClassCastException;
 
 import com.google.gwt.junit.client.GWTTestCase;
 
@@ -26,25 +25,6 @@ public class JsArrayLikeTest extends GWTTestCase {
   @Override
   public String getModuleName() {
     return "jsinterop.base.TestModule";
-  }
-
-  public void testOf() {
-    JsArrayLike.of(new String[0]);
-    JsArrayLike.of(Js.arguments());
-    JsArrayLike.of(null); // JsArrayLike.of is similar to casting so null should be accepted.
-  }
-
-  public void testOf_nonArrayLike() {
-    assertThrowsHiddenClassCastException(() -> JsArrayLike.of(5));
-    assertThrowsHiddenClassCastException(() -> JsArrayLike.of("str"));
-    assertThrowsHiddenClassCastException(() -> JsArrayLike.of(new Object()));
-
-    Object objectWithNonconformingLength = new Object();
-    JsPropertyMap.of(objectWithNonconformingLength).set("length", null);
-    assertThrowsHiddenClassCastException(() -> JsArrayLike.of(objectWithNonconformingLength));
-
-    JsPropertyMap.of(objectWithNonconformingLength).set("length", "1");
-    assertThrowsHiddenClassCastException(() -> JsArrayLike.of(objectWithNonconformingLength));
   }
 
   public void testGet() {
@@ -87,7 +67,7 @@ public class JsArrayLikeTest extends GWTTestCase {
     String all = "";
     int count = 0;
     for (Object o : arrayLike.asArray()) {
-      all += o;
+      all = all + o;
       count++;
     }
     assertThat(count).isEqualTo(3);
@@ -95,6 +75,6 @@ public class JsArrayLikeTest extends GWTTestCase {
   }
 
   private static JsArrayLike<Object> getArrayLikeOf(Object... args) {
-    return JsArrayLike.of(args);
+    return Js.asArrayLike(args);
   }
 }

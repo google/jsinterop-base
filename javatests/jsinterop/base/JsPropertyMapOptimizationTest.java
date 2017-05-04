@@ -18,6 +18,7 @@ package jsinterop.base;
 
 import static jsinterop.base.FunctionAssert.assertFunctionMatches;
 
+import com.google.common.annotations.UsedReflectively;
 import com.google.gwt.junit.client.GWTTestCase;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
@@ -32,54 +33,54 @@ public class JsPropertyMapOptimizationTest extends GWTTestCase {
     return "jsinterop.base.TestModule";
   }
 
-  @JsMethod
+  @JsMethod @UsedReflectively
   private void modifyObject(Object objectField) {
-    JsPropertyMap.of(objectField).set("x-x", "ABC");
+    Js.asPropertyMap(objectField).set("x-x", "ABC");
   }
 
   public void testSet() {
     assertFunctionMatches(((MethodsAsProperties) this).getModifyObject(), "<obf>['x-x']='ABC'");
   }
 
-  @JsMethod
+  @JsMethod @UsedReflectively
   private void modifyObjectInt(Object objectField) {
-    JsPropertyMap.of(objectField).set("x-x", 42);
+    Js.asPropertyMap(objectField).set("x-x", 42);
   }
 
   public void testSetInt() {
     assertFunctionMatches(((MethodsAsProperties) this).getModifyObjectInt(), "<obf>['x-x']=42");
   }
 
-  @JsMethod
+  @JsMethod @UsedReflectively
   private void modifyObjectLong(Object objectField, long local) {
-    JsPropertyMap.of(objectField).set("x-x", local);
+    Js.asPropertyMap(objectField).set("x-x", local);
   }
 
   public void testSetLong() {
     assertFunctionMatches(((MethodsAsProperties) this).getModifyObjectLong(), "<obf>['x-x']=<obf>");
   }
 
-  @JsMethod
+  @JsMethod @UsedReflectively
   private Object accessObject(Object objectField) {
-    return JsPropertyMap.of(objectField).get("x-x");
+    return Js.asPropertyMap(objectField).get("x-x");
   }
 
   public void testGet() {
     assertFunctionMatches(((MethodsAsProperties) this).getAccessObject(), "return <obf>['x-x']");
   }
 
-  @JsMethod
+  @JsMethod @UsedReflectively
   private int accessObjectInt(Object objectField) {
-    return JsPropertyMap.of(objectField).getAny("x-x").asInt();
+    return Js.asPropertyMap(objectField).getAny("x-x").asInt();
   }
 
   public void testGetAsInt() {
     assertFunctionMatches(((MethodsAsProperties) this).getAccessObjectInt(), "return <obf>['x-x']");
   }
 
-  @JsMethod
+  @JsMethod @UsedReflectively
   private long accessObjectLong(Object objectField) {
-    return JsPropertyMap.of(objectField).getAny("x-x").asLong();
+    return Js.asPropertyMap(objectField).getAny("x-x").asLong();
   }
 
   public void testGetAsLong() {

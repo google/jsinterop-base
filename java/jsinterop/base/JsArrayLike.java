@@ -16,8 +16,6 @@
  */
 package jsinterop.base;
 
-import static jsinterop.base.InternalPreconditions.checkType;
-
 import javaemul.internal.annotations.DoNotAutobox;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
@@ -26,14 +24,6 @@ import jsinterop.annotations.JsType;
 /** Provides abstraction for JavaScript array-like objects. */
 @JsType(isNative = true, name = "IArrayLike", namespace = JsPackage.GLOBAL)
 public interface JsArrayLike<T> {
-
-  /** Returns {@code JsArrayLike} view of provided array-like object. */
-  @JsOverlay
-  static JsArrayLike<Object> of(Object obj) {
-    // TODO(goktug): switch to custom $isInstance
-    checkType(obj == null || InternalJsUtil.hasLength(obj));
-    return Js.uncheckedCast(obj);
-  }
 
   @JsOverlay
   default int getLength() {

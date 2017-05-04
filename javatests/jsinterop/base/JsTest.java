@@ -20,6 +20,7 @@ import static com.google.common.truth.Truth.assertThat;
 import static jsinterop.base.ExceptionAssert.assertThrowsClassCastException;
 import static jsinterop.base.ExceptionAssert.assertThrowsHiddenClassCastException;
 
+import com.google.common.annotations.UsedReflectively;
 import com.google.gwt.junit.client.GWTTestCase;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
@@ -39,93 +40,115 @@ public class JsTest extends GWTTestCase {
   }
 
   public void testUncheckedCast() {
-    String s = Js.uncheckedCast(3.5);
+    String unused = Js.uncheckedCast(3.5);
   }
 
   public void testCast() {
-    Double d = Js.cast(3.5);
+    Double unusedDouble = Js.cast(3.5);
     assertThrowsClassCastException(
         () -> {
-          String s = Js.cast(3.5);
+          String unusedString = Js.cast(3.5);
         });
   }
 
-  public void testCastToDouble() {
-    assertThat(Js.castToDouble(15.5d)).isEqualTo(15.5d);
-
-    // GWT represents small longs as 'number'
-    // assertThrowsHiddenClassCastException(() -> castToDouble(15L));
-    assertThrowsHiddenClassCastException(() -> Js.castToDouble(new Object()));
-    assertThrowsHiddenClassCastException(() -> Js.castToDouble("1"));
-    assertThrowsHiddenClassCastException(() -> Js.castToDouble(""));
-    assertThrowsHiddenClassCastException(() -> Js.castToDouble(null));
+  public void testAsPropertyMap() {
+    Js.asPropertyMap(1d);
+    Js.asPropertyMap("");
+    Js.asPropertyMap(null); // Js.asPropertyMap is similar to casting so null should be accepted.
   }
 
-  public void testCastToFloat() {
+  public void testAsArrayLike() {
+    Js.asArrayLike(new String[0]);
+    Js.asArrayLike(Js.arguments());
+    Js.asArrayLike(null); // Js.asArrayLike is similar to casting so null should be accepted.
+
+    assertThrowsHiddenClassCastException(() -> Js.asArrayLike(5));
+    assertThrowsHiddenClassCastException(() -> Js.asArrayLike("str"));
+    assertThrowsHiddenClassCastException(() -> Js.asArrayLike(new Object()));
+
+    JsPropertyMap<Object> objectWithNonconformingLength = JsPropertyMap.of("length", null);
+    assertThrowsHiddenClassCastException(() -> Js.asArrayLike(objectWithNonconformingLength));
+
+    Js.asPropertyMap(objectWithNonconformingLength).set("length", "1");
+    assertThrowsHiddenClassCastException(() -> Js.asArrayLike(objectWithNonconformingLength));
+  }
+
+  public void testAsDouble() {
+    assertThat(Js.asDouble(15.5d)).isEqualTo(15.5d);
+
+    // GWT represents small longs as 'number'
+    // assertThrowsHiddenClassCastException(() -> AsDouble(15L));
+    assertThrowsHiddenClassCastException(() -> Js.asDouble(new Object()));
+    assertThrowsHiddenClassCastException(() -> Js.asDouble("1"));
+    assertThrowsHiddenClassCastException(() -> Js.asDouble(""));
+    assertThrowsHiddenClassCastException(() -> Js.asDouble(null));
+  }
+
+  public void testAsFloat() {
     // Note: float is represented as number and double test alrready covers issues around
     // conversions to number.
-    assertThat(Js.castToFloat(15.5d)).isEqualTo(15.5f);
+    assertThat(Js.asFloat(15.5d)).isEqualTo(15.5f);
   }
 
-  public void testCastToLong() {
-    assertThat(Js.castToLong(Any.of(15L))).isEqualTo(15L);
-    assertThat(Js.castToLong(Any.of(Long.MAX_VALUE))).isEqualTo(Long.MAX_VALUE);
-    assertThat(Js.castToLong(Any.of(Long.MIN_VALUE))).isEqualTo(Long.MIN_VALUE);
+  public void testAsLong() {
+    assertThat(Js.asLong(Js.asAny(15L))).isEqualTo(15L);
+    assertThat(Js.asLong(Js.asAny(Long.MAX_VALUE))).isEqualTo(Long.MAX_VALUE);
+    assertThat(Js.asLong(Js.asAny(Long.MIN_VALUE))).isEqualTo(Long.MIN_VALUE);
 
     // GWT represents small longs as 'number'
-    // assertThrowsHiddenClassCastException(() -> Js.castToLong(15d));
-    assertThrowsHiddenClassCastException(() -> Js.castToLong(15.5d));
-    assertThrowsHiddenClassCastException(() -> Js.castToLong(new Object()));
-    assertThrowsHiddenClassCastException(() -> Js.castToLong("1"));
-    assertThrowsHiddenClassCastException(() -> Js.castToLong(""));
-    assertThrowsHiddenClassCastException(() -> Js.castToLong(null));
+    // assertThrowsHiddenClassCastException(() -> Js.asLong(15d));
+    assertThrowsHiddenClassCastException(() -> Js.asLong(15.5d));
+    assertThrowsHiddenClassCastException(() -> Js.asLong(new Object()));
+    assertThrowsHiddenClassCastException(() -> Js.asLong("1"));
+    assertThrowsHiddenClassCastException(() -> Js.asLong(""));
+    assertThrowsHiddenClassCastException(() -> Js.asLong(null));
   }
 
-  public void testCastToInt() {
+  public void testAsInt() {
     // Note: int is represented as number and double test alrready covers issues around
     // conversions to number.
-    assertThat(Js.castToInt(15d)).isEqualTo(15);
+    assertThat(Js.asInt(15d)).isEqualTo(15);
 
-    assertThrowsHiddenClassCastException(() -> Js.castToInt(15.5d));
-    assertThrowsHiddenClassCastException(() -> Js.castToInt(Integer.MAX_VALUE + 1d));
+    assertThrowsHiddenClassCastException(() -> Js.asInt(15.5d));
+    assertThrowsHiddenClassCastException(() -> Js.asInt(Integer.MAX_VALUE + 1d));
   }
 
-  public void testCastToShort() {
+  public void testAsShort() {
     // Note: short is represented as number and double test alrready covers issues around
     // conversions to number.
-    assertThat(Js.castToShort(15d)).isEqualTo(15);
+    assertThat(Js.asShort(15d)).isEqualTo(15);
 
-    assertThrowsHiddenClassCastException(() -> Js.castToShort(15.5d));
-    assertThrowsHiddenClassCastException(() -> Js.castToShort(Short.MAX_VALUE + 1d));
+    assertThrowsHiddenClassCastException(() -> Js.asShort(15.5d));
+    assertThrowsHiddenClassCastException(() -> Js.asShort(Short.MAX_VALUE + 1d));
   }
 
-  public void testCastToChar() {
+  public void testAsChar() {
     // Note: char is represented as number and double test alrready covers issues around
     // conversions to number.
-    assertThat(Js.castToChar(15d)).isEqualTo(15);
+    assertThat(Js.asChar(15d)).isEqualTo(15);
 
-    assertThrowsHiddenClassCastException(() -> Js.castToChar(15.5d));
-    assertThrowsHiddenClassCastException(() -> Js.castToChar(Character.MAX_VALUE + 1d));
+    assertThrowsHiddenClassCastException(() -> Js.asChar(15.5d));
+    assertThrowsHiddenClassCastException(() -> Js.asChar(Character.MAX_VALUE + 1d));
   }
 
-  public void testCastToByte() {
+  public void testAsByte() {
     // Note: byte is represented as number and double test alrready covers issues around
     // conversions to number.
-    assertThat(Js.castToByte(15d)).isEqualTo(15);
+    assertThat(Js.asByte(15d)).isEqualTo(15);
 
-    assertThrowsHiddenClassCastException(() -> Js.castToByte(15.5d));
-    assertThrowsHiddenClassCastException(() -> Js.castToByte(Byte.MAX_VALUE + 1d));
+    assertThrowsHiddenClassCastException(() -> Js.asByte(15.5d));
+    assertThrowsHiddenClassCastException(() -> Js.asByte(Byte.MAX_VALUE + 1d));
   }
 
-  public void testCastToBoolean() {
-    assertThat(Js.castToBoolean(true)).isEqualTo(true);
-    assertThat(Js.castToBoolean(false)).isEqualTo(false);
+  public void testAsBoolean() {
+    assertThat(Js.asBoolean(true)).isTrue();
+    assertThat(Js.asBoolean(false)).isFalse();
 
-    assertThrowsHiddenClassCastException(() -> Js.castToBoolean(15));
-    assertThrowsHiddenClassCastException(() -> Js.castToBoolean(new Object()));
-    assertThrowsHiddenClassCastException(() -> Js.castToBoolean("1"));
-    assertThrowsHiddenClassCastException(() -> Js.castToBoolean(""));
-    assertThrowsHiddenClassCastException(() -> Js.castToBoolean(null));
+    assertThrowsHiddenClassCastException(() -> Js.asBoolean(15));
+    assertThrowsHiddenClassCastException(() -> Js.asBoolean(new Object()));
+    assertThrowsHiddenClassCastException(() -> Js.asBoolean("1"));
+    assertThrowsHiddenClassCastException(() -> Js.asBoolean(""));
+    assertThrowsHiddenClassCastException(() -> Js.asBoolean(null));
   }
 
   public void testTruthyFalsey() {
@@ -153,7 +176,7 @@ public class JsTest extends GWTTestCase {
     assertThat(arrayLike.getAt(2)).isEqualTo("c");
   }
 
-  @JsMethod
+  @JsMethod @UsedReflectively
   private JsArrayLike<Object> getArgumentsHack(Object arg1, Object arg2, Object arg3) {
     return Js.arguments();
   }

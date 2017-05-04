@@ -37,7 +37,7 @@ public class JsConstructorFnTest extends GWTTestCase {
   }
 
   public void testJsConstructorFn() {
-    JsConstructorFn<Abc> ctor = JsConstructorFn.of(Abc.class);
+    JsConstructorFn<Abc> ctor = Js.asConstructorFn(Abc.class);
     // Casting to Object to get the correct overload (due to b/30126552).
     assertThat((Object) ctor.asClass()).isSameAs(Abc.class);
     assertThat(ctor.construct(42).param).isEqualTo(42);

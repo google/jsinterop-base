@@ -18,6 +18,7 @@ package jsinterop.base;
 
 import static jsinterop.base.FunctionAssert.assertFunctionMatches;
 
+import com.google.common.annotations.UsedReflectively;
 import com.google.gwt.junit.client.GWTTestCase;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
@@ -32,54 +33,54 @@ public class JsArrayLikeOptimizationTest extends GWTTestCase {
     return "jsinterop.base.TestModule";
   }
 
-  @JsMethod
+  @JsMethod @UsedReflectively
   private void modifyArray(Object arrayField) {
-    JsArrayLike.of(arrayField).setAt(0, "ABC");
+    Js.asArrayLike(arrayField).setAt(0, "ABC");
   }
 
   public void testSet() {
     assertFunctionMatches(((MethodsAsProperties) this).getModifyArray(), "<obf>[0]='ABC';");
   }
 
-  @JsMethod
+  @JsMethod @UsedReflectively
   private void modifyArrayInt(Object arrayField) {
-    JsArrayLike.of(arrayField).setAt(0, 42);
+    Js.asArrayLike(arrayField).setAt(0, 42);
   }
 
   public void testSetInt() {
     assertFunctionMatches(((MethodsAsProperties) this).getModifyArrayInt(), "<obf>[0]=42;");
   }
 
-  @JsMethod
+  @JsMethod @UsedReflectively
   private void modifyArrayLong(Object arrayField, long local) {
-    JsArrayLike.of(arrayField).setAt(0, local);
+    Js.asArrayLike(arrayField).setAt(0, local);
   }
 
   public void testSetLong() {
     assertFunctionMatches(((MethodsAsProperties) this).getModifyArrayLong(), "<obf>[0]=<obf>;");
   }
 
-  @JsMethod
+  @JsMethod @UsedReflectively
   private Object accessArray(Object arrayField) {
-    return JsArrayLike.of(arrayField).getAt(0);
+    return Js.asArrayLike(arrayField).getAt(0);
   }
 
   public void testGet() {
     assertFunctionMatches(((MethodsAsProperties) this).getAccessArray(), "return <obf>[0];");
   }
 
-  @JsMethod
+  @JsMethod @UsedReflectively
   private int accessArrayInt(Object arrayField) {
-    return JsArrayLike.of(arrayField).getAnyAt(0).asInt();
+    return Js.asArrayLike(arrayField).getAnyAt(0).asInt();
   }
 
   public void testGetAsInt() {
     assertFunctionMatches(((MethodsAsProperties) this).getAccessArrayInt(), "return <obf>[0];");
   }
 
-  @JsMethod
+  @JsMethod @UsedReflectively
   private long accessArrayLong(Object arrayField) {
-    return JsArrayLike.of(arrayField).getAnyAt(0).asLong();
+    return Js.asArrayLike(arrayField).getAnyAt(0).asLong();
   }
 
   public void testGetAsLong() {

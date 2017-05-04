@@ -65,12 +65,6 @@ public interface JsPropertyMap<T> {
     return map;
   }
 
-  /** Returns {@code JsPropertyMap} view of provided object. */
-  @JsOverlay
-  static JsPropertyMap<Object> of(Object obj) {
-    return Js.uncheckedCast(obj);
-  }
-
   @JsOverlay
   @SuppressWarnings("unchecked")
   default T get(String propertyName) {

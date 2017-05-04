@@ -18,6 +18,7 @@ package jsinterop.base;
 
 import static jsinterop.base.InternalPreconditions.checkType;
 
+import javaemul.internal.annotations.DoNotAutobox;
 import javaemul.internal.annotations.HasNoSideEffects;
 import javaemul.internal.annotations.UncheckedCast;
 import jsinterop.annotations.JsMethod;
@@ -44,57 +45,79 @@ public final class Js {
   @HasNoSideEffects
   public static native String typeof(Object obj);
 
-  public static Any[] castToArray(Object obj) {
+  public static <T> JsConstructorFn<T> asConstructorFn(Class<T> clazz) {
+    JsConstructorFn<T> fn = InternalJsUtil.toCtor(clazz);
+    checkType(fn != null);
+    return fn;
+  }
+
+  public static Any asAny(@DoNotAutobox Object obj) {
+    return uncheckedCast(obj);
+  }
+
+  /** Returns {@code JsPropertyMap} view of provided object. */
+  public static JsPropertyMap<Object> asPropertyMap(Object obj) {
+    return uncheckedCast(obj);
+  }
+
+  /** Returns {@code JsArrayLike} view of provided array-like object. */
+  public static JsArrayLike<Object> asArrayLike(Object obj) {
+    // TODO(goktug): switch to custom $isInstance
+    checkType(obj == null || InternalJsUtil.hasLength(obj));
+    return uncheckedCast(obj);
+  }
+
+  public static Any[] asArray(Object obj) {
     checkType(obj instanceof Any[]);
     return uncheckedCast(obj);
   }
 
   @SuppressWarnings("ReferenceEquality") // GWT is not good at optimizing equals
-  public static String castToString(Object obj) {
+  public static String asString(Object obj) {
     checkType(Js.typeof(obj) == "string");
     return uncheckedCast(obj);
   }
 
   @SuppressWarnings("ReferenceEquality") // GWT is not good at optimizing equals
-  public static boolean castToBoolean(Object obj) {
+  public static boolean asBoolean(Object obj) {
     checkType(Js.typeof(obj) == "boolean");
     return InternalJsUtil.asBoolean(obj);
   }
 
   @SuppressWarnings("ReferenceEquality") // GWT is not good at optimizing equals
-  public static double castToDouble(Object obj) {
+  public static double asDouble(Object obj) {
     checkType(Js.typeof(obj) == "number");
     return InternalJsUtil.asDouble(obj);
   }
 
-  public static float castToFloat(Object obj) {
-    return (float) castToDouble(obj);
+  public static float asFloat(Object obj) {
+    return (float) asDouble(obj);
   }
 
-  public static long castToLong(Object obj) {
+  public static long asLong(Object obj) {
     checkType(InternalJsUtil.isLong(obj));
     return InternalJsUtil.asLong(obj);
   }
 
-  public static int castToInt(Object obj) {
+  public static int asInt(Object obj) {
     checkType(InternalJsUtil.isInt(obj));
     return InternalJsUtil.asInt(obj);
   }
 
-  public static short castToShort(Object obj) {
-    int num = castToInt(obj);
+  public static short asShort(Object obj) {
+    int num = asInt(obj);
     checkType(num == ((short) num));
     return InternalJsUtil.asShort(obj);
   }
 
-  public static char castToChar(Object obj) {
-    int num = castToInt(obj);
+  public static char asChar(Object obj) {
+    int num = asInt(obj);
     checkType(num == ((char) num));
     return InternalJsUtil.asChar(obj);
   }
 
-  public static byte castToByte(Object obj) {
-    int num = castToInt(obj);
+  public static byte asByte(Object obj) {
+    int num = asInt(obj);
     checkType(num == ((byte) num));
     return InternalJsUtil.asByte(obj);
   }

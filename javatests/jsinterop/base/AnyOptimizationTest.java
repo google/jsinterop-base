@@ -18,6 +18,7 @@ package jsinterop.base;
 
 import static jsinterop.base.FunctionAssert.assertFunctionMatches;
 
+import com.google.common.annotations.UsedReflectively;
 import com.google.gwt.junit.client.GWTTestCase;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
@@ -32,25 +33,25 @@ public class AnyOptimizationTest extends GWTTestCase {
     return "jsinterop.base.TestModule";
   }
 
-  @JsMethod
+  @JsMethod @UsedReflectively
   private void asPrimitive(String objectField) {
-    double d = Any.of(objectField).asDouble();
-    float f = Any.of(objectField).asFloat();
-    long l = Any.of(objectField).asLong();
-    int x = Any.of(objectField).asInt();
-    short s = Any.of(objectField).asShort();
-    char c = Any.of(objectField).asChar();
-    byte b = Any.of(objectField).asByte();
-    boolean bool = Any.of(objectField).asBoolean();
+    double d = Js.asAny(objectField).asDouble();
+    float f = Js.asAny(objectField).asFloat();
+    long l = Js.asAny(objectField).asLong();
+    int x = Js.asAny(objectField).asInt();
+    short s = Js.asAny(objectField).asShort();
+    char c = Js.asAny(objectField).asChar();
+    byte b = Js.asAny(objectField).asByte();
+    boolean bool = Js.asAny(objectField).asBoolean();
   }
 
   public void testAsPrimitive() {
     assertFunctionMatches(((MethodsAsProperties) this).getAsPrimitive(), "");
   }
 
-  @JsMethod
+  @JsMethod @UsedReflectively
   private void uncheckedCast(Object objectField) {
-    String s = Any.of(objectField).uncheckedCast();
+    String s = Js.asAny(objectField).uncheckedCast();
   }
 
   public void testUncheckedCast() {

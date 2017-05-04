@@ -32,124 +32,124 @@ public class AnyTest extends GWTTestCase {
   // would have been much nicer with JUnitParams... :/
 
   public void testAsPropertyMap() {
-    assertThat(Any.of("abc").asPropertyMap().getAny("toString")).isNotNull();
-    assertThat(Any.of("abc").asPropertyMap().getAny("something")).isNull();
+    assertThat(Js.asAny("abc").asPropertyMap().getAny("toString")).isNotNull();
+    assertThat(Js.asAny("abc").asPropertyMap().getAny("something")).isNull();
   }
 
   public void testAsArrayLike() {
     String[] stringArray = {"abc"};
-    assertThat(Any.of(stringArray).asArrayLike().getAt(0)).isEqualTo("abc");
+    assertThat(Js.asAny(stringArray).asArrayLike().getAt(0)).isEqualTo("abc");
 
-    assertThrowsHiddenClassCastException(() -> Any.of(new Object()).asArrayLike());
+    assertThrowsHiddenClassCastException(() -> Js.asAny(new Object()).asArrayLike());
   }
 
   public void testAsArray() {
     String[] stringArray = {"abc"};
-    assertThat(Any.of(stringArray).asArray()[0]).isEqualTo("abc");
+    assertThat(Js.asAny(stringArray).asArray()[0]).isEqualTo("abc");
 
-    assertThrowsHiddenClassCastException(() -> Any.of(new Object()).asArray());
+    assertThrowsHiddenClassCastException(() -> Js.asAny(new Object()).asArray());
   }
 
   public void testAsString() {
-    assertThat(Any.of("abc").asString()).isEqualTo("abc");
+    assertThat(Js.asAny("abc").asString()).isEqualTo("abc");
 
-    assertThrowsHiddenClassCastException(() -> Any.of(new Object()).asString());
+    assertThrowsHiddenClassCastException(() -> Js.asAny(new Object()).asString());
   }
 
   public void testAsDouble() {
-    assertThat(Any.of(15.5d).asDouble()).isEqualTo(15.5d);
-    assertThat(Any.of(15.5f).asDouble()).isEqualTo(15.5d);
-    assertThat(Any.of(15).asDouble()).isEqualTo(15d);
-    assertThat(Any.of((byte) 15).asDouble()).isEqualTo(15d);
-    assertThat(Any.of((char) 15).asDouble()).isEqualTo(15d);
-    assertThat(Any.of((short) 15).asDouble()).isEqualTo(15d);
+    assertThat(Js.asAny(15.5d).asDouble()).isEqualTo(15.5d);
+    assertThat(Js.asAny(15.5f).asDouble()).isEqualTo(15.5d);
+    assertThat(Js.asAny(15).asDouble()).isEqualTo(15d);
+    assertThat(Js.asAny((byte) 15).asDouble()).isEqualTo(15d);
+    assertThat(Js.asAny((char) 15).asDouble()).isEqualTo(15d);
+    assertThat(Js.asAny((short) 15).asDouble()).isEqualTo(15d);
 
     // GWT represents small longs as 'number'
-    // assertThrowsHiddenClassCastException(() -> Any.of(15L).asDouble());
-    assertThrowsHiddenClassCastException(() -> Any.of(new Object()).asDouble());
-    assertThrowsHiddenClassCastException(() -> Any.of("1").asDouble());
-    assertThrowsHiddenClassCastException(() -> Any.of("").asDouble());
-    assertThrowsHiddenClassCastException(() -> Any.of(null).asDouble());
+    // assertThrowsHiddenClassCastException(() -> Js.asAny(15L).asDouble());
+    assertThrowsHiddenClassCastException(() -> Js.asAny(new Object()).asDouble());
+    assertThrowsHiddenClassCastException(() -> Js.asAny("1").asDouble());
+    assertThrowsHiddenClassCastException(() -> Js.asAny("").asDouble());
+    assertThrowsHiddenClassCastException(() -> Js.asAny(null).asDouble());
   }
 
   public void testAsFloat() {
     // Note: float is represented as number and double test alrready covers issues around
     // conversions to number.
-    assertThat(Any.of(15.5f).asFloat()).isEqualTo(15.5f);
-    assertThat(Any.of(15.5d).asFloat()).isEqualTo(15.5f);
+    assertThat(Js.asAny(15.5f).asFloat()).isEqualTo(15.5f);
+    assertThat(Js.asAny(15.5d).asFloat()).isEqualTo(15.5f);
   }
 
   public void testAsLong() {
-    assertThat(Any.of(0L).asLong()).isEqualTo(0L);
-    assertThat(Any.of(Long.MIN_VALUE).asLong()).isEqualTo(Long.MIN_VALUE);
-    assertThat(Any.of(Long.MAX_VALUE).asLong()).isEqualTo(Long.MAX_VALUE);
+    assertThat(Js.asAny(0L).asLong()).isEqualTo(0L);
+    assertThat(Js.asAny(Long.MIN_VALUE).asLong()).isEqualTo(Long.MIN_VALUE);
+    assertThat(Js.asAny(Long.MAX_VALUE).asLong()).isEqualTo(Long.MAX_VALUE);
 
     // GWT represents small longs as 'number'
-    // assertThrowsHiddenClassCastException(() -> Any.of(15).asLong());
-    assertThrowsHiddenClassCastException(() -> Any.of(15.5d).asLong());
-    assertThrowsHiddenClassCastException(() -> Any.of(new Object()).asLong());
-    assertThrowsHiddenClassCastException(() -> Any.of("1").asLong());
-    assertThrowsHiddenClassCastException(() -> Any.of("").asLong());
-    assertThrowsHiddenClassCastException(() -> Any.of(null).asLong());
+    // assertThrowsHiddenClassCastException(() -> Js.asAny(15).asLong());
+    assertThrowsHiddenClassCastException(() -> Js.asAny(15.5d).asLong());
+    assertThrowsHiddenClassCastException(() -> Js.asAny(new Object()).asLong());
+    assertThrowsHiddenClassCastException(() -> Js.asAny("1").asLong());
+    assertThrowsHiddenClassCastException(() -> Js.asAny("").asLong());
+    assertThrowsHiddenClassCastException(() -> Js.asAny(null).asLong());
   }
 
   public void testAsInt() {
     // Note: int is represented as number and double test already covers issues around
     // conversions to number.
-    assertThat(Any.of(15).asInt()).isEqualTo(15);
-    assertThat(Any.of(15d).asInt()).isEqualTo(15);
+    assertThat(Js.asAny(15).asInt()).isEqualTo(15);
+    assertThat(Js.asAny(15d).asInt()).isEqualTo(15);
 
-    assertThrowsHiddenClassCastException(() -> Any.of(15.5d).asInt());
+    assertThrowsHiddenClassCastException(() -> Js.asAny(15.5d).asInt());
   }
 
   public void testAsShort() {
     // Note: short is represented as number and double test already covers issues around
     // conversions to number.
-    assertThat(Any.of(15).asShort()).isEqualTo(15);
+    assertThat(Js.asAny(15).asShort()).isEqualTo(15);
 
-    assertThrowsHiddenClassCastException(() -> Any.of(15.5d).asShort());
-    assertThrowsHiddenClassCastException(() -> Any.of(Short.MAX_VALUE + 1).asShort());
+    assertThrowsHiddenClassCastException(() -> Js.asAny(15.5d).asShort());
+    assertThrowsHiddenClassCastException(() -> Js.asAny(Short.MAX_VALUE + 1).asShort());
   }
 
   public void testAsChar() {
     // Note: char is represented as number and double test already covers issues around
     // conversions to number.
-    assertThat(Any.of(15).asChar()).isEqualTo(15);
+    assertThat(Js.asAny(15).asChar()).isEqualTo(15);
 
-    assertThrowsHiddenClassCastException(() -> Any.of(15.5d).asChar());
-    assertThrowsHiddenClassCastException(() -> Any.of(Character.MAX_VALUE + 1).asChar());
+    assertThrowsHiddenClassCastException(() -> Js.asAny(15.5d).asChar());
+    assertThrowsHiddenClassCastException(() -> Js.asAny(Character.MAX_VALUE + 1).asChar());
   }
 
   public void testAsByte() {
     // Note: byte is represented as number and double test already covers issues around
     // conversions to number.
-    assertThat(Any.of(15).asByte()).isEqualTo(15);
+    assertThat(Js.asAny(15).asByte()).isEqualTo(15);
 
-    assertThrowsHiddenClassCastException(() -> Any.of(15.5d).asByte());
-    assertThrowsHiddenClassCastException(() -> Any.of(Byte.MAX_VALUE + 1).asByte());
+    assertThrowsHiddenClassCastException(() -> Js.asAny(15.5d).asByte());
+    assertThrowsHiddenClassCastException(() -> Js.asAny(Byte.MAX_VALUE + 1).asByte());
   }
 
   public void testAsBoolean() {
-    assertThat(Any.of(false).asBoolean()).isFalse();
-    assertThat(Any.of(true).asBoolean()).isTrue();
+    assertThat(Js.asAny(false).asBoolean()).isFalse();
+    assertThat(Js.asAny(true).asBoolean()).isTrue();
 
-    assertThrowsHiddenClassCastException(() -> Any.of(15.5d).asBoolean());
-    assertThrowsHiddenClassCastException(() -> Any.of(15L).asBoolean());
-    assertThrowsHiddenClassCastException(() -> Any.of(new Object()).asBoolean());
-    assertThrowsHiddenClassCastException(() -> Any.of("1").asBoolean());
-    assertThrowsHiddenClassCastException(() -> Any.of("").asBoolean());
-    assertThrowsHiddenClassCastException(() -> Any.of(null).asBoolean());
+    assertThrowsHiddenClassCastException(() -> Js.asAny(15.5d).asBoolean());
+    assertThrowsHiddenClassCastException(() -> Js.asAny(15L).asBoolean());
+    assertThrowsHiddenClassCastException(() -> Js.asAny(new Object()).asBoolean());
+    assertThrowsHiddenClassCastException(() -> Js.asAny("1").asBoolean());
+    assertThrowsHiddenClassCastException(() -> Js.asAny("").asBoolean());
+    assertThrowsHiddenClassCastException(() -> Js.asAny(null).asBoolean());
   }
 
   public void testCast() {
     assertThrowsClassCastException(
         () -> {
-          String s = Any.of(5).cast();
+          String unused = Js.asAny(5).cast();
         });
   }
 
   public void testUncheckedCast() {
-    Double fakeNumber = Any.of("dangerous").uncheckedCast();
+    Double fakeNumber = Js.asAny("dangerous").uncheckedCast();
     assertThat(fakeNumber).isEqualTo("dangerous");
   }
 }
