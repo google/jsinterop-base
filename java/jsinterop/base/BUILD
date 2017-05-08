@@ -3,8 +3,8 @@
 
 package(default_visibility = ["//visibility:public"])
 
-# Googleowns the copyright
-licenses(["unencumbered"])
+# Apache2
+licenses(["notice"])
 
 java_library(
     name = "base",
