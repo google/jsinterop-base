@@ -168,6 +168,39 @@ public class JsTest extends GWTTestCase {
     assertThat(Js.isTripleEqual(Js.undefined(), null)).isFalse();
   }
 
+  public void testcoerceToInt() {
+    assertThat(Js.coerceToInt(0.1d)).isEqualTo(0);
+    assertThat(Js.coerceToInt(1.1d)).isEqualTo(1);
+    assertThat(Js.coerceToInt(-1.1d)).isEqualTo(-1);
+    assertThat(Js.coerceToInt(Integer.MAX_VALUE)).isEqualTo(Integer.MAX_VALUE);
+    assertThat(Js.coerceToInt(Integer.MIN_VALUE)).isEqualTo(Integer.MIN_VALUE);
+
+    assertThat(Js.coerceToInt("1")).isEqualTo(1);
+    assertThat(Js.coerceToInt("0")).isEqualTo(0);
+    assertThat(Js.coerceToInt("NaN")).isEqualTo(0);
+    assertThat(Js.coerceToInt("random string")).isEqualTo(0);
+    assertThat(Js.coerceToInt(new Object())).isEqualTo(0);
+    assertThat(Js.coerceToInt(new Object[0])).isEqualTo(0);
+    assertThat(Js.coerceToInt(true)).isEqualTo(1);
+    assertThat(Js.coerceToInt(false)).isEqualTo(0);
+    assertThat(Js.coerceToInt(null)).isEqualTo(0);
+  }
+
+  public void testcoerceToDouble() {
+    assertThat(Js.coerceToDouble(0.1d)).isEqualTo(0.1d);
+    assertThat(Js.coerceToDouble(1.1d)).isEqualTo(1.1d);
+    assertThat(Js.coerceToDouble(-1.1d)).isEqualTo(-1.1d);
+
+    assertThat(Js.coerceToDouble("1")).isEqualTo(1d);
+    assertThat(Js.coerceToDouble("0")).isEqualTo(0d);
+    assertThat(Js.coerceToDouble("Infinity")).isPositiveInfinity();
+    assertThat(Js.coerceToDouble("-Infinity")).isNegativeInfinity();
+    assertThat(Js.coerceToDouble("NaN")).isNaN();
+    assertThat(Js.coerceToDouble("random string")).isNaN();
+    assertThat(Js.coerceToDouble(new Object())).isNaN();
+    assertThat(Js.coerceToDouble(null)).isEqualTo(0d);
+  }
+
   public void testArguments() throws Exception {
     JsArrayLike<Object> arrayLike = ((IndirectMethodAccess) this).getArguments("a", "b", "c");
     assertThat(arrayLike.getLength()).isEqualTo(3);

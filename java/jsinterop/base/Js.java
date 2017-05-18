@@ -163,5 +163,17 @@ public final class Js {
     return o1 === o2;
   }-*/;
 
+  /** Coerces any object to number using {@code +} operation. */
+  //J2CL_ONLY @JsMethod
+  public static native double coerceToDouble(Object d) /*-{
+    return +d;
+  }-*/;
+
+  /** Coerces any object to 32 bit signed number using {@code |0} operation. */
+  //J2CL_ONLY @JsMethod
+  public static int coerceToInt(@DoNotAutobox Object d) {
+    return InternalJsUtil.asInt(d) | 0;
+  }
+
   private Js() {} // Hide constructor for utility class.
 }

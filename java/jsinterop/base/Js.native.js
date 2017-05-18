@@ -16,3 +16,12 @@ Js.isFalsy = function(obj) {
 Js.isTripleEqual = function(obj1, obj2) {
   return obj1 === obj2;
 };
+
+/**
+ * @param {*} d
+ * @return {number}
+ * @public
+ */
+Js.coerceToDouble = function(d) {
+  return +/** @type {?} */ (d);
+};
