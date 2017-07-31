@@ -19,6 +19,7 @@ package jsinterop.base;
 import static com.google.common.truth.Truth.assertThat;
 
 import com.google.gwt.junit.client.GWTTestCase;
+import jsinterop.annotations.JsMethod;
 
 public class JsArrayLikeTest extends GWTTestCase {
 
@@ -63,10 +64,10 @@ public class JsArrayLikeTest extends GWTTestCase {
   }
 
   public void testAsArray() {
-    JsArrayLike<Object> arrayLike = getArrayLikeOf("a", "b", "c");
+    JsArrayLike<String> arrayLike = getArrayLikeOf("a", "b", "c");
     String all = "";
     int count = 0;
-    for (Object o : arrayLike.asArray()) {
+    for (String o : arrayLike.asList()) {
       all = all + o;
       count++;
     }
@@ -74,7 +75,7 @@ public class JsArrayLikeTest extends GWTTestCase {
     assertThat(all).isEqualTo("abc");
   }
 
-  private static JsArrayLike<Object> getArrayLikeOf(Object... args) {
-    return Js.asArrayLike(args);
-  }
+  // The extra indirection here prevents GWT optimization over params.
+  @JsMethod(name = "getArguments", namespace = "jsinterop.base.GetArgumentsHelper")
+  private static native <T> JsArrayLike<T> getArrayLikeOf(T... args);
 }

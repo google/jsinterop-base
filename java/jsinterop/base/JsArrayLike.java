@@ -16,6 +16,8 @@
  */
 package jsinterop.base;
 
+import java.util.Arrays;
+import java.util.List;
 import javaemul.internal.annotations.DoNotAutobox;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
@@ -52,9 +54,9 @@ public interface JsArrayLike<T> {
   }
 
   @JsOverlay
-  default T[] asArray() {
-    // It is 'mostly' safe since there will be a real cast at the erasure call site when the
-    // elements are accessed.
-    return Js.uncheckedCast(this);
+  default List<T> asList() {
+    // Since it is hidden behind Arrays.asList, it is safe to do uncheckedCast.
+    T[] asArray = Js.uncheckedCast(this);
+    return Arrays.asList(asArray);
   }
 }
