@@ -23,7 +23,11 @@ import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
-/** Provides abstraction for JavaScript array-like objects. */
+/**
+ * Provides abstraction for JavaScript array-like objects.
+ *
+ * <p>See {@link Js#asArrayLike(Object)} to cast an array-like object to {@code JsArrayLike}.
+ */
 @JsType(isNative = true, name = "IArrayLike", namespace = JsPackage.GLOBAL)
 public interface JsArrayLike<T> {
 

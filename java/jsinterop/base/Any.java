@@ -24,6 +24,8 @@ import jsinterop.annotations.JsType;
 /**
  * Abstracts 'any' type in the type system (or '*' in Closure). This is the super type of all types
  * and provides helpers for casting into subtypes that are not otherwise castable (i.e. primitives).
+ *
+ * <p>See {@link Js#asAny(Object)} to cast an object to {@code Any}.
  */
 @JsType(isNative = true, name = "*", namespace = JsPackage.GLOBAL)
 public interface Any {

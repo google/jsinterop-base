@@ -21,7 +21,11 @@ import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
-/** Provides abstraction of JavaScript objects as property maps. */
+/**
+ * Provides abstraction of JavaScript objects as property maps.
+ *
+ * <p>See {@link Js#asPropertyMap(Object)} to cast an object to {@code JsPropertyMap}.
+ */
 @JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
 public interface JsPropertyMap<T> {
 
