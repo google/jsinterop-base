@@ -25,7 +25,7 @@ import jsinterop.annotations.JsOverlay;
 /**
  * A JavaScript constructor function.
  *
- * <p>Note that this interface is not intented for manual implementation.
+ * <p>Note that this interface is not intended for manual implementation.
  */
 @JsFunction
 public interface JsConstructorFn<T> {
