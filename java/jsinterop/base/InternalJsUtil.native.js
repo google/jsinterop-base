@@ -71,13 +71,15 @@ InternalJsUtil.castToAny = function(obj) {
   return obj;
 };
 
+const $Long_ = goog.require('nativebootstrap.Long');
+
 /**
  * @param {*} obj
  * @return {boolean}
  * @public
  */
 InternalJsUtil.isLong = function(obj) {
-  return obj instanceof $Long;
+  return obj instanceof $Long_;
 };
 
 /**
