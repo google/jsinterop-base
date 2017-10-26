@@ -10,8 +10,8 @@ java_library(
     name = "base",
     srcs = glob(["*.java"]),
     deps = [
-        "//third_party/java/gwt:gwt-dev",
-        "//third_party/java/gwt:gwt-javaemul-internal-annotations",
-        "//third_party/java/gwt:gwt-jsinterop-annotations",
+        "//third_party:gwt-dev",
+        "//third_party:gwt-javaemul-internal-annotations",
+        "//third_party:gwt-jsinterop-annotations",
     ],
 )
