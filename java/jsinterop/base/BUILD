@@ -9,6 +9,7 @@ licenses(["notice"])
 java_library(
     name = "base",
     srcs = glob(["*.java"]),
+    resources = ["Base.gwt.xml"],
     deps = [
         "//third_party:gwt-dev",
         "//third_party:gwt-javaemul-internal-annotations",
