@@ -30,13 +30,13 @@ your pom.xml:
     <dependency>
       <groupId>com.google.jsinterop</groupId>
       <artifactId>base</artifactId>
-      <version>1.0.0-beta-2</version>
+      <version>1.0.0-beta-3</version>
     </dependency>
 
 
 Download the jar file
 ----------------------
-You can also download manually [the jar file](https://oss.sonatype.org/content/repositories/releases/com/google/jsinterop/base/1.0.0-beta-2/base-1.0.0-beta-2.jar).
+You can also download manually [the jar file](https://oss.sonatype.org/content/repositories/releases/com/google/jsinterop/base/1.0.0-beta-3/base-1.0.0-beta-3.jar).
 
 GWT
 ---
