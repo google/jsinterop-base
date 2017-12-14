@@ -2,7 +2,7 @@ workspace(name = "com_google_jsinterop_base")
 
 maven_jar(
     name = "jsinterop_annotations",
-    artifact = "com.google.jsinterop:jsinterop-annotations:1.0.1",
+    artifact = "com.google.jsinterop:jsinterop-annotations:1.0.2",
 )
 
 maven_jar(
