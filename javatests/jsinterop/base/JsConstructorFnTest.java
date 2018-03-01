@@ -38,8 +38,7 @@ public class JsConstructorFnTest extends GWTTestCase {
 
   public void testJsConstructorFn() {
     JsConstructorFn<Abc> ctor = Js.asConstructorFn(Abc.class);
-    // Casting to Object to get the correct overload (due to b/30126552).
-    assertThat((Object) ctor.asClass()).isSameAs(Abc.class);
+    assertThat(ctor.asClass()).isSameAs(Abc.class);
     assertThat(ctor.construct(42).param).isEqualTo(42);
 
     // TODO(b/36232750): Fix following after JsConstructor classes are marked in J2CL.
