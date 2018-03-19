@@ -170,7 +170,6 @@ public final class Js {
   }-*/;
 
   /** Coerces any object to 32 bit signed number using {@code |0} operation. */
-  //J2CL_ONLY @JsMethod
   public static int coerceToInt(@DoNotAutobox Object d) {
     return InternalJsUtil.asInt(d) | 0;
   }
