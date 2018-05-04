@@ -63,6 +63,15 @@ public class JsArrayLikeTest extends GWTTestCase {
     assertThat(arrayLike.getAnyAt(7).asBoolean()).isTrue();
   }
 
+    public void testDelete() {
+    JsArrayLike<Object> arrayLike = getArrayLikeOf("a", "b", "c");
+    assertThat(arrayLike.getLength()).isEqualTo(3);
+    assertThat(arrayLike.getAt(1)).isEqualTo("b");
+    arrayLike.delete(1);
+    assertThat(arrayLike.getLength()).isEqualTo(3);
+    assertThat(arrayLike.getAt(1)).isNull();
+  }
+
   public void testAsArray() {
     JsArrayLike<String> arrayLike = getArrayLikeOf("a", "b", "c");
     String all = "";

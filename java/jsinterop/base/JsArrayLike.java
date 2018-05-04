@@ -58,6 +58,12 @@ public interface JsArrayLike<T> {
   }
 
   @JsOverlay
+  default void delete(int index) {
+    InternalJsUtil.deleteAt(this, index);
+  }
+
+
+  @JsOverlay
   default List<T> asList() {
     // Since it is hidden behind Arrays.asList, it is safe to do uncheckedCast.
     T[] asArray = Js.uncheckedCast(this);
