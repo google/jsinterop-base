@@ -5,26 +5,39 @@
 set -e
 
 lib_version=$1
-workspace=$(pwd | sed "s,^\(.*\)google3.*$,\1google3,")
 
-if [[ "$workspace" != *google3 ]]; then
-  echo "The script should be run from google3 workspace"
+if [ -z ${lib_version} ]; then
+  echo "Please specify the lib version."
   exit 1;
 fi
 
-release_to_sonatype=${workspace}/third_party/java_src/jsinterop/opensource/release_to_sonatype.sh
-license_header=${workspace}/third_party/java_src/jsinterop/opensource/license.txt
+bazel_root="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+deploy_target='@com_google_jsinterop_generator//:deploy'
+license_header='@com_google_jsinterop_generator//:license.txt'
 group_id="com.google.jsinterop"
 maven_artifact="base"
 
-cd ${workspace}
+cd ${bazel_root}
 
-# ask blaze to explicitly build both jar files
-blaze build //third_party/java_src/jsinterop/java/jsinterop/base:libbase.jar
-blaze build //third_party/java_src/jsinterop/java/jsinterop/base:libbase-src.jar
+# ask bazel to explicitly build both jar files
+bazel build //java/jsinterop/base:libbase.jar
+bazel build //java/jsinterop/base:libbase-src.jar
 
-jar_file=${workspace}/blaze-bin/third_party/java_src/jsinterop/java/jsinterop/base/libbase.jar
-src_jar=${workspace}/blaze-bin/third_party/java_src/jsinterop/java/jsinterop/base/libbase-src.jar
-pom_template=${workspace}/third_party/java_src/jsinterop/opensource/pom-base.xml
+jar_file=${bazel_root}/bazel-bin/java/jsinterop/base/libbase.jar
+src_jar=${bazel_root}/bazel-bin/java/jsinterop/base/libbase-src.jar
+pom_template=${bazel_root}/maven/pom-base.xml
 
-${release_to_sonatype} ${maven_artifact} ${jar_file} ${src_jar} ${license_header} ${pom_template} ${lib_version} ${group_id}
+# we cannot run the script directly from Bazel because it doesn't allow interactive script
+runcmd="$(mktemp /tmp/bazel-run.XXXXXX)"
+bazel run --script_path="$runcmd" ${deploy_target} -- ${maven_artifact} \
+    ${jar_file} \
+    ${src_jar} \
+    ${license_header} \
+    ${pom_template} \
+    ${lib_version} \
+    ${group_id}
+
+"$runcmd"
+
+rm "$runcmd"
