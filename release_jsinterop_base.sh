@@ -13,8 +13,8 @@ fi
 
 bazel_root="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-deploy_target='@com_google_jsinterop_generator//:deploy'
-license_header='@com_google_jsinterop_generator//:license.txt'
+deploy_target='//:deploy'
+license_header="${bazel_root}/license.txt"
 group_id="com.google.jsinterop"
 maven_artifact="base"
 

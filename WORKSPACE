@@ -14,9 +14,3 @@ http_archive(
   name="org_gwtproject_gwt",
   url="https://gwt.googlesource.com/gwt/+archive/master.tar.gz",
 )
-
-http_archive(
-    name = "com_google_jsinterop_generator",
-    url = "https://github.com/google/jsinterop-generator/archive/master.zip",
-    strip_prefix="jsinterop-generator-master",
-)
