@@ -18,7 +18,6 @@ package jsinterop.base;
 
 import static jsinterop.base.FunctionAssert.assertFunctionMatches;
 
-import com.google.common.annotations.UsedReflectively;
 import com.google.gwt.junit.client.GWTTestCase;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
@@ -33,7 +32,7 @@ public class JsArrayLikeOptimizationTest extends GWTTestCase {
     return "jsinterop.base.TestModule";
   }
 
-  @JsMethod @UsedReflectively
+  @JsMethod @SuppressWarnings("unused")
   private void modifyArray(Object arrayField) {
     Js.asArrayLike(arrayField).setAt(0, "ABC");
   }
@@ -42,7 +41,7 @@ public class JsArrayLikeOptimizationTest extends GWTTestCase {
     assertFunctionMatches(((MethodsAsProperties) this).getModifyArray(), "<obf>[0]='ABC';");
   }
 
-  @JsMethod @UsedReflectively
+  @JsMethod @SuppressWarnings("unused")
   private void modifyArrayInt(Object arrayField) {
     Js.asArrayLike(arrayField).setAt(0, 42);
   }
@@ -51,7 +50,7 @@ public class JsArrayLikeOptimizationTest extends GWTTestCase {
     assertFunctionMatches(((MethodsAsProperties) this).getModifyArrayInt(), "<obf>[0]=42;");
   }
 
-  @JsMethod @UsedReflectively
+  @JsMethod @SuppressWarnings("unused")
   private void modifyArrayLong(Object arrayField, long local) {
     Js.asArrayLike(arrayField).setAt(0, local);
   }
@@ -60,7 +59,7 @@ public class JsArrayLikeOptimizationTest extends GWTTestCase {
     assertFunctionMatches(((MethodsAsProperties) this).getModifyArrayLong(), "<obf>[0]=<obf>;");
   }
 
-  @JsMethod @UsedReflectively
+  @JsMethod @SuppressWarnings("unused")
   private Object accessArray(Object arrayField) {
     return Js.asArrayLike(arrayField).getAt(0);
   }
@@ -69,7 +68,7 @@ public class JsArrayLikeOptimizationTest extends GWTTestCase {
     assertFunctionMatches(((MethodsAsProperties) this).getAccessArray(), "return <obf>[0];");
   }
 
-  @JsMethod @UsedReflectively
+  @JsMethod @SuppressWarnings("unused")
   private int accessArrayInt(Object arrayField) {
     return Js.asArrayLike(arrayField).getAnyAt(0).asInt();
   }
@@ -78,7 +77,7 @@ public class JsArrayLikeOptimizationTest extends GWTTestCase {
     assertFunctionMatches(((MethodsAsProperties) this).getAccessArrayInt(), "return <obf>[0];");
   }
 
-  @JsMethod @UsedReflectively
+  @JsMethod @SuppressWarnings("unused")
   private long accessArrayLong(Object arrayField) {
     return Js.asArrayLike(arrayField).getAnyAt(0).asLong();
   }

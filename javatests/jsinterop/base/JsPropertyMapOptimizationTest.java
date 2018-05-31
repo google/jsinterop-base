@@ -18,7 +18,6 @@ package jsinterop.base;
 
 import static jsinterop.base.FunctionAssert.assertFunctionMatches;
 
-import com.google.common.annotations.UsedReflectively;
 import com.google.gwt.junit.client.GWTTestCase;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
@@ -33,7 +32,7 @@ public class JsPropertyMapOptimizationTest extends GWTTestCase {
     return "jsinterop.base.TestModule";
   }
 
-  @JsMethod @UsedReflectively
+  @JsMethod @SuppressWarnings("unused")
   private void modifyObject(Object objectField) {
     Js.asPropertyMap(objectField).set("x-x", "ABC");
   }
@@ -42,7 +41,7 @@ public class JsPropertyMapOptimizationTest extends GWTTestCase {
     assertFunctionMatches(((MethodsAsProperties) this).getModifyObject(), "<obf>['x-x']='ABC'");
   }
 
-  @JsMethod @UsedReflectively
+  @JsMethod @SuppressWarnings("unused")
   private void modifyObjectInt(Object objectField) {
     Js.asPropertyMap(objectField).set("x-x", 42);
   }
@@ -51,7 +50,7 @@ public class JsPropertyMapOptimizationTest extends GWTTestCase {
     assertFunctionMatches(((MethodsAsProperties) this).getModifyObjectInt(), "<obf>['x-x']=42");
   }
 
-  @JsMethod @UsedReflectively
+  @JsMethod @SuppressWarnings("unused")
   private void modifyObjectLong(Object objectField, long local) {
     Js.asPropertyMap(objectField).set("x-x", local);
   }
@@ -60,7 +59,7 @@ public class JsPropertyMapOptimizationTest extends GWTTestCase {
     assertFunctionMatches(((MethodsAsProperties) this).getModifyObjectLong(), "<obf>['x-x']=<obf>");
   }
 
-  @JsMethod @UsedReflectively
+  @JsMethod @SuppressWarnings("unused")
   private Object accessObject(Object objectField) {
     return Js.asPropertyMap(objectField).get("x-x");
   }
@@ -69,7 +68,7 @@ public class JsPropertyMapOptimizationTest extends GWTTestCase {
     assertFunctionMatches(((MethodsAsProperties) this).getAccessObject(), "return <obf>['x-x']");
   }
 
-  @JsMethod @UsedReflectively
+  @JsMethod @SuppressWarnings("unused")
   private int accessObjectInt(Object objectField) {
     return Js.asPropertyMap(objectField).getAny("x-x").asInt();
   }
@@ -78,7 +77,7 @@ public class JsPropertyMapOptimizationTest extends GWTTestCase {
     assertFunctionMatches(((MethodsAsProperties) this).getAccessObjectInt(), "return <obf>['x-x']");
   }
 
-  @JsMethod @UsedReflectively
+  @JsMethod @SuppressWarnings("unused")
   private long accessObjectLong(Object objectField) {
     return Js.asPropertyMap(objectField).getAny("x-x").asLong();
   }

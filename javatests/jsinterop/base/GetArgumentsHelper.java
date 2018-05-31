@@ -16,12 +16,11 @@
  */
 package jsinterop.base;
 
-import com.google.common.annotations.UsedReflectively;
 import jsinterop.annotations.JsMethod;
 
 class GetArgumentsHelper {
   @JsMethod
-  @UsedReflectively
+  @SuppressWarnings("unused")
   private static JsArrayLike<Object> getArguments() {
     return Js.arguments();
   }

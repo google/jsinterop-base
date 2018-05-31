@@ -18,7 +18,6 @@ package jsinterop.base;
 
 import static jsinterop.base.FunctionAssert.assertFunctionMatches;
 
-import com.google.common.annotations.UsedReflectively;
 import com.google.gwt.junit.client.GWTTestCase;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
@@ -33,7 +32,7 @@ public class AnyOptimizationTest extends GWTTestCase {
     return "jsinterop.base.TestModule";
   }
 
-  @JsMethod @UsedReflectively
+  @JsMethod @SuppressWarnings("unused")
   private void asPrimitive(String objectField) {
     double d = Js.asAny(objectField).asDouble();
     float f = Js.asAny(objectField).asFloat();
@@ -49,7 +48,7 @@ public class AnyOptimizationTest extends GWTTestCase {
     assertFunctionMatches(((MethodsAsProperties) this).getAsPrimitive(), "");
   }
 
-  @JsMethod @UsedReflectively
+  @JsMethod @SuppressWarnings("unused")
   private void uncheckedCast(Object objectField) {
     String s = Js.asAny(objectField).uncheckedCast();
   }
