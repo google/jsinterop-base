@@ -22,6 +22,8 @@ import static jsinterop.base.ExceptionAssert.assertThrowsHiddenClassCastExceptio
 
 import com.google.gwt.junit.client.GWTTestCase;
 import jsinterop.annotations.JsMethod;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
 
 public class JsTest extends GWTTestCase {
 
@@ -29,6 +31,13 @@ public class JsTest extends GWTTestCase {
   public String getModuleName() {
     return "jsinterop.base.TestModule";
   }
+
+  public void testGlobal() {
+    assertThat(Js.global().get("eval")).isSameAs(getEval());
+  }
+
+  @JsProperty(namespace = JsPackage.GLOBAL)
+  private static native Object getEval();
 
   public void testTypeOf() {
     assertThat(Js.typeof(1.0d)).isEqualTo("number");
