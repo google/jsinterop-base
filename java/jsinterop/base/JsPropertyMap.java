@@ -75,9 +75,28 @@ public interface JsPropertyMap<T> {
     return (T) InternalJsUtil.get(this, propertyName);
   }
 
+  /**
+   * Gets by qualified name. Method will return null if any objects on the path to qualified name is
+   * null. e.g. nestedGet("a.b") is equivalent to {@code ["a"] != null && ["a"]["b"]}).
+   */
+  @JsOverlay
+  default Object nestedGet(String qualifiedName) {
+    return InternalJsUtil.getObjectByName(qualifiedName, this);
+  }
+
   @JsOverlay
   default Any getAny(String propertyName) {
     return (Any) InternalJsUtil.get(this, propertyName);
+  }
+
+  /**
+   * Gets as {@code Any} by qualified name. Method will return null if any objects on the path to
+   * qualified name is null. e.g. nestedGetAny("a.b") is equivalent to {@code ["a"] != null &&
+   * ["a"]["b"]}).
+   */
+  @JsOverlay
+  default Any nestedGetAny(String qualifiedName) {
+    return (Any) InternalJsUtil.getObjectByName(qualifiedName, this);
   }
 
   @JsOverlay

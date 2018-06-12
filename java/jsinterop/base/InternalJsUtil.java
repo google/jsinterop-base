@@ -28,6 +28,19 @@ class InternalJsUtil {
     return {};
   }-*/;
 
+  //J2CL_ONLY @JsMethod(namespace="goog")
+  public static native Object getObjectByName(String qualifiedName, Object obj) /*-{
+    var parts = qualifiedName.split('.');
+    var cur = obj;
+    for (var i = 0; i < parts.length; i++) {
+      cur = cur[parts[i]];
+      if (cur == null) {
+        return null;
+      }
+    }
+    return cur;
+  }-*/;
+
   //J2CL_ONLY @JsMethod(name="getIndexed")
   public static native Object get(Object obj, String key) /*-{
     return obj[key];

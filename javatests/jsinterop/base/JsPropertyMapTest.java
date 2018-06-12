@@ -41,6 +41,13 @@ public class JsPropertyMapTest extends GWTTestCase {
     assertThat(o.get("foo")).isEqualTo("str");
   }
 
+  public void testNestedGet() {
+    JsPropertyMap<Object> o = JsPropertyMap.of();
+    o.set("a", JsPropertyMap.of("b", JsPropertyMap.of("c", o)));
+    assertThat(o.nestedGet("a.b.c")).isSameAs(o);
+    assertThat(o.nestedGet("k.l.m")).isNull();
+  }
+
   public void testDeleteHas() {
     JsPropertyMap<Object> o = JsPropertyMap.of();
     assertThat(o.has("foo")).isFalse();
@@ -70,6 +77,7 @@ public class JsPropertyMapTest extends GWTTestCase {
     assertThat(o.getAny("p6").asByte()).isEqualTo(15);
     assertThat(o.getAny("p7").asBoolean()).isTrue();
   }
+
   public void testForEach() {
     StringBuilder result = new StringBuilder();
     JsPropertyMap.of("foo", "", "bar", "").forEach(t -> result.append(t));
