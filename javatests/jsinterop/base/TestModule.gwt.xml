@@ -1,0 +1,5 @@
+<module>
+  <source path=""/>
+  <inherits name="com.google.common.truth.Truth" />
+  <inherits name="jsinterop.base.Base" />
+</module>

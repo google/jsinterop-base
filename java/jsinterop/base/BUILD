@@ -11,7 +11,7 @@ java_library(
     srcs = glob(["*.java"]),
     resources = ["Base.gwt.xml"],
     deps = [
-        "//third_party:gwt-dev",
+        "//third_party:com_google_gwt_gwt_dev",
         "//third_party:gwt-javaemul-internal-annotations",
         "//third_party:gwt-jsinterop-annotations",
     ],
