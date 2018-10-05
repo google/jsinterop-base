@@ -53,14 +53,14 @@ public class JsArrayLikeTest extends GWTTestCase {
     arrayLike.setAt(6, (byte) 15);
     arrayLike.setAt(7, true);
 
-    assertThat(arrayLike.getAnyAt(0).asDouble()).isEqualTo(15.5);
-    assertThat(arrayLike.getAnyAt(1).asDouble()).isEqualTo(15.5);
-    assertThat(arrayLike.getAnyAt(2).asLong()).isEqualTo(15L);
-    assertThat(arrayLike.getAnyAt(3).asInt()).isEqualTo(15);
-    assertThat(arrayLike.getAnyAt(4).asShort()).isEqualTo(15);
-    assertThat(arrayLike.getAnyAt(5).asChar()).isEqualTo(15);
-    assertThat(arrayLike.getAnyAt(6).asByte()).isEqualTo(15);
-    assertThat(arrayLike.getAnyAt(7).asBoolean()).isTrue();
+    assertThat(arrayLike.getAtAsAny(0).asDouble()).isEqualTo(15.5);
+    assertThat(arrayLike.getAtAsAny(1).asDouble()).isEqualTo(15.5);
+    assertThat(arrayLike.getAtAsAny(2).asLong()).isEqualTo(15L);
+    assertThat(arrayLike.getAtAsAny(3).asInt()).isEqualTo(15);
+    assertThat(arrayLike.getAtAsAny(4).asShort()).isEqualTo(15);
+    assertThat(arrayLike.getAtAsAny(5).asChar()).isEqualTo(15);
+    assertThat(arrayLike.getAtAsAny(6).asByte()).isEqualTo(15);
+    assertThat(arrayLike.getAtAsAny(7).asBoolean()).isTrue();
   }
 
     public void testDelete() {

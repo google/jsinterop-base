@@ -70,7 +70,7 @@ public class JsPropertyMapOptimizationTest extends GWTTestCase {
 
   @JsMethod @SuppressWarnings("unused")
   private int accessObjectInt(Object objectField) {
-    return Js.asPropertyMap(objectField).getAny("x-x").asInt();
+    return Js.asPropertyMap(objectField).getAsAny("x-x").asInt();
   }
 
   public void testGetAsInt() {
@@ -79,7 +79,7 @@ public class JsPropertyMapOptimizationTest extends GWTTestCase {
 
   @JsMethod @SuppressWarnings("unused")
   private long accessObjectLong(Object objectField) {
-    return Js.asPropertyMap(objectField).getAny("x-x").asLong();
+    return Js.asPropertyMap(objectField).getAsAny("x-x").asLong();
   }
 
   public void testGetAsLong() {

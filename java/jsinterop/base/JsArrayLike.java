@@ -49,6 +49,11 @@ public interface JsArrayLike<T> {
 
   @JsOverlay
   default Any getAnyAt(int index) {
+    return getAtAsAny(index);
+  }
+
+  @JsOverlay
+  default Any getAtAsAny(int index) {
     return (Any) InternalJsUtil.getAt(this, index);
   }
 

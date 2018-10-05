@@ -86,16 +86,21 @@ public interface JsPropertyMap<T> {
 
   @JsOverlay
   default Any getAny(String propertyName) {
+    return getAsAny(propertyName);
+  }
+
+  @JsOverlay
+  default Any getAsAny(String propertyName) {
     return (Any) InternalJsUtil.get(this, propertyName);
   }
 
   /**
    * Gets as {@code Any} by qualified name. Method will return null if any objects on the path to
-   * qualified name is null. e.g. nestedGetAny("a.b") is equivalent to {@code ["a"] != null &&
+   * qualified name is null. e.g. nestedGetAsAny("a.b") is equivalent to {@code ["a"] != null &&
    * ["a"]["b"]}).
    */
   @JsOverlay
-  default Any nestedGetAny(String qualifiedName) {
+  default Any nestedGetAsAny(String qualifiedName) {
     return (Any) InternalJsUtil.getObjectByName(qualifiedName, this);
   }
 

@@ -70,7 +70,7 @@ public class JsArrayLikeOptimizationTest extends GWTTestCase {
 
   @JsMethod @SuppressWarnings("unused")
   private int accessArrayInt(Object arrayField) {
-    return Js.asArrayLike(arrayField).getAnyAt(0).asInt();
+    return Js.asArrayLike(arrayField).getAtAsAny(0).asInt();
   }
 
   public void testGetAsInt() {
@@ -79,7 +79,7 @@ public class JsArrayLikeOptimizationTest extends GWTTestCase {
 
   @JsMethod @SuppressWarnings("unused")
   private long accessArrayLong(Object arrayField) {
-    return Js.asArrayLike(arrayField).getAnyAt(0).asLong();
+    return Js.asArrayLike(arrayField).getAtAsAny(0).asLong();
   }
 
   public void testGetAsLong() {

@@ -32,8 +32,8 @@ public class AnyTest extends GWTTestCase {
   // would have been much nicer with JUnitParams... :/
 
   public void testAsPropertyMap() {
-    assertThat(Js.asAny("abc").asPropertyMap().getAny("toString")).isNotNull();
-    assertThat(Js.asAny("abc").asPropertyMap().getAny("something")).isNull();
+    assertThat(Js.asAny("abc").asPropertyMap().getAsAny("toString")).isNotNull();
+    assertThat(Js.asAny("abc").asPropertyMap().getAsAny("something")).isNull();
   }
 
   public void testAsArrayLike() {
