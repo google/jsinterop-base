@@ -85,11 +85,6 @@ public interface JsPropertyMap<T> {
   }
 
   @JsOverlay
-  default Any getAny(String propertyName) {
-    return getAsAny(propertyName);
-  }
-
-  @JsOverlay
   default Any getAsAny(String propertyName) {
     return (Any) InternalJsUtil.get(this, propertyName);
   }
