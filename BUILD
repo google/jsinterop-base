@@ -7,7 +7,7 @@ package(default_visibility = ["//visibility:public"])
 # Apache2
 licenses(["notice"])
 
-exports_files(["LICENSE", "license.txt"])
+exports_files(["LICENSE"])
 
 sh_binary(
     name = "deploy",

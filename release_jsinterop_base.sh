@@ -14,7 +14,7 @@ fi
 bazel_root="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 deploy_target='//:deploy'
-license_header="${bazel_root}/license.txt"
+license_header="--no-license"
 group_id="com.google.jsinterop"
 maven_artifact="base"
 
