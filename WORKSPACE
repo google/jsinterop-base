@@ -1,16 +1,24 @@
 workspace(name = "com_google_jsinterop_base")
 
-maven_jar(
-    name = "jsinterop_annotations",
-    artifact = "com.google.jsinterop:jsinterop-annotations:1.0.2",
-)
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-maven_jar(
-    name = "gwt_dev",
-    artifact = "com.google.gwt:gwt-dev:2.8.1",
-)
+# Load j2cl repository
 
 http_archive(
-  name="org_gwtproject_gwt",
-  url="https://gwt.googlesource.com/gwt/+archive/master.tar.gz",
+    name = "com_google_j2cl",
+    strip_prefix = "j2cl-master",
+    url = "https://github.com/google/j2cl/archive/master.zip",
+)
+
+load("@com_google_j2cl//build_defs:repository.bzl", "load_j2cl_repo_deps")
+
+load_j2cl_repo_deps()
+
+load("@com_google_j2cl//build_defs:rules.bzl", "setup_j2cl_workspace")
+
+setup_j2cl_workspace()
+
+maven_jar(
+    name = "org_gwtproject_gwt_dev",
+    artifact = "com.google.gwt:gwt-dev:2.8.1",
 )
