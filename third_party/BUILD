@@ -7,14 +7,14 @@ licenses(["notice"])
 
 load("@com_google_j2cl//build_defs:rules.bzl", "j2cl_import")
 
-java_library(
+alias(
     name = "gwt-jsinterop-annotations",
-    exports = ["@com_google_jsinterop_annotations_head//jar"],
+    actual = "@com_google_j2cl//:jsinterop-annotations",
 )
 
-j2cl_import(
+alias(
     name = "gwt-jsinterop-annotations-j2cl",
-    jar = "@com_google_jsinterop_annotations_head//jar",
+    actual = "@com_google_j2cl//:jsinterop-annotations-j2cl",
 )
 
 java_library(
