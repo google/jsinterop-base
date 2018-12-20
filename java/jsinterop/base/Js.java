@@ -128,31 +128,37 @@ public final class Js {
   }
 
   /**
-   * Performs checked cast to lefthand-side type. This is useful for cases when Java won't allow you
-   * otherwise, like casting from a native interface to a final Java type (like String).
+   * Performs checked cast to lefthand-side type.
+   *
+   * <p>This is useful for cases when Java won't allow you otherwise, like casting from a native
+   * interface to a final Java class (like String).
    */
   @SuppressWarnings({"TypeParameterUnusedInFormals", "unchecked"})
-  public static <T> T cast(Object obj) {
+  public static <T> T cast(@DoNotAutobox Object obj) {
     return (T) obj;
   }
 
   /**
-   * Performs unchecked cast to lefthand-side type. You should always prefer regular casting over
-   * this (unless you know what you are doing!).
+   * Performs unchecked cast to lefthand-side type.
+   *
+   * <p>This method exists in order to lie to the type system, it is not an optimization. You should
+   * *ALWAYS* prefer regular casting over this which also optimizes for production. Using this
+   * method can leak incorrect types to the rest of the system which will result in hard to debug
+   * problems.
    */
   @UncheckedCast
   @SuppressWarnings({"TypeParameterUnusedInFormals", "unchecked"})
-  public static <T> T uncheckedCast(Object obj) {
+  public static <T> T uncheckedCast(@DoNotAutobox Object obj) {
     return (T) obj;
   }
 
-  public static boolean isTruthy(Object obj) {
+  public static boolean isTruthy(@DoNotAutobox Object obj) {
     return !isFalsy(obj);
   }
 
   //J2CL_ONLY @JsMethod
   @HasNoSideEffects
-  public static native boolean isFalsy(Object obj) /*-{
+  public static native boolean isFalsy(@DoNotAutobox Object obj) /*-{
     return !obj;
   }-*/;
 
@@ -164,7 +170,8 @@ public final class Js {
    */
   //J2CL_ONLY @JsMethod
   @HasNoSideEffects
-  public static native boolean isTripleEqual(Object o1, Object o2) /*-{
+  public static native boolean isTripleEqual(
+      @DoNotAutobox Object o1, @DoNotAutobox Object o2) /*-{
     return o1 === o2;
   }-*/;
 
