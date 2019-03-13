@@ -9,11 +9,10 @@ licenses(["notice"])
 
 exports_files(["LICENSE"])
 
-load("@com_google_j2cl//build_defs:rules.bzl", "j2cl_library")
-
 sh_binary(
     name = "deploy",
     srcs = ["deploy.sh"],
+    visibility = ["//visibility:private"],
 )
 
 alias(
