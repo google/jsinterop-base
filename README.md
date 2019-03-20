@@ -1,5 +1,8 @@
 JsInterop Base
 ==============
+
+[![Build Status](https://secure.travis-ci.org/google/jsinterop-base.png?branch=master)](http://travis-ci.org/google/jsinterop-base)
+
 jsInterop-base contains a set of utilities that cannot be expressed with
 Jsinterop itself and allows GWT and J2CL projects to write certain JavaScript
 expressions with pure Java.
