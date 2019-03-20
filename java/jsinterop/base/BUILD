@@ -1,7 +1,9 @@
 # Description:
 #  JsInterop base classes
 
-package(default_visibility = ["//visibility:public"])
+package(default_visibility = [
+    "//:__subpackages__",
+])
 
 # Apache2
 licenses(["notice"])
