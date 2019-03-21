@@ -43,4 +43,3 @@ genrule(
     ]),
     tools = ["//third_party:zip"],
 )
-
