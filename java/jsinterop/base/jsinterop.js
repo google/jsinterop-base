@@ -25,4 +25,4 @@ goog.provide('jsinterop');
 // Note that disabling checking only disables it for production.
 
 /** @define {string} */
-goog.define('jsinterop.checks', 'DISABLED');
+jsinterop.checks = goog.define('jsinterop.checks', 'DISABLED');
