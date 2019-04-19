@@ -23,9 +23,7 @@ java_library(
 
 j2cl_library(
     name = "base-j2cl",
-    srcs = [":processed_j2cl_srcs"],
-    _js_srcs = ["jsinterop.js"],
-    native_srcs = glob(["*.native.js"]),
+    srcs = [":processed_j2cl_srcs"] + glob(["*.js"]),
     deps = [
         "//third_party:gwt-javaemul-internal-annotations-j2cl",
         "//third_party:gwt-jsinterop-annotations-j2cl",
