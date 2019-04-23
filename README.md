@@ -19,7 +19,6 @@ below:
 
     $ bazel build //java/jsinterop/base:libbase-src.jar
 
-
 The jars are available in your `bazel-bin/java/jsinterop/base` directory.
 
 Maven dependency

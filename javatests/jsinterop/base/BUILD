@@ -16,7 +16,7 @@ j2cl_library(
         "//third_party/java/gwt:gwt-jsinterop-annotations-j2cl",
         "//third_party/java/junit:junit-j2cl",
         "//third_party/java/truth:truth-j2cl",
-        "//third_party/java_src/j2cl/jre/javatests:gwt_test_case-j2cl",
+        "@com_google_j2cl//jre/javatests:gwt_test_case-j2cl",
         "//java/jsinterop/base:base-j2cl",
     ],
 )
