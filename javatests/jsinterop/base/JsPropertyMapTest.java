@@ -44,7 +44,7 @@ public class JsPropertyMapTest extends GWTTestCase {
   public void testNestedGet() {
     JsPropertyMap<Object> o = JsPropertyMap.of();
     o.set("a", JsPropertyMap.of("b", JsPropertyMap.of("c", o)));
-    assertThat(o.nestedGet("a.b.c")).isSameAs(o);
+    assertThat(o.nestedGet("a.b.c")).isSameInstanceAs(o);
     assertThat(o.nestedGet("k.l.m")).isNull();
   }
 

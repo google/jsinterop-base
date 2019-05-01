@@ -33,7 +33,7 @@ public class JsTest extends GWTTestCase {
   }
 
   public void testGlobal() {
-    assertThat(Js.global().get("eval")).isSameAs(getEval());
+    assertThat(Js.global().get("eval")).isSameInstanceAs(getEval());
   }
 
   @JsProperty(namespace = JsPackage.GLOBAL)
