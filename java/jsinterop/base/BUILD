@@ -1,12 +1,13 @@
 # Description:
 #  JsInterop base classes
 
-package(default_visibility = [
-    "//:__subpackages__",
-])
-
-# Apache2
-licenses(["notice"])
+package(
+    default_visibility = [
+        "//:__subpackages__",
+    ],
+    # Apache2
+    licenses = ["notice"],
+)
 
 load("@com_google_j2cl//build_defs:rules.bzl", "j2cl_library")
 
