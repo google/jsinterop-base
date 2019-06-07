@@ -12,13 +12,15 @@ load("@com_google_j2cl//build_defs:rules.bzl", "j2cl_library", "j2cl_test")
 j2cl_library(
     name = "testlib",
     testonly = 1,
-    srcs = glob(["*.java"]),
+    srcs = glob([
+        "*.java",
+        "super/*.java",
+    ]),
     deps = [
         "//java/com/google/common/annotations:annotations-j2cl",
         "//third_party/java/gwt:gwt-jsinterop-annotations-j2cl",
         "//third_party/java/junit:junit-j2cl",
         "//third_party/java/truth:truth-j2cl",
-        "@com_google_j2cl//jre/javatests:gwt_test_case-j2cl",
         "//java/jsinterop/base:base-j2cl",
     ],
 )
