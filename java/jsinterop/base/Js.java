@@ -23,7 +23,7 @@ import javaemul.internal.annotations.HasNoSideEffects;
 import javaemul.internal.annotations.UncheckedCast;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsProperty;
-// J2CL_ONLY import jsinterop.annotations.JsPackage;
+//J2CL_ONLY import jsinterop.annotations.JsPackage;
 
 /**
  * Utilities to provide access to JavaScript language constructs that are not available in pure
