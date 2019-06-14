@@ -19,6 +19,7 @@ package jsinterop.base;
 import com.google.gwt.core.client.UnsafeNativeLong;
 import javaemul.internal.annotations.HasNoSideEffects;
 //J2CL_ONLY import jsinterop.annotations.JsMethod;
+//J2CL_ONLY import jsinterop.annotations.JsPackage;
 
 /** Utilities used internally to interact with native code. */
 class InternalJsUtil {
@@ -28,7 +29,7 @@ class InternalJsUtil {
     return {};
   }-*/;
 
-  //J2CL_ONLY @JsMethod(namespace="goog")
+  //J2CL_ONLY @JsMethod(namespace = JsPackage.GLOBAL, name = "goog.getObjectByName")
   public static native Object getObjectByName(String qualifiedName, Object obj) /*-{
     var parts = qualifiedName.split('.');
     var cur = obj;
