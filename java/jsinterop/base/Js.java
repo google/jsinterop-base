@@ -23,7 +23,7 @@ import javaemul.internal.annotations.HasNoSideEffects;
 import javaemul.internal.annotations.UncheckedCast;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsProperty;
-//J2CL_ONLY import jsinterop.annotations.JsPackage;
+// J2CL_ONLY import jsinterop.annotations.JsPackage;
 
 /**
  * Utilities to provide access to JavaScript language constructs that are not available in pure
@@ -46,7 +46,7 @@ public final class Js {
   @HasNoSideEffects
   public static native String typeof(Object obj);
 
-  //J2CL_ONLY @JsProperty(namespace=JsPackage.GLOBAL, name = "goog.global")
+  // J2CL_ONLY @JsProperty(namespace=JsPackage.GLOBAL, name = "goog.global")
   public static native JsPropertyMap<Object> global() /*-{
     return $wnd;
   }-*/;
@@ -157,7 +157,7 @@ public final class Js {
     return !isFalsy(obj);
   }
 
-  //J2CL_ONLY @JsMethod
+  // J2CL_ONLY @JsMethod
   @HasNoSideEffects
   public static native boolean isFalsy(@DoNotAutobox Object obj) /*-{
     return !obj;
@@ -169,7 +169,7 @@ public final class Js {
    * <p>This method mostly behaves similar to Java {@code ==} operator except that it doesn't return
    * {@code true} for {@code null==undefined} comparison.
    */
-  //J2CL_ONLY @JsMethod
+  // J2CL_ONLY @JsMethod
   @HasNoSideEffects
   public static native boolean isTripleEqual(
       @DoNotAutobox Object o1, @DoNotAutobox Object o2) /*-{
@@ -177,7 +177,7 @@ public final class Js {
   }-*/;
 
   /** Coerces any object to number using {@code +} operation. */
-  //J2CL_ONLY @JsMethod
+  // J2CL_ONLY @JsMethod
   public static native double coerceToDouble(Object d) /*-{
     return +d;
   }-*/;
