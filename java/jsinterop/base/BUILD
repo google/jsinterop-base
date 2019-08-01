@@ -31,13 +31,13 @@ j2cl_library(
     ],
 )
 
-# Uncomments code that is commented with '//J2CL_ONLY'
+# Uncomments code that is commented with '// J2CL_ONLY'
 genrule(
     name = "processed_j2cl_srcs",
     srcs = glob(["**/*.java"]),
     outs = ["base-j2cl.srcjar"],
     cmd = "\n".join([
-        "sed -i.bak 's/\/\/ \?J2CL_ONLY\ //g' $(SRCS)",
+        "sed -i.bak 's|// J2CL_ONLY ||g' $(SRCS)",
         "$(location //third_party:zip) c $@ $(SRCS)",
     ]),
     tools = ["//third_party:zip"],
