@@ -85,7 +85,7 @@ cd ${javadoc_dest}
 create_artifact "${artifact}-javadoc.jar" ${artifact_directory}
 
 # Replace version in template and generate the final pom.xml
-sed -e "s/__VERSION__/${lib_version}/g" -e "s/__ARTIFICAT_ID__/${artifact}/g" -e "s/__GROUP_ID__/${group_id}/g"  ${pom_template} > ${artifact_directory}/pom.xml
+sed -e "s/__VERSION__/${lib_version}/g" -e "s/__ARTIFACT_ID__/${artifact}/g" -e "s/__GROUP_ID__/${group_id}/g"  ${pom_template} > ${artifact_directory}/pom.xml
 
 # Use maven to sign and deploy jar, sources jar and javadocs jar to OSS sonatype
 cd ${artifact_directory}
