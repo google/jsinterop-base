@@ -18,11 +18,6 @@ alias(
 )
 
 java_library(
-    name = "gwt-dev",
-    exports = ["@org_gwtproject_gwt_dev//jar"],
-)
-
-java_library(
     name = "gwt-javaemul-internal-annotations",
     exports = ["@org_gwtproject_gwt//user:gwt-javaemul-internal-annotations"],
 )

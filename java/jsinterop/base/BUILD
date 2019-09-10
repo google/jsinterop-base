@@ -13,10 +13,9 @@ load("@com_google_j2cl//build_defs:rules.bzl", "j2cl_library")
 
 java_library(
     name = "base",
-    srcs = glob(["*.java"]),
+    srcs = glob(["**/*.java"]),
     resources = ["Base.gwt.xml"],
     deps = [
-        "//third_party:gwt-dev",
         "//third_party:gwt-javaemul-internal-annotations",
         "//third_party:gwt-jsinterop-annotations",
     ],
