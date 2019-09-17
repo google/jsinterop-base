@@ -10,12 +10,6 @@ package(
 
 exports_files(["LICENSE"])
 
-sh_binary(
-    name = "deploy",
-    srcs = ["deploy.sh"],
-    visibility = ["//visibility:private"],
-)
-
 alias(
     name = "jsinterop-base",
     actual = "//java/jsinterop/base",
