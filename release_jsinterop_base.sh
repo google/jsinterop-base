@@ -28,7 +28,6 @@ fi
 bazel_root="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 deploy_target='@com_google_j2cl//:deploy'
-license_header="--no-license"
 group_id="com.google.jsinterop"
 maven_artifact="base"
 
@@ -44,14 +43,13 @@ pom_template=${bazel_root}/maven/pom-base.xml
 
 # we cannot run the script directly from Bazel because it doesn't allow interactive script
 runcmd="$(mktemp /tmp/bazel-run.XXXXXX)"
-bazel run --script_path="$runcmd" ${deploy_target} -- ${maven_artifact} \
-    ${jar_file} \
-    ${src_jar} \
-    ${license_header} \
-    ${pom_template} \
-    ${lib_version} \
-    ${group_id}
-
+bazel run --script_path="$runcmd" ${deploy_target} -- \
+    --artifact ${maven_artifact} \
+    --jar-file ${jar_file} \
+    --src-jar ${src_jar} \
+    --pom-template ${pom_template} \
+    --lib-version ${lib_version} \
+    --group-id ${group_id}
 "$runcmd"
 
 rm "$runcmd"
