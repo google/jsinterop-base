@@ -6,8 +6,9 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "com_google_j2cl",
-    strip_prefix = "j2cl-master",
-    url = "https://github.com/google/j2cl/archive/master.zip",
+    strip_prefix = "j2cl-20190918",
+    url = "https://github.com/google/j2cl/archive/v20190918.zip",
+    sha256 = "83c5ed81aa5036535f84d85ab2fd1faa6ef724f5f272ac489495568afac1c562",
 )
 
 load("@com_google_j2cl//build_defs:repository.bzl", "load_j2cl_repo_deps")
