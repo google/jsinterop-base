@@ -21,6 +21,25 @@ below:
 
 The jars are available in your `bazel-bin/java/jsinterop/base` directory.
 
+Bazel dependency
+----------------
+If your project use [Bazel](https://bazel.build), add this repository as an
+external dependency in your `WORKSPACE` file:
+
+```
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+_JSINTEROP_BASE_VERSION = "1.0.0"
+http_archive(
+    name = "com_google_jsinterop_base",
+    strip_prefix = "jsinterop-base-%s" % _JSINTEROP_BASE_VERSION,
+    url = "https://github.com/google/jsinterop-base/archive/%s.zip" % _JSINTEROP_BASE_VERSION,
+)
+```
+
+Then add `@com_google_jsinterop_base//:jsinterop-base-j2cl` to
+your `j2cl_library` deps.
+
+
 Maven dependency
 ------------------
 If your project use [Maven](https://maven.apache.org), add maven dependency in
@@ -29,13 +48,13 @@ your pom.xml:
     <dependency>
       <groupId>com.google.jsinterop</groupId>
       <artifactId>base</artifactId>
-      <version>1.0.0-RC1</version>
+      <version>1.0.0</version>
     </dependency>
 
 
 Download the jar file
 ----------------------
-You can also download manually [the jar file](https://oss.sonatype.org/content/repositories/releases/com/google/jsinterop/base/1.0.0-RC1/base-1.0.0-RC1.jar).
+You can also download manually [the jar file](https://oss.sonatype.org/content/repositories/releases/com/google/jsinterop/base/1.0.0/base-1.0.0.jar).
 
 GWT
 ---
