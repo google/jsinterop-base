@@ -31,23 +31,22 @@ public interface JsPropertyMap<T> {
 
   /** Returns an empty object literal as {@code JsPropertyMap}. */
   @JsOverlay
-  static JsPropertyMap<Object> of() {
+  static <T> JsPropertyMap<T> of() {
     return InternalJsUtil.emptyObjectLiteral();
   }
 
   /** Returns an object literal as {@code JsPropertyMap} that has provided key-value pairs. */
   @JsOverlay
-  static JsPropertyMap<Object> of(String k, @DoNotAutobox Object v) {
-    JsPropertyMap<Object> map = of();
+  static <T> JsPropertyMap<T> of(String k, @DoNotAutobox T v) {
+    JsPropertyMap<T> map = of();
     map.set(k, v);
     return map;
   }
 
   /** Returns an object literal as {@code JsPropertyMap} that has provided key-value pairs. */
   @JsOverlay
-  static JsPropertyMap<Object> of(
-      String k1, @DoNotAutobox Object v1, String k2, @DoNotAutobox Object v2) {
-    JsPropertyMap<Object> map = of();
+  static <T> JsPropertyMap<T> of(String k1, @DoNotAutobox T v1, String k2, @DoNotAutobox T v2) {
+    JsPropertyMap<T> map = of();
     map.set(k1, v1);
     map.set(k2, v2);
     return map;
@@ -55,14 +54,9 @@ public interface JsPropertyMap<T> {
 
   /** Returns an object literal as {@code JsPropertyMap} that has provided key-value pairs. */
   @JsOverlay
-  static JsPropertyMap<Object> of(
-      String k1,
-      @DoNotAutobox Object v1,
-      String k2,
-      @DoNotAutobox Object v2,
-      String k3,
-      @DoNotAutobox Object v3) {
-    JsPropertyMap<Object> map = of();
+  static <T> JsPropertyMap<T> of(
+      String k1, @DoNotAutobox T v1, String k2, @DoNotAutobox T v2, String k3, @DoNotAutobox T v3) {
+    JsPropertyMap<T> map = of();
     map.set(k1, v1);
     map.set(k2, v2);
     map.set(k3, v3);
