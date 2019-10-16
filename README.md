@@ -4,23 +4,6 @@ jsInterop-base contains a set of utilities that cannot be expressed with
 Jsinterop itself and allows GWT and J2CL projects to write certain JavaScript
 expressions with pure Java.
 
-Build with Bazel
----------------------
-If you want to build the last version on your own, follow the instructions
-below:
-
-- Install [Bazel](https://bazel.build/versions/master/docs/install.html).
-- clone this repository with git: `git clone https://github.com/google/jsinterop-base.git`
-- Inside the repository, have bazel build the jar files:
-
-    $ bazel build //java/jsinterop/base:base
-
- - For building the source jar file:
-
-    $ bazel build //java/jsinterop/base:libbase-src.jar
-
-The jars are available in your `bazel-bin/java/jsinterop/base` directory.
-
 Bazel dependency
 ----------------
 If your project use [Bazel](https://bazel.build), add this repository as an
@@ -62,6 +45,20 @@ If you use jsinterop-base with [GWT](http://www.gwtproject.org/), you need to
 inherit the following gwt module in your gwt.xml file:
 
     <inherits name="jsinterop.base.Base" />
+
+Build GWT compatible maven jar files
+------------------------------------
+If you want to build the last version on your own, follow the instructions
+below:
+
+- Install [Bazel](https://bazel.build/versions/master/docs/install.html).
+- clone this repository with git: `git clone https://github.com/google/jsinterop-base.git`
+- Inside the repository, run the script `release_jsinterop_base.sh`:
+
+       $ ./release_jsinterop_base.sh --version local --no-deploy
+
+ The script will output the directory containing the generated jar files that
+ can be used with maven.
 
 Contributing
 ------------
