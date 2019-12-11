@@ -48,7 +48,6 @@ j2cl_test(
     name = "AllJ2clOptimizationTests",
     compile = 1,
     extra_defs = [
-        "--define=jre.checks.type=DISABLED",  #TODO(b/33704796): Remove after b/33681746
         "--define=jre.checkedMode=DISABLED",
         # JsCompiler heuristics are fragile for verifying optimizability of this code. Right now
         # we are just hoping our code is *too small* and that's why we are hitting issues.
