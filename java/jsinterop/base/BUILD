@@ -1,6 +1,8 @@
 # Description:
 #  JsInterop base classes
 
+load("@com_google_j2cl//build_defs:rules.bzl", "j2cl_library")
+
 package(
     default_visibility = [
         "//:__subpackages__",
@@ -8,8 +10,6 @@ package(
     # Apache2
     licenses = ["notice"],
 )
-
-load("@com_google_j2cl//build_defs:rules.bzl", "j2cl_library")
 
 java_library(
     name = "base",
