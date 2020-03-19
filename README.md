@@ -53,9 +53,9 @@ below:
 
 - Install [Bazel](https://bazel.build/versions/master/docs/install.html).
 - clone this repository with git: `git clone https://github.com/google/jsinterop-base.git`
-- Inside the repository, run the script `release_jsinterop_base.sh`:
+- Inside the repository, run the script `maven/release_jsinterop_base.sh`:
 
-       $ ./release_jsinterop_base.sh --version local --no-deploy
+       $ ./maven/release_jsinterop_base.sh --version local --no-deploy
 
  The script will output the directory containing the generated jar files that
  can be used with maven.
