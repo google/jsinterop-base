@@ -15,6 +15,29 @@
  *
  */
 
+
+/**
+ * @param {T} obj1
+ * @param {T} obj2
+ * @return {T}
+ * @template T
+ * @public
+ */
+Js.andAlso = function(obj1, obj2) {
+  return obj1 && obj2;
+};
+
+/**
+ * @param {T} obj1
+ * @param {T} obj2
+ * @return {T}
+ * @template T
+ * @public
+ */
+Js.orElse = function(obj1, obj2) {
+  return obj1 || obj2;
+};
+
 /**
  * @param {*} obj
  * @return {boolean}

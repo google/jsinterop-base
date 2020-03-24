@@ -157,6 +157,20 @@ public class JsTest extends GWTTestCase {
     assertThrowsHiddenClassCastException(() -> Js.asBoolean(null));
   }
 
+  public void testAndAlso() {
+    assertThat(Js.andAlso("foo", "bar")).isEqualTo("bar");
+    assertThat(Js.andAlso(1, "bar")).isEqualTo("bar");
+    assertThat(Js.andAlso("", "bar")).isEqualTo("");
+    assertThat(Js.andAlso(null, "bar")).isNull();
+  }
+
+  public void testOrElse() {
+    assertThat(Js.orElse("foo", "bar")).isEqualTo("foo");
+    assertThat(Js.orElse(1, "bar")).isEqualTo(1);
+    assertThat(Js.orElse("", "bar")).isEqualTo("bar");
+    assertThat(Js.orElse(null, "bar")).isEqualTo("bar");
+  }
+
   public void testTruthyFalsey() {
     assertThat(Js.isTruthy("abc")).isTrue();
     assertThat(Js.isTruthy("1")).isTrue();
@@ -174,7 +188,7 @@ public class JsTest extends GWTTestCase {
     assertThat(Js.isTripleEqual(Js.undefined(), null)).isFalse();
   }
 
-  public void testcoerceToInt() {
+  public void testCoerceToInt() {
     assertThat(Js.coerceToInt(0.1d)).isEqualTo(0);
     assertThat(Js.coerceToInt(1.1d)).isEqualTo(1);
     assertThat(Js.coerceToInt(-1.1d)).isEqualTo(-1);
@@ -192,7 +206,7 @@ public class JsTest extends GWTTestCase {
     assertThat(Js.coerceToInt(null)).isEqualTo(0);
   }
 
-  public void testcoerceToDouble() {
+  public void testCoerceToDouble() {
     assertThat(Js.coerceToDouble(0.1d)).isEqualTo(0.1d);
     assertThat(Js.coerceToDouble(1.1d)).isEqualTo(1.1d);
     assertThat(Js.coerceToDouble(-1.1d)).isEqualTo(-1.1d);
