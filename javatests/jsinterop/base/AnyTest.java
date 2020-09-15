@@ -43,6 +43,7 @@ public class AnyTest extends GWTTestCase {
     assertThrowsHiddenClassCastException(() -> Js.asAny(new Object()).asArrayLike());
   }
 
+  @SuppressWarnings("TruthIncompatibleType")
   public void testAsArray() {
     String[] stringArray = {"abc"};
     assertThat(Js.asAny(stringArray).asArray()[0]).isEqualTo("abc");
@@ -148,6 +149,7 @@ public class AnyTest extends GWTTestCase {
         });
   }
 
+  @SuppressWarnings("TruthIncompatibleType")
   public void testUncheckedCast() {
     Double fakeNumber = Js.asAny("dangerous").uncheckedCast();
     assertThat(fakeNumber).isEqualTo("dangerous");
