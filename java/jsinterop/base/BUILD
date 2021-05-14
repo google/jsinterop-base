@@ -35,7 +35,7 @@ genrule(
     srcs = glob(["**/*.java"]),
     outs = ["base-j2cl.srcjar"],
     cmd = "\n".join([
-        "sed -i.bak 's|// J2CL_ONLY ||g' $(SRCS)",
+        "perl -i.bak -pe 's|// J2CL_ONLY ||g' $(SRCS)",
         "$(location //third_party:zip) c $@ $(SRCS)",
     ]),
     tools = ["//third_party:zip"],
