@@ -1,4 +1,4 @@
-# JsInterop Base   &middot; ![Build Status](https://github.com/google/jsinterop-base/workflows/build%20and%20tests/badge.svg)
+# JsInterop Base   &middot; [![Build Status](https://github.com/google/jsinterop-base/actions/workflows/ci.yaml/badge.svg)](https://github.com/google/jsinterop-base/actions/workflows/ci.yaml)
 
 jsInterop-base contains a set of utilities that cannot be expressed with
 Jsinterop itself and allows GWT and J2CL projects to write certain JavaScript
