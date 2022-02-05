@@ -36,7 +36,7 @@ genrule(
     outs = ["base-j2cl.srcjar"],
     cmd = "\n".join([
         "perl -i.bak -pe 's|// J2CL_ONLY ||g' $(SRCS)",
-        "$(location //third_party:zip) c $@ $(SRCS)",
+        "$(location @bazel_tools//tools/zip:zipper) c $@ $(SRCS)",
     ]),
-    tools = ["//third_party:zip"],
+    tools = ["@bazel_tools//tools/zip:zipper"],
 )

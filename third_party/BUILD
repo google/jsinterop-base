@@ -25,8 +25,3 @@ j2cl_import(
     name = "gwt-javaemul-internal-annotations-j2cl",
     jar = "@org_gwtproject_gwt//user:gwt-javaemul-internal-annotations",
 )
-
-alias(
-    name = "zip",
-    actual = "@bazel_tools//tools/zip:zipper",
-)
