@@ -15,8 +15,8 @@ java_library(
     srcs = glob(["**/*.java"]),
     resources = ["Base.gwt.xml"],
     deps = [
-        "//third_party:gwt-javaemul-internal-annotations",
-        "//third_party:gwt-jsinterop-annotations",
+        "@com_google_j2cl//:jsinterop-annotations",
+        "@com_google_j2cl//jre/java:javaemul_internal_annotations",
     ],
 )
 
@@ -24,8 +24,8 @@ j2cl_library(
     name = "base-j2cl",
     srcs = [":processed_j2cl_srcs"] + glob(["*.js"]),
     deps = [
-        "//third_party:gwt-javaemul-internal-annotations-j2cl",
-        "//third_party:gwt-jsinterop-annotations-j2cl",
+        "@com_google_j2cl//:jsinterop-annotations-j2cl",
+        "@com_google_j2cl//jre/java:javaemul_internal_annotations-j2cl",
     ],
 )
 
