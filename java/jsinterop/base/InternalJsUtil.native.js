@@ -88,7 +88,7 @@ InternalJsUtil.castToAny = function(obj) {
   return obj;
 };
 
-const $Long_ = goog.require('nativebootstrap.Long');
+const $Long_ = goog.require('goog.math.Long');
 
 /**
  * @param {*} obj
