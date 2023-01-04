@@ -153,14 +153,14 @@ public final class Js {
     return (T) obj;
   }
 
-  /** Applies JavaScript logical and (&&) operator on given objects. */
+  /** Applies JavaScript logical "and" operator ({@code &&}) on given objects. */
   // J2CL_ONLY @JsMethod
   @HasNoSideEffects
   public static native <T> T andAlso(@DoNotAutobox T obj1, @DoNotAutobox T obj2) /*-{
     return obj1 && obj2;
   }-*/;
 
-  /** Applies JavaScript logical or (||) operator on given objects. */
+  /** Applies JavaScript logical "or" operator ({@code ||}) on given objects. */
   // J2CL_ONLY @JsMethod
   @HasNoSideEffects
   public static native <T> T orElse(@DoNotAutobox T obj1, @DoNotAutobox T obj2) /*-{
