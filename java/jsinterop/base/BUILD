@@ -2,6 +2,7 @@
 #  JsInterop base classes
 
 load("@com_google_j2cl//build_defs:rules.bzl", "j2cl_library")
+load("@bazel_common_javadoc//:javadoc.bzl", "javadoc_library")
 
 package(
     default_visibility = [
@@ -14,6 +15,19 @@ java_library(
     name = "base",
     srcs = glob(["**/*.java"]),
     resources = ["Base.gwt.xml"],
+    deps = [
+        "@com_google_j2cl//:jsinterop-annotations",
+        "@com_google_j2cl//jre/java:javaemul_internal_annotations",
+    ],
+)
+
+javadoc_library(
+    name = "base-javadoc",
+    srcs = glob(["**/*.java"]),
+    tags = [
+        "manual",
+        "notap",
+    ],
     deps = [
         "@com_google_j2cl//:jsinterop-annotations",
         "@com_google_j2cl//jre/java:javaemul_internal_annotations",
