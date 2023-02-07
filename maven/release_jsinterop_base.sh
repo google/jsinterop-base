@@ -86,9 +86,11 @@ cd ${bazel_root}
 # ask bazel to explicitly build both jar files
 bazel build //java/jsinterop/base:libbase.jar
 bazel build //java/jsinterop/base:libbase-src.jar
+bazel build //java/jsinterop/base:base-javadoc.jar
 
 jar_file=${bazel_root}/bazel-bin/java/jsinterop/base/libbase.jar
 src_jar=${bazel_root}/bazel-bin/java/jsinterop/base/libbase-src.jar
+javadoc_jar=${bazel_root}/bazel-bin/java/jsinterop/base/base-javadoc.jar
 pom_template=${bazel_root}/maven/pom-base.xml
 
 # we cannot run the script directly from Bazel because it doesn't allow interactive script
@@ -97,6 +99,7 @@ bazel run --script_path="$runcmd" ${deploy_target} -- ${deploy_flag} \
     --artifact ${maven_artifact} \
     --jar-file ${jar_file} \
     --src-jar ${src_jar} \
+    --javadoc-jar ${javadoc_jar} \
     --pom-template ${pom_template} \
     --lib-version ${lib_version} \
     --group-id ${group_id}
