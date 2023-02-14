@@ -5,6 +5,7 @@ load("@com_google_j2cl//build_defs:rules.bzl", "j2cl_library")
 load("@bazel_common_javadoc//:javadoc.bzl", "javadoc_library")
 
 package(
+    default_applicable_licenses = ["//:license"],
     default_visibility = [
         "//:__subpackages__",
     ],
