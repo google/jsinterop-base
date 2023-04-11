@@ -21,7 +21,7 @@ import jsinterop.annotations.JsMethod;
 class GetArgumentsHelper {
   @JsMethod
   @SuppressWarnings("unused")
-  private static JsArrayLike<Object> getArguments() {
+  private static JsArrayLike<Object> getArguments(Object... args) {
     return Js.arguments();
   }
 }
