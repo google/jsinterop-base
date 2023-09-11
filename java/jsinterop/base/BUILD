@@ -49,9 +49,27 @@ genrule(
     name = "processed_j2cl_srcs",
     srcs = glob(["**/*.java"]),
     outs = ["base-j2cl.srcjar"],
-    cmd = "\n".join([
-        "perl -i.bak -pe 's|// J2CL_ONLY ||g' $(SRCS)",
-        "$(location @bazel_tools//tools/zip:zipper) c $@ $(SRCS)",
-    ]),
+    cmd = """
+# Exit on any command failure, if a variable is unset, or a pipeline failure (respectively).
+set -euo pipefail
+
+tmpdir=$$(mktemp -d)
+# Ensure we cleanup the tmpdir on exit
+trap "rm -rf $${tmpdir}" EXIT
+
+# Mutate the source files in a tmp file. We'll build up a mapping of <original_file>=<tmp file> that
+# can be passed into zipper so that we maintain the original file paths within the zip.
+declare -a file_mapping
+for src in $(SRCS); do
+  tmpfile=$$(mktemp "$${tmpdir}/tmp.XXXXXXXXX")
+  file_mapping+=("$${src}=$${tmpfile}")
+  # Replace the J2CL_ONLY comment with whitespace to ensure all character offset position references
+  # remain accurate.
+  sed 's|// J2CL_ONLY |             |g' $${src} > $${tmpfile}
+done
+
+# Zip everything up using the mapping we built.
+$(location @bazel_tools//tools/zip:zipper) c $@ "$${file_mapping[@]}"
+""",
     tools = ["@bazel_tools//tools/zip:zipper"],
 )
