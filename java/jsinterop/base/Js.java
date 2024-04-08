@@ -201,5 +201,10 @@ public final class Js {
     return InternalJsUtil.asInt(d) | 0;
   }
 
+  /** Coerces any object to boolean using {@code !!} operation. */
+  public static boolean coerceToBoolean(@DoNotAutobox Object b) {
+    return isTruthy(b);
+  }
+
   private Js() {} // Hide constructor for utility class.
 }
