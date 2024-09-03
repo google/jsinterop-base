@@ -23,6 +23,8 @@ import javaemul.internal.annotations.HasNoSideEffects;
 import javaemul.internal.annotations.UncheckedCast;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsProperty;
+import org.jspecify.annotations.Nullable;
+
 // J2CL_ONLY import jsinterop.annotations.JsPackage;
 
 /**
@@ -34,20 +36,20 @@ import jsinterop.annotations.JsProperty;
  */
 public final class Js {
   @JsProperty(namespace = "<window>", name = "undefined")
-  public static native Object undefined();
+  public static native @Nullable Object undefined();
 
   @JsProperty(namespace = "<window>", name = "arguments")
-  public static native JsArrayLike<Object> arguments();
+  public static native JsArrayLike<@Nullable Object> arguments();
 
   @JsProperty(namespace = "<window>", name = "debugger")
   public static native void debugger();
 
   @JsMethod(namespace = "<window>")
   @HasNoSideEffects
-  public static native String typeof(Object obj);
+  public static native String typeof(@Nullable Object obj);
 
   // J2CL_ONLY @JsProperty(namespace=JsPackage.GLOBAL, name = "goog.global")
-  public static native JsPropertyMap<Object> global() /*-{
+  public static native JsPropertyMap<@Nullable Object> global() /*-{
     return $wnd;
   }-*/;
 
@@ -57,23 +59,25 @@ public final class Js {
     return fn;
   }
 
-  public static Any asAny(@DoNotAutobox Object obj) {
+  public static @Nullable Any asAny(@DoNotAutobox @Nullable Object obj) {
     return uncheckedCast(obj);
   }
 
   /** Returns {@code JsPropertyMap} view of provided object. */
-  public static JsPropertyMap<Object> asPropertyMap(Object obj) {
+  public static @Nullable JsPropertyMap<@Nullable Object> asPropertyMap(
+      @Nullable Object obj) {
     return uncheckedCast(obj);
   }
 
   /** Returns {@code JsArrayLike} view of provided array-like object. */
-  public static JsArrayLike<Object> asArrayLike(Object obj) {
+  public static @Nullable JsArrayLike<@Nullable Object> asArrayLike(
+      @Nullable Object obj) {
     // TODO(goktug): switch to custom $isInstance
     checkType(obj == null || InternalJsUtil.hasLength(obj));
     return uncheckedCast(obj);
   }
 
-  public static Any[] asArray(Object obj) {
+  public static @Nullable Any[] asArray(Object obj) {
     checkType(obj instanceof Any[]);
     return uncheckedCast(obj);
   }
@@ -135,7 +139,8 @@ public final class Js {
    * interface to a final Java class (like String).
    */
   @SuppressWarnings({"TypeParameterUnusedInFormals", "unchecked"})
-  public static <T> T cast(@DoNotAutobox Object obj) {
+  public static <T extends @Nullable Object> T cast(
+      @DoNotAutobox @Nullable Object obj) {
     return (T) obj;
   }
 
@@ -149,31 +154,33 @@ public final class Js {
    */
   @UncheckedCast
   @SuppressWarnings({"TypeParameterUnusedInFormals", "unchecked"})
-  public static <T> T uncheckedCast(@DoNotAutobox Object obj) {
+  public static <T extends @Nullable Object> T uncheckedCast(@DoNotAutobox @Nullable Object obj) {
     return (T) obj;
   }
 
   /** Applies JavaScript logical "and" operator ({@code &&}) on given objects. */
   // J2CL_ONLY @JsMethod
   @HasNoSideEffects
-  public static native <T> T andAlso(@DoNotAutobox T obj1, @DoNotAutobox T obj2) /*-{
+  public static native <T extends @Nullable Object> T andAlso(
+      @DoNotAutobox T obj1, @DoNotAutobox T obj2) /*-{
     return obj1 && obj2;
   }-*/;
 
   /** Applies JavaScript logical "or" operator ({@code ||}) on given objects. */
   // J2CL_ONLY @JsMethod
   @HasNoSideEffects
-  public static native <T> T orElse(@DoNotAutobox T obj1, @DoNotAutobox T obj2) /*-{
+  public static native <T extends @Nullable Object> T orElse(
+      @DoNotAutobox T obj1, @DoNotAutobox T obj2) /*-{
     return obj1 || obj2;
   }-*/;
 
-  public static boolean isTruthy(@DoNotAutobox Object obj) {
+  public static boolean isTruthy(@DoNotAutobox @Nullable Object obj) {
     return !isFalsy(obj);
   }
 
   // J2CL_ONLY @JsMethod
   @HasNoSideEffects
-  public static native boolean isFalsy(@DoNotAutobox Object obj) /*-{
+  public static native boolean isFalsy(@DoNotAutobox @Nullable Object obj) /*-{
     return !obj;
   }-*/;
 
@@ -186,23 +193,23 @@ public final class Js {
   // J2CL_ONLY @JsMethod
   @HasNoSideEffects
   public static native boolean isTripleEqual(
-      @DoNotAutobox Object o1, @DoNotAutobox Object o2) /*-{
+      @DoNotAutobox @Nullable Object o1, @DoNotAutobox @Nullable Object o2) /*-{
     return o1 === o2;
   }-*/;
 
   /** Coerces any object to number using {@code +} operation. */
   // J2CL_ONLY @JsMethod
-  public static native double coerceToDouble(Object d) /*-{
+  public static native double coerceToDouble(@Nullable Object d) /*-{
     return +d;
   }-*/;
 
   /** Coerces any object to 32 bit signed number using {@code |0} operation. */
-  public static int coerceToInt(@DoNotAutobox Object d) {
+  public static int coerceToInt(@DoNotAutobox @Nullable Object d) {
     return InternalJsUtil.asInt(d) | 0;
   }
 
   /** Coerces any object to boolean using {@code !!} operation. */
-  public static boolean coerceToBoolean(@DoNotAutobox Object b) {
+  public static boolean coerceToBoolean(@DoNotAutobox @Nullable Object b) {
     return isTruthy(b);
   }
 

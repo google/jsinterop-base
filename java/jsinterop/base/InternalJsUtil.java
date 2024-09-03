@@ -18,6 +18,8 @@ package jsinterop.base;
 
 import com.google.gwt.core.client.UnsafeNativeLong;
 import javaemul.internal.annotations.HasNoSideEffects;
+import org.jspecify.annotations.Nullable;
+
 // J2CL_ONLY import jsinterop.annotations.JsMethod;
 // J2CL_ONLY import jsinterop.annotations.JsPackage;
 
@@ -25,12 +27,12 @@ import javaemul.internal.annotations.HasNoSideEffects;
 class InternalJsUtil {
 
   // J2CL_ONLY @JsMethod
-  public static native <T> JsPropertyMap<T> emptyObjectLiteral() /*-{
+  public static native <T extends @Nullable Object> JsPropertyMap<T> emptyObjectLiteral() /*-{
     return {};
   }-*/;
 
   // J2CL_ONLY @JsMethod(namespace = JsPackage.GLOBAL, name = "goog.getObjectByName")
-  public static native Object getObjectByName(String qualifiedName, Object obj) /*-{
+  public static native @Nullable Object getObjectByName(String qualifiedName, Object obj) /*-{
     var parts = qualifiedName.split('.');
     var cur = obj;
     for (var i = 0; i < parts.length; i++) {
@@ -43,7 +45,7 @@ class InternalJsUtil {
   }-*/;
 
   // J2CL_ONLY @JsMethod(name="getIndexed")
-  public static native Object get(Object obj, String key) /*-{
+  public static native @Nullable Object get(Object obj, String key) /*-{
     return obj[key];
   }-*/;
 
@@ -63,7 +65,7 @@ class InternalJsUtil {
   }-*/;
 
   // J2CL_ONLY @JsMethod(name="getIndexed")
-  public static native Object getAt(Object obj, int key) /*-{
+  public static native @Nullable Object getAt(Object obj, int key) /*-{
     return obj[key];
   }-*/;
 
@@ -78,7 +80,7 @@ class InternalJsUtil {
   }-*/;
 
   // J2CL_ONLY @JsMethod(name="setIndexed")
-  public static native void setAt(Object obj, int key, Object value) /*-{
+  public static native void setAt(Object obj, int key, @Nullable Object value) /*-{
     obj[key] = value;
   }-*/;
 
@@ -171,7 +173,7 @@ class InternalJsUtil {
   }-*/;
 
   // J2CL_ONLY @JsMethod(namespace=jsinterop.annotations.JsPackage.GLOBAL, name="Reflect.construct")
-  public static native <T> T construct(JsConstructorFn<T> ctor, Object[] args) /*-{
+  public static native <T> T construct(JsConstructorFn<T> ctor, @Nullable Object[] args) /*-{
     return new (ctor.bind.apply(ctor, [null].concat(args)));
   }-*/;
 

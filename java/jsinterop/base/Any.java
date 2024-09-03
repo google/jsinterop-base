@@ -20,6 +20,7 @@ import javaemul.internal.annotations.UncheckedCast;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Abstracts 'any' type in the type system (or '*' in Closure). This is the super type of all types
@@ -31,17 +32,17 @@ import jsinterop.annotations.JsType;
 public interface Any {
 
   @JsOverlay
-  default JsPropertyMap<Object> asPropertyMap() {
+  default JsPropertyMap<@Nullable Object> asPropertyMap() {
     return Js.asPropertyMap(this);
   }
 
   @JsOverlay
-  default JsArrayLike<Object> asArrayLike() {
+  default JsArrayLike<@Nullable Object> asArrayLike() {
     return Js.asArrayLike(this);
   }
 
   @JsOverlay
-  default Any[] asArray() {
+  default @Nullable Any[] asArray() {
     return Js.asArray(this);
   }
 

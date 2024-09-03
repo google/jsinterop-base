@@ -22,6 +22,7 @@ import javaemul.internal.annotations.DoNotAutobox;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Provides abstraction for JavaScript array-like objects.
@@ -29,7 +30,7 @@ import jsinterop.annotations.JsType;
  * <p>See {@link Js#asArrayLike(Object)} to cast an array-like object to {@code JsArrayLike}.
  */
 @JsType(isNative = true, name = "IArrayLike", namespace = JsPackage.GLOBAL)
-public interface JsArrayLike<T> {
+public interface JsArrayLike<T extends @Nullable Object> {
 
   @JsOverlay
   default int getLength() {
@@ -43,12 +44,12 @@ public interface JsArrayLike<T> {
 
   @JsOverlay
   @SuppressWarnings("unchecked")
-  default T getAt(int index) {
+  default @Nullable T getAt(int index) {
     return (T) InternalJsUtil.getAt(this, index);
   }
 
   @JsOverlay
-  default Any getAtAsAny(int index) {
+  default @Nullable Any getAtAsAny(int index) {
     return (Any) InternalJsUtil.getAt(this, index);
   }
 

@@ -20,6 +20,7 @@ import javaemul.internal.annotations.DoNotAutobox;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Provides abstraction of JavaScript objects as property maps.
@@ -27,17 +28,17 @@ import jsinterop.annotations.JsType;
  * <p>See {@link Js#asPropertyMap(Object)} to cast an object to {@code JsPropertyMap}.
  */
 @JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
-public interface JsPropertyMap<T> {
+public interface JsPropertyMap<T extends @Nullable Object> {
 
   /** Returns an empty object literal as {@code JsPropertyMap}. */
   @JsOverlay
-  static <T> JsPropertyMap<T> of() {
+  static <T extends @Nullable Object> JsPropertyMap<T> of() {
     return InternalJsUtil.emptyObjectLiteral();
   }
 
   /** Returns an object literal as {@code JsPropertyMap} that has provided key-value pairs. */
   @JsOverlay
-  static <T> JsPropertyMap<T> of(String k, @DoNotAutobox T v) {
+  static <T extends @Nullable Object> JsPropertyMap<T> of(String k, @DoNotAutobox T v) {
     JsPropertyMap<T> map = of();
     map.set(k, v);
     return map;
@@ -45,7 +46,8 @@ public interface JsPropertyMap<T> {
 
   /** Returns an object literal as {@code JsPropertyMap} that has provided key-value pairs. */
   @JsOverlay
-  static <T> JsPropertyMap<T> of(String k1, @DoNotAutobox T v1, String k2, @DoNotAutobox T v2) {
+  static <T extends @Nullable Object> JsPropertyMap<T> of(
+      String k1, @DoNotAutobox T v1, String k2, @DoNotAutobox T v2) {
     JsPropertyMap<T> map = of();
     map.set(k1, v1);
     map.set(k2, v2);
@@ -54,7 +56,7 @@ public interface JsPropertyMap<T> {
 
   /** Returns an object literal as {@code JsPropertyMap} that has provided key-value pairs. */
   @JsOverlay
-  static <T> JsPropertyMap<T> of(
+  static <T extends @Nullable Object> JsPropertyMap<T> of(
       String k1, @DoNotAutobox T v1, String k2, @DoNotAutobox T v2, String k3, @DoNotAutobox T v3) {
     JsPropertyMap<T> map = of();
     map.set(k1, v1);
@@ -65,7 +67,7 @@ public interface JsPropertyMap<T> {
 
   @JsOverlay
   @SuppressWarnings("unchecked")
-  default T get(String propertyName) {
+  default @Nullable T get(String propertyName) {
     return (T) InternalJsUtil.get(this, propertyName);
   }
 
@@ -74,12 +76,12 @@ public interface JsPropertyMap<T> {
    * null. e.g. nestedGet("a.b") is equivalent to {@code ["a"] != null && ["a"]["b"]}).
    */
   @JsOverlay
-  default Object nestedGet(String qualifiedName) {
+  default @Nullable Object nestedGet(String qualifiedName) {
     return InternalJsUtil.getObjectByName(qualifiedName, this);
   }
 
   @JsOverlay
-  default Any getAsAny(String propertyName) {
+  default @Nullable Any getAsAny(String propertyName) {
     return (Any) InternalJsUtil.get(this, propertyName);
   }
 
@@ -89,7 +91,7 @@ public interface JsPropertyMap<T> {
    * ["a"]["b"]}).
    */
   @JsOverlay
-  default Any nestedGetAsAny(String qualifiedName) {
+  default @Nullable Any nestedGetAsAny(String qualifiedName) {
     return (Any) InternalJsUtil.getObjectByName(qualifiedName, this);
   }
 
