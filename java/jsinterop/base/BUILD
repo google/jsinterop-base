@@ -40,6 +40,8 @@ javadoc_library(
 j2cl_library(
     name = "base-j2cl",
     srcs = [":processed_j2cl_srcs"] + glob(["*.js"]),
+    # Tested internally in google3
+    experimental_enable_jspecify_support_do_not_enable_without_jspecify_static_checking_or_you_might_cause_an_outage = True,
     deps = [
         "//third_party:jspecify_annotations-j2cl",
         "@com_google_j2cl//:jsinterop-annotations-j2cl",

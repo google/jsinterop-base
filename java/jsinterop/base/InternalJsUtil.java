@@ -60,7 +60,7 @@ class InternalJsUtil {
   }-*/;
 
   // J2CL_ONLY @JsMethod(name="setIndexed")
-  public static native void set(Object obj, String key, Object value) /*-{
+  public static native void set(Object obj, String key, @Nullable Object value) /*-{
     obj[key] = value;
   }-*/;
 
@@ -92,38 +92,38 @@ class InternalJsUtil {
   }-*/;
 
   // J2CL_ONLY @JsMethod(name="castToAny")
-  public static native boolean asBoolean(Object obj) /*-{
+  public static native boolean asBoolean(@Nullable Object obj) /*-{
    return obj;
   }-*/;
 
   // J2CL_ONLY @JsMethod(name="castToAny")
-  public static native double asDouble(Object obj) /*-{
+  public static native double asDouble(@Nullable Object obj) /*-{
    return obj;
   }-*/;
 
   // J2CL_ONLY @JsMethod(name="castToAny")
-  public static native int asInt(Object obj) /*-{
+  public static native int asInt(@Nullable Object obj) /*-{
     return obj;
   }-*/;
 
   // J2CL_ONLY @JsMethod(name="castToAny")
-  public static native short asShort(Object obj) /*-{
+  public static native short asShort(@Nullable Object obj) /*-{
     return obj;
   }-*/;
 
   // J2CL_ONLY @JsMethod(name="castToAny")
-  public static native char asChar(Object obj) /*-{
+  public static native char asChar(@Nullable Object obj) /*-{
     return obj;
   }-*/;
 
   // J2CL_ONLY @JsMethod(name="castToAny")
-  public static native byte asByte(Object obj) /*-{
+  public static native byte asByte(@Nullable Object obj) /*-{
     return obj;
   }-*/;
 
   @UnsafeNativeLong
   // J2CL_ONLY @JsMethod(name="castToAny")
-  public static native long asLong(Object obj) /*-{
+  public static native long asLong(@Nullable Object obj) /*-{
     return obj;
   }-*/;
 

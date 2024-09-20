@@ -24,8 +24,9 @@ import static java.lang.System.getProperty;
  */
 public final class InternalPreconditions {
 
-  private static final boolean IS_TYPE_CHECKED = getProperty("jsinterop.checks").equals("ENABLED");
-  private static final boolean IS_ASSERTED = getProperty("jre.checkedMode").equals("ENABLED");
+  private static final boolean IS_TYPE_CHECKED = getProperty("jsinterop.checks") == "ENABLED";
+
+  private static final boolean IS_ASSERTED = getProperty("jre.checkedMode") == "ENABLED";
 
   public static void checkType(boolean expression) {
     if (IS_TYPE_CHECKED) {

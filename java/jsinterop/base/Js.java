@@ -64,14 +64,12 @@ public final class Js {
   }
 
   /** Returns {@code JsPropertyMap} view of provided object. */
-  public static @Nullable JsPropertyMap<@Nullable Object> asPropertyMap(
-      @Nullable Object obj) {
+  public static @Nullable JsPropertyMap<@Nullable Object> asPropertyMap(@Nullable Object obj) {
     return uncheckedCast(obj);
   }
 
   /** Returns {@code JsArrayLike} view of provided array-like object. */
-  public static @Nullable JsArrayLike<@Nullable Object> asArrayLike(
-      @Nullable Object obj) {
+  public static @Nullable JsArrayLike<@Nullable Object> asArrayLike(@Nullable Object obj) {
     // TODO(goktug): switch to custom $isInstance
     checkType(obj == null || InternalJsUtil.hasLength(obj));
     return uncheckedCast(obj);
@@ -139,8 +137,7 @@ public final class Js {
    * interface to a final Java class (like String).
    */
   @SuppressWarnings({"TypeParameterUnusedInFormals", "unchecked"})
-  public static <T extends @Nullable Object> T cast(
-      @DoNotAutobox @Nullable Object obj) {
+  public static <T extends @Nullable Object> T cast(@DoNotAutobox @Nullable Object obj) {
     return (T) obj;
   }
 

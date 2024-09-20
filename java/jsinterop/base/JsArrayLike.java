@@ -67,7 +67,7 @@ public interface JsArrayLike<T extends @Nullable Object> {
   @JsOverlay
   default List<T> asList() {
     // Since it is hidden behind Arrays.asList, it is safe to do uncheckedCast.
-    T[] asArray = Js.uncheckedCast(this);
+    T[] asArray = Js.<T[]>uncheckedCast(this);
     return Arrays.asList(asArray);
   }
 }
