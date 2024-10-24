@@ -21,8 +21,10 @@
  */
 
 goog.provide('jsinterop');
+goog.require('jre');
 
 // Note that disabling checking only disables it for production.
 
 /** @define {string} */
 jsinterop.checks = goog.define('jsinterop.checks', 'DISABLED');
+jre.addSystemPropertyFromGoogDefine('jsinterop.checks', jsinterop.checks);
