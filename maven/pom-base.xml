@@ -12,7 +12,6 @@
   <groupId>__GROUP_ID__</groupId>
   <artifactId>__ARTIFACT_ID__</artifactId>
   <version>__VERSION__</version>
-  <packaging>jar</packaging>
 
   <name>JsInterop Base</name>
   <description>Base classes and utilities that provide access to JavaScript language constructs
@@ -42,7 +41,7 @@
     <developer>
       <name>J2CL team</name>
       <organization>Google</organization>
-      <organizationUrl>http://www.google.com</organizationUrl>
+      <organizationUrl>https://www.google.com</organizationUrl>
     </developer>
   </developers>
 
@@ -51,6 +50,11 @@
       <groupId>com.google.jsinterop</groupId>
       <artifactId>jsinterop-annotations</artifactId>
       <version>2.0.2</version>
-   </dependency>
+    </dependency>
+    <dependency>
+      <groupId>org.jspecify</groupId>
+      <artifactId>jspecify</artifactId>
+      <version>0.3.0</version>
+    </dependency>
   </dependencies>
 </project>
