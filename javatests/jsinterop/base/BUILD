@@ -47,14 +47,7 @@ j2cl_test(
 j2cl_test(
     name = "AllJ2clOptimizationTests",
     compile = 1,
-    extra_defs = [
-        "--define=jre.checkedMode=DISABLED",
-        # JsCompiler heuristics are fragile for verifying optimizability of this code. Right now
-        # we are just hoping our code is *too small* and that's why we are hitting issues.
-        # Ideally we should use the defaults but if the heuristic turns out to be bad for users
-        # they should talk to JsCompiler team and maybe we could remove this flag again.
-        "--use_size_heuristic_to_stop_optimization_loop_experimental=false",
-    ],
+    extra_defs = ["--define=jre.checkedMode=DISABLED"],
     test_class = "jsinterop.base.AllOptimizationTests",
     runtime_deps = [":testlib"],
 )
