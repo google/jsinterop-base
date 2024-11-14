@@ -14,3 +14,6 @@
 # limitations under the License.
 
 bazel build java/...
+
+# Make sure we don't back slide on test related compilations.
+bazel build @com_google_truth-j2cl javatests/jsinterop/base:testlib

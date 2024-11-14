@@ -16,11 +16,10 @@ j2cl_library(
         "super/*.java",
     ]),
     deps = [
-        "//java/com/google/common/annotations:annotations-j2cl",
         "//java/jsinterop/base:base-j2cl",
-        "//third_party/java/junit:junit-j2cl",
-        "//third_party/java/truth:truth-j2cl",
+        "//third_party:truth-j2cl",
         "@com_google_j2cl//:jsinterop-annotations-j2cl",
+        "@com_google_j2cl//:junit",
     ],
 )
 

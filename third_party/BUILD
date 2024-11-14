@@ -1,8 +1,6 @@
 # Description:
 #   Thirdparty dependencies indirection for bazel.
 
-load("@com_google_j2cl//build_defs:rules.bzl", "j2cl_import")
-
 package(
     default_visibility = ["//:__subpackages__"],
     licenses = ["notice"],
@@ -13,7 +11,12 @@ alias(
     actual = "@org_jspecify",
 )
 
-j2cl_import(
+alias(
     name = "jspecify_annotations-j2cl",
-    jar = "@org_jspecify//jar",
+    actual = "@org_jspecify-j2cl",
+)
+
+alias(
+    name = "truth-j2cl",
+    actual = "@com_google_truth-j2cl",
 )
