@@ -9,7 +9,7 @@ package(
 
 alias(
     name = "jspecify_annotations",
-    actual = "@org_jspecify",
+    actual = "@maven//:org_jspecify_jspecify",
 )
 
 j2cl_import(
