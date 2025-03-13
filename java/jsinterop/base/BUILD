@@ -1,7 +1,7 @@
 # Description:
 #  JsInterop base classes
 
-load("@bazel_common_javadoc//:javadoc.bzl", "javadoc_library")
+load("@google_bazel_common//tools/javadoc:javadoc.bzl", "javadoc_library")
 load("@rules_java//java:defs.bzl", "java_library")
 load("@com_google_j2cl//build_defs:rules.bzl", "j2cl_library")
 
