@@ -152,6 +152,6 @@ public class AnyTest extends GWTTestCase {
   @SuppressWarnings("TruthIncompatibleType")
   public void testUncheckedCast() {
     Double fakeNumber = Js.asAny("dangerous").uncheckedCast();
-    assertThat(fakeNumber).isEqualTo("dangerous");
+    assertThat((Object) fakeNumber).isEqualTo("dangerous");
   }
 }
