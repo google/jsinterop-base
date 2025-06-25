@@ -1,4 +1,8 @@
-module(name = "com_google_jsinterop_base")
+module(
+  name = "jsinterop_base",
+  bazel_compatibility = [">=8.0.1"],
+  repo_name = "com_google_jsinterop_base",
+)
 
 bazel_dep(
     name = "j2cl",
