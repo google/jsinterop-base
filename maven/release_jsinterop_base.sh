@@ -1,4 +1,4 @@
-#!/bin/bash -i
+#!/bin/bash
 # Copyright 2019 Google Inc. All Rights Reserved
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,8 +15,19 @@
 
 # The script generates the open source artifacts for jsinterop.base and
 # uploads them to sonatype.
+set -euo pipefail
 
-set -e
+source "$(dirname "$0")/deploy.sh"
+
+readonly DEPLOY_TARGET='@com_google_j2cl//maven:deploy'
+readonly GROUP_ID="com.google.jsinterop"
+readonly MAVEN_ARTIFACT="base"
+readonly BAZEL_ARTIFACT="base"
+readonly JAR_FILE=${BAZEL_ROOT}/bazel-bin/java/jsinterop/base/libbase.jar
+readonly SRC_JAR=${BAZEL_ROOT}/bazel-bin/java/jsinterop/base/libbase-src.jar
+readonly JAVADOC_JAR=${BAZEL_ROOT}/bazel-bin/java/jsinterop/base/base-javadoc.jar
+readonly POM_TEMPLATE=${BAZEL_ROOT}/maven/pom-base.xml
+
 
 usage() {
     echo ""
@@ -34,79 +45,68 @@ usage() {
     echo ""
 }
 
-deploy_flag=""
-git_tag=true
-lib_version=""
+parse_arguments() {
+  deploy_flag=""
+  git_tag=true
+  lib_version=""
 
-while [[ "$1" != "" ]]; do
-  case $1 in
-    --version )    if [[ -z "$2" ]] || [[ "$2" == "--"* ]]; then
-                     echo "Error: Incorrect version value."
-                     usage
-                     exit 1
-                   fi
-                   shift
-                   lib_version=$1
-                   ;;
-    --no-deploy )  deploy_flag="--no-deploy"
-                   ;;
-    --no-git-tag ) git_tag=false
-                   ;;
-    --help )       usage
-                   exit 1
-                   ;;
-    * )            echo "Error: unexpected option $1"
-                   usage
-                   exit 1
-                   ;;
-  esac
-  shift
-done
+  while [[ $# -gt 0 ]]; do
+    case $1 in
+      --version )
+        shift
+        lib_version=$1
+        ;;
+      --no-deploy )
+        deploy_flag="--no-deploy"
+        ;;
+      --no-git-tag )
+        git_tag=false
+        ;;
+      --help )
+        usage
+        exit 0
+        ;;
+      * )
+        common::error "unexpected option $1"
+        ;;
+    esac
+    shift
+  done
+}
 
-if [[ -z "$lib_version" ]]; then
-  echo "Error: --version flag is missing"
-  usage
-  exit 1
-fi
+check_prerequisites() {
+  common::check_bazel
+  common::check_maven
+  common::check_version_set
+}
 
-if [ ! -f "MODULE.bazel" ]; then
-  echo "Error: should be run from the root of the Bazel repository"
-  exit 1
-fi
+build() {
+  common::bazel_build //java/jsinterop/base:libbase.jar
+  common::bazel_build //java/jsinterop/base:libbase-src.jar
+  common::bazel_build //java/jsinterop/base:base-javadoc.jar
+}
 
-bazel_root=$(pwd)
 
-deploy_target='@com_google_j2cl//maven:deploy'
-group_id="com.google.jsinterop"
-maven_artifact="base"
+main() {
+  parse_arguments "$@"
+  check_prerequisites
+  build
 
-cd ${bazel_root}
+  common::deploy_to_sonatype ${deploy_flag} \
+      --artifact ${MAVEN_ARTIFACT} \
+      --jar-file ${JAR_FILE} \
+      --src-jar ${SRC_JAR} \
+      --javadoc-jar ${JAVADOC_JAR} \
+      --pom-template ${POM_TEMPLATE} \
+      --lib-version ${lib_version} \
+      --group-id ${GROUP_ID}
 
-# ask bazel to explicitly build both jar files
-bazel build //java/jsinterop/base:libbase.jar
-bazel build //java/jsinterop/base:libbase-src.jar
-bazel build //java/jsinterop/base:base-javadoc.jar
+  if [[ ${git_tag} == true ]]; then
+    common::create_and_push_git_tag ${lib_version}
+  fi
+}
 
-jar_file=${bazel_root}/bazel-bin/java/jsinterop/base/libbase.jar
-src_jar=${bazel_root}/bazel-bin/java/jsinterop/base/libbase-src.jar
-javadoc_jar=${bazel_root}/bazel-bin/java/jsinterop/base/base-javadoc.jar
-pom_template=${bazel_root}/maven/pom-base.xml
+# Set the trap to cleanup temporary files on EXIT
+trap common::cleanup_temp_files EXIT
 
-# we cannot run the script directly from Bazel because it doesn't allow interactive script
-runcmd="$(mktemp /tmp/bazel-run.XXXXXX)"
-bazel run --script_path="$runcmd" ${deploy_target} -- ${deploy_flag} \
-    --artifact ${maven_artifact} \
-    --jar-file ${jar_file} \
-    --src-jar ${src_jar} \
-    --javadoc-jar ${javadoc_jar} \
-    --pom-template ${pom_template} \
-    --lib-version ${lib_version} \
-    --group-id ${group_id}
-"$runcmd"
-
-rm "$runcmd"
-
-if [[ ${git_tag} == true ]]; then
-  git tag -a ${lib_version} -m "${lib_version} release"
-  git push origin ${lib_version}
-fi
+main "$@"
