@@ -1,0 +1,76 @@
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+name: Release Project
+
+# This workflow is triggered manually from the Actions tab.
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'The version to release'
+        required: true
+        type: string
+      sonatype_auto_publish:
+        description: 'Automatically publish the release to Sonatype'
+        type: boolean
+        default: false
+        required: true
+      create_tag:
+        description: 'Create a git tag'
+        type: boolean
+        default: true
+        required: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    
+    # These permissions are required by the bazel-contrib/publish-to-bcr action
+    # to create a pull request in the bazel-central-registry repository.
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout current commit
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      # Maven and Bazel require Java to be available.
+      - name: Setup Java
+        uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00 # v4.7.1
+        with:
+          java-version: '21'
+          distribution: 'zulu'
+          java-package: jdk
+          # This will create the maven settings.xml on the fly
+          server-id: central
+          server-username: ${{ secrets.MAVEN_USERNAME }}
+          server-password: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
+          gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+          gpg-passphrase: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+
+      - name: Setup Bazel
+        uses: bazelbuild/setup-bazelisk@v3
+
+      - name: Publish to Sonatype
+        run: |
+          ./maven/release_jsinterop_base.sh --version ${{ github.event.inputs.version }} --sonatype-auto-publish ${{ github.event.inputs.sonatype_auto_publish }}
+
+      - name: Create Git Tag
+        if: 
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git tag -a "${{ github.event.inputs.version }}" -m "Release ${{ github.event.inputs.version }}"
+          git push origin "${{ github.event.inputs.version }}" 
