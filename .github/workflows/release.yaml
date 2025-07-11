@@ -36,11 +36,11 @@ jobs:
   release:
     runs-on: ubuntu-latest
     
-    # These permissions are required by the bazel-contrib/publish-to-bcr action
-    # to create a pull request in the bazel-central-registry repository.
     permissions:
-      contents: read
-      pull-requests: write
+      # required for creating git tags.
+      contents: write
+      # required by the bazel-contrib/publish-to-bcr action
+      # pull-requests: write
 
     steps:
       - name: Checkout current commit
@@ -68,7 +68,7 @@ jobs:
           ./maven/release_jsinterop_base.sh --version ${{ github.event.inputs.version }} --sonatype-auto-publish ${{ github.event.inputs.sonatype_auto_publish }}
 
       - name: Create Git Tag
-        if: 
+        if: github.event.inputs.create_tag == 'true' 
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
