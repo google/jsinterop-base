@@ -36,7 +36,7 @@ on:
 
 jobs:
   release:
-    uses: .github/workflows/release_common.yaml@test_workflow
+    uses: ./.github/workflows/release_common.yaml@test_workflow
 
     # The reusable workflow requires 'write' access to contents to push a git tag.
     permissions:
