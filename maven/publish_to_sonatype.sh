@@ -71,6 +71,10 @@ parse_arguments() {
 }
 
 main() {
+  if [[ "${deploy_to_sonatype}" == true ]]; then
+    echo "deplay_to_sonatype is true... "
+    exit1
+  fi
   parse_arguments "$@"
 
   common::check_version_set
