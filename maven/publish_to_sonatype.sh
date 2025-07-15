@@ -73,9 +73,9 @@ parse_arguments() {
 main() {
   parse_arguments "$@"
 
-  if [[ "${deploy_to_sonatype}" == true ]]; then
-    echo "deplay_to_sonatype is true... "
-    exit1
+  if [[ "${sonatype_auto_publish}" == true ]]; then
+    echo "sonatype_auto_publish is true... "
+    exit 1
   fi
 
   common::check_version_set
