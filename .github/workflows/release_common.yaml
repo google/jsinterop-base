@@ -75,7 +75,7 @@ jobs:
       # NOTE: This step assumes the calling repository has this script at the specified path.
       - name: Publish to Sonatype
         run: |
-          local auto_publish_flag=""
+          auto_publish_flag=""
           if [[ "${{ inputs.sonatype_auto_publish }}" == true ]]; then
             auto_publish_flag="--sonatype-auto-publish"
           fi
