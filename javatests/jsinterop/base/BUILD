@@ -1,7 +1,7 @@
 # Description:
 #   Tests jsinterop utilities
 
-load("@com_google_j2cl//build_defs:rules.bzl", "j2cl_library", "j2cl_test")
+load("@j2cl//build_defs:rules.bzl", "j2cl_library", "j2cl_test")
 
 package(
     default_applicable_licenses = ["//:license"],
@@ -18,8 +18,8 @@ j2cl_library(
     deps = [
         "//java/jsinterop/base:base-j2cl",
         "//third_party:truth-j2cl",
-        "@com_google_j2cl//:jsinterop-annotations-j2cl",
-        "@com_google_j2cl//:junit",
+        "@j2cl//:jsinterop-annotations-j2cl",
+        "@j2cl//:junit",
     ],
 )
 

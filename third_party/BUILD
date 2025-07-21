@@ -1,6 +1,6 @@
 # Description:
 #   Thirdparty dependencies indirection for bazel.
-load("@com_google_j2cl//build_defs:rules.bzl", "j2cl_import")
+load("@j2cl//build_defs:rules.bzl", "j2cl_import")
 
 package(
     default_visibility = ["//:__subpackages__"],
