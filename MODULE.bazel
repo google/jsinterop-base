@@ -1,9 +1,6 @@
 module(name = "jsinterop_base")
 
-bazel_dep(
-    name = "j2cl",
-    version = "20250630",
-)
+bazel_dep(name = "j2cl", version = "20250630")
 
 # Use head j2cl for testing purposes.
 archive_override(
@@ -12,42 +9,24 @@ archive_override(
     urls = ["https://github.com/google/j2cl/archive/master.zip"],
 )
 
-bazel_dep(
-    name = "bazel_skylib",
-    version = "1.7.1",
-)
+bazel_dep(name = "bazel_skylib", version = "1.7.1")
+bazel_dep(name = "google_bazel_common", version = "0.0.1")
+bazel_dep(name = "rules_java", version = "8.13.0")
+bazel_dep(name = "rules_license", version = "1.0.0")
 
-bazel_dep(
-    name = "rules_license",
-    version = "1.0.0",
-)
+# Maven dependencies.
 
-bazel_dep(
-    name = "google_bazel_common",
-    version = "0.0.1",
-)
-
-bazel_dep(
-    name = "rules_java",
-    version = "8.13.0",
-)
-
-bazel_dep(
-    name = "rules_jvm_external",
-    version = "6.6",
-)
+bazel_dep(name = "rules_jvm_external", version = "6.6")
 
 maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
-
 maven.install(
     artifacts = [
         "org.jspecify:jspecify:0.3.0",
     ],
 )
-
 use_repo(maven, "maven")
 
-# Dependencies needed for the testing of the repository.
+# Dependencies needed for development.
 
 j2cl_maven_import_external = use_repo_rule("@j2cl//build_defs:rules.bzl", "j2cl_maven_import_external")
 
