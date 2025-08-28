@@ -22,6 +22,11 @@ on:
         description: 'The version to release'
         required: true
         type: string
+      sonatype_auto_publish:
+        description: 'Automatically publish the release to Sonatype'
+        type: boolean
+        required: true
+        default: false
       continue_if_tag_exists:
         description: 'Continue the workflow even if the GitHub tag already exists'
         type: boolean
@@ -30,7 +35,7 @@ on:
 
 jobs:
   release:
-    uses: ./.github/workflows/release_common.yaml
+    uses: google/j2cl/.github/workflows/release_common.yaml@master
 
     permissions:
       # Permissions for creating a github release.
@@ -42,7 +47,8 @@ jobs:
     # Pass the inputs from the manual trigger to the reusable workflow.
     with:
       version: ${{ github.event.inputs.version }}
-      publish_to_sonatype: false
+      publish_to_sonatype: true
+      sonatype_auto_publish: ${{ github.event.inputs.sonatype_auto_publish == 'true' }}
       continue_if_tag_exists: ${{ github.event.inputs.continue_if_tag_exists == 'true' }}
 
     # Allow the reusable workflow to access the secrets.
