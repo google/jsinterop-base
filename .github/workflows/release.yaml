@@ -22,10 +22,6 @@ on:
         description: 'The version to release'
         required: true
         type: string
-      base_tag:
-        description: 'Existing git tag to build the release from. If not set, the latest commit will be used.'
-        required: false
-        type: string
       continue_if_tag_exists:
         description: 'Continue the workflow even if the GitHub tag already exists'
         type: boolean
@@ -47,7 +43,6 @@ jobs:
     with:
       version: ${{ github.event.inputs.version }}
       publish_to_sonatype: false
-      base_tag: ${{ if github.event.inputs.base_tag }}
       continue_if_tag_exists: ${{ github.event.inputs.continue_if_tag_exists == 'true' }}
 
     # Allow the reusable workflow to access the secrets.
