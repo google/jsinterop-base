@@ -16,6 +16,8 @@ package(
 java_library(
     name = "base",
     srcs = glob(["**/*.java"]),
+    # Keep compatibility with Java 11 for open source GWT.
+    javacopts = ["-source 11 -target 11"],
     resources = ["Base.gwt.xml"],
     deps = [
         "//third_party:jspecify_annotations",
