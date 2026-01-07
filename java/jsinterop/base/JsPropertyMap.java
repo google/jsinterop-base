@@ -16,6 +16,7 @@
  */
 package jsinterop.base;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import javaemul.internal.annotations.DoNotAutobox;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
@@ -100,9 +101,11 @@ public interface JsPropertyMap<T extends @Nullable Object> {
     return InternalJsUtil.has(this, propertyName);
   }
 
+  /** Returns {@code true} unless the property is non-configurable and owned by object. */
+  @CanIgnoreReturnValue
   @JsOverlay
-  default void delete(String propertyName) {
-    InternalJsUtil.delete(this, propertyName);
+  default boolean delete(String propertyName) {
+    return InternalJsUtil.delete(this, propertyName);
   }
 
   @JsOverlay

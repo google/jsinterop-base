@@ -8,6 +8,16 @@ package(
 )
 
 alias(
+    name = "error_prone_annotations",
+    actual = "@google_bazel_common//third_party/java/error_prone:annotations",
+)
+
+j2cl_import(
+    name = "error_prone_annotations-j2cl",
+    jar = "error_prone_annotations",
+)
+
+alias(
     name = "jspecify_annotations",
     actual = "@maven//:org_jspecify_jspecify",
 )

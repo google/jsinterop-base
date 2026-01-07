@@ -47,11 +47,11 @@ InternalJsUtil.hasIndexed = function(obj, key) {
 /**
  * @param {*} obj
  * @param {string|number} key
- * @return {void}
+ * @return {boolean}
  * @public
  */
 InternalJsUtil.deleteIndexed = function(obj, key) {
-  delete obj[key];
+  return delete obj[key];
 };
 
 /**

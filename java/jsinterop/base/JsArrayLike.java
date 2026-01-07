@@ -16,6 +16,7 @@
  */
 package jsinterop.base;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import java.util.Arrays;
 import java.util.List;
 import javaemul.internal.annotations.DoNotAutobox;
@@ -58,9 +59,11 @@ public interface JsArrayLike<T extends @Nullable Object> {
     InternalJsUtil.setAt(this, index, value);
   }
 
+  /** Returns {@code true} unless the property is non-configurable and owned by object. */
+  @CanIgnoreReturnValue
   @JsOverlay
-  default void delete(int index) {
-    InternalJsUtil.deleteAt(this, index);
+  default boolean delete(int index) {
+    return InternalJsUtil.deleteAt(this, index);
   }
 
 

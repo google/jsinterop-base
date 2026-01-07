@@ -55,8 +55,8 @@ class InternalJsUtil {
   }-*/;
 
   // J2CL_ONLY @JsMethod(name="deleteIndexed")
-  public static native Object delete(Object obj, String key) /*-{
-    delete obj[key];
+  public static native boolean delete(Object obj, String key) /*-{
+    return delete obj[key];
   }-*/;
 
   // J2CL_ONLY @JsMethod(name="setIndexed")
@@ -75,8 +75,8 @@ class InternalJsUtil {
   }-*/;
 
   // J2CL_ONLY @JsMethod(name="deleteIndexed")
-  public static native void deleteAt(Object obj, int key) /*-{
-    delete obj[key];
+  public static native boolean deleteAt(Object obj, int key) /*-{
+    return delete obj[key];
   }-*/;
 
   // J2CL_ONLY @JsMethod(name="setIndexed")
