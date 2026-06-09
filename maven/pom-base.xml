@@ -50,6 +50,11 @@
       <artifactId>jspecify</artifactId>
       <version>0.3.0</version>
     </dependency>
+    <dependency>
+      <groupId>org.checkerframework</groupId>
+      <artifactId>checker-qual</artifactId>
+      <version>3.43.0</version>
+    </dependency>
   </dependencies>
 
 __BUILD_SECTION__

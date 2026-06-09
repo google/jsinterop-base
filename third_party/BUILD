@@ -18,6 +18,16 @@ j2cl_import(
 )
 
 alias(
+    name = "checker_framework_annotations",
+    actual = "@maven//:org_checkerframework_checker_qual",
+)
+
+j2cl_import(
+    name = "checker_framework_annotations-j2cl",
+    jar = ":checker_framework_annotations",
+)
+
+alias(
     name = "jspecify_annotations",
     actual = "@maven//:org_jspecify_jspecify",
 )

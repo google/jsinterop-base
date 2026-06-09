@@ -20,6 +20,7 @@ java_library(
     javacopts = ["-source 11 -target 11"],
     resources = ["Base.gwt.xml"],
     deps = [
+        "//third_party:checker_framework_annotations",
         "//third_party:error_prone_annotations",
         "//third_party:jspecify_annotations",
         "@j2cl//:jsinterop-annotations",
@@ -35,6 +36,7 @@ javadoc_library(
         "notap",
     ],
     deps = [
+        "//third_party:checker_framework_annotations",
         "//third_party:error_prone_annotations",
         "//third_party:jspecify_annotations",
         "@j2cl//:jsinterop-annotations",
@@ -48,6 +50,7 @@ j2cl_library(
     # Tested internally in google3
     experimental_enable_jspecify_support_do_not_enable_without_jspecify_static_checking_or_you_might_cause_an_outage = True,
     deps = [
+        "//third_party:checker_framework_annotations-j2cl",
         "//third_party:error_prone_annotations-j2cl",
         "//third_party:jspecify_annotations-j2cl",
         "@j2cl//:jsinterop-annotations-j2cl",

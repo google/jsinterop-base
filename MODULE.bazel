@@ -24,6 +24,7 @@ maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
 maven.install(
     artifacts = [
         "org.jspecify:jspecify:0.3.0",
+        "org.checkerframework:checker-qual:3.43.0",
     ],
 )
 use_repo(maven, "maven")

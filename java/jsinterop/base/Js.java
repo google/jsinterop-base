@@ -23,6 +23,7 @@ import javaemul.internal.annotations.HasNoSideEffects;
 import javaemul.internal.annotations.UncheckedCast;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsProperty;
+import org.checkerframework.checker.nullness.qual.PolyNull;
 import org.jspecify.annotations.Nullable;
 
 // J2CL_ONLY import jsinterop.annotations.JsPackage;
@@ -59,17 +60,17 @@ public final class Js {
     return fn;
   }
 
-  public static @Nullable Any asAny(@DoNotAutobox @Nullable Object obj) {
+  public static @PolyNull Any asAny(@DoNotAutobox @PolyNull Object obj) {
     return uncheckedCast(obj);
   }
 
   /** Returns {@code JsPropertyMap} view of provided object. */
-  public static @Nullable JsPropertyMap<@Nullable Object> asPropertyMap(@Nullable Object obj) {
+  public static @PolyNull JsPropertyMap<@Nullable Object> asPropertyMap(@PolyNull Object obj) {
     return uncheckedCast(obj);
   }
 
   /** Returns {@code JsArrayLike} view of provided array-like object. */
-  public static @Nullable JsArrayLike<@Nullable Object> asArrayLike(@Nullable Object obj) {
+  public static @PolyNull JsArrayLike<@Nullable Object> asArrayLike(@PolyNull Object obj) {
     // TODO(goktug): switch to custom $isInstance
     checkType(obj == null || InternalJsUtil.hasLength(obj));
     return uncheckedCast(obj);
