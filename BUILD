@@ -6,9 +6,7 @@ load("@rules_license//rules:license.bzl", "license")
 
 package(
     default_applicable_licenses = [":license"],
-    default_visibility = [
-        "//visibility:public",
-    ],
+    default_visibility = ["//visibility:public"],
     licenses = ["notice"],
 )
 
@@ -22,11 +20,9 @@ exports_files(["LICENSE"])
 alias(
     name = "jsinterop-base",
     actual = "//java/jsinterop/base",
-    tags = ["avoid_dep"],  # Use //third_party/java/jsinterop_base:jsinterop-base instead.
 )
 
 alias(
     name = "jsinterop-base-j2cl",
     actual = "//java/jsinterop/base:base-j2cl",
-    tags = ["avoid_dep"],  # Use //third_party/java/jsinterop_base:jsinterop-base-j2cl instead.
 )
