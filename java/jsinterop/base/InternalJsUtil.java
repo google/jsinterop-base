@@ -22,8 +22,10 @@ import org.jspecify.annotations.Nullable;
 
 // J2CL_ONLY import jsinterop.annotations.JsMethod;
 // J2CL_ONLY import jsinterop.annotations.JsPackage;
+// J2CL_ONLY import jsinterop.annotations.JsType;
 
 /** Utilities used internally to interact with native code. */
+// J2CL_ONLY @JsType(isNative = true)
 class InternalJsUtil {
 
   // J2CL_ONLY @JsMethod
