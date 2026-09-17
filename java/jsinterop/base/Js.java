@@ -157,30 +157,22 @@ public final class Js {
   }
 
   /** Applies JavaScript logical "and" operator ({@code &&}) on given objects. */
-  // J2CL_ONLY @JsMethod
-  @HasNoSideEffects
-  public static native <T extends @Nullable Object> T andAlso(
-      @DoNotAutobox T obj1, @DoNotAutobox T obj2) /*-{
-    return obj1 && obj2;
-  }-*/;
+  public static <T extends @Nullable Object> T andAlso(@DoNotAutobox T obj1, @DoNotAutobox T obj2) {
+    return InternalJsUtil.andAlso(obj1, obj2);
+  }
 
   /** Applies JavaScript logical "or" operator ({@code ||}) on given objects. */
-  // J2CL_ONLY @JsMethod
-  @HasNoSideEffects
-  public static native <T extends @Nullable Object> T orElse(
-      @DoNotAutobox T obj1, @DoNotAutobox T obj2) /*-{
-    return obj1 || obj2;
-  }-*/;
+  public static <T extends @Nullable Object> T orElse(@DoNotAutobox T obj1, @DoNotAutobox T obj2) {
+    return InternalJsUtil.orElse(obj1, obj2);
+  }
 
   public static boolean isTruthy(@DoNotAutobox @Nullable Object obj) {
     return !isFalsy(obj);
   }
 
-  // J2CL_ONLY @JsMethod
-  @HasNoSideEffects
-  public static native boolean isFalsy(@DoNotAutobox @Nullable Object obj) /*-{
-    return !obj;
-  }-*/;
+  public static boolean isFalsy(@DoNotAutobox @Nullable Object obj) {
+    return InternalJsUtil.isFalsy(obj);
+  }
 
   /**
    * Returns {@code true} if two objects are same.
@@ -188,18 +180,15 @@ public final class Js {
    * <p>This method mostly behaves similar to Java {@code ==} operator except that it doesn't return
    * {@code true} for {@code null==undefined} comparison.
    */
-  // J2CL_ONLY @JsMethod
-  @HasNoSideEffects
-  public static native boolean isTripleEqual(
-      @DoNotAutobox @Nullable Object o1, @DoNotAutobox @Nullable Object o2) /*-{
-    return o1 === o2;
-  }-*/;
+  public static boolean isTripleEqual(
+      @DoNotAutobox @Nullable Object o1, @DoNotAutobox @Nullable Object o2) {
+    return InternalJsUtil.isTripleEqual(o1, o2);
+  }
 
   /** Coerces any object to number using {@code +} operation. */
-  // J2CL_ONLY @JsMethod
-  public static native double coerceToDouble(@Nullable Object d) /*-{
-    return +d;
-  }-*/;
+  public static double coerceToDouble(@Nullable Object d) {
+    return InternalJsUtil.coerceToDouble(d);
+  }
 
   /** Coerces any object to 32 bit signed number using {@code |0} operation. */
   public static int coerceToInt(@DoNotAutobox @Nullable Object d) {

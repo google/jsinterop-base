@@ -165,6 +165,35 @@ class InternalJsUtil {
   }-*/;
 
   // J2CL_ONLY @JsMethod
+  @HasNoSideEffects
+  public static native <T extends @Nullable Object> T andAlso(T obj1, T obj2) /*-{
+    return obj1 && obj2;
+  }-*/;
+
+  // J2CL_ONLY @JsMethod
+  @HasNoSideEffects
+  public static native <T extends @Nullable Object> T orElse(T obj1, T obj2) /*-{
+    return obj1 || obj2;
+  }-*/;
+
+  // J2CL_ONLY @JsMethod
+  @HasNoSideEffects
+  public static native boolean isFalsy(@Nullable Object obj) /*-{
+    return !obj;
+  }-*/;
+
+  // J2CL_ONLY @JsMethod
+  @HasNoSideEffects
+  public static native boolean isTripleEqual(@Nullable Object o1, @Nullable Object o2) /*-{
+    return o1 === o2;
+  }-*/;
+
+  // J2CL_ONLY @JsMethod
+  public static native double coerceToDouble(@Nullable Object d) /*-{
+    return +d;
+  }-*/;
+
+  // J2CL_ONLY @JsMethod
   public static native <T> JsConstructorFn<T> toCtor(Class<T> clazz) /*-{
     return clazz.@java.lang.Class::jsConstructor;
   }-*/;

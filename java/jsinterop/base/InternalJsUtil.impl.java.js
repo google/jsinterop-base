@@ -139,6 +139,56 @@ class InternalJsUtil {
   }
 
   /**
+   * @template T
+   * @param {T} obj1
+   * @param {T} obj2
+   * @return {T}
+   * @public
+   */
+  static andAlso(obj1, obj2) {
+    return obj1 && obj2;
+  }
+
+  /**
+   * @template T
+   * @param {T} obj1
+   * @param {T} obj2
+   * @return {T}
+   * @public
+   */
+  static orElse(obj1, obj2) {
+    return obj1 || obj2;
+  }
+
+  /**
+   * @param {*} obj
+   * @return {boolean}
+   * @public
+   */
+  static isFalsy(obj) {
+    return !obj;
+  }
+
+  /**
+   * @param {*} obj1
+   * @param {*} obj2
+   * @return {boolean}
+   * @public
+   */
+  static isTripleEqual(obj1, obj2) {
+    return obj1 === obj2;
+  }
+
+  /**
+   * @param {*} d
+   * @return {number}
+   * @public
+   */
+  static coerceToDouble(d) {
+    return +/** @type {?} */ (d);
+  }
+
+  /**
    * @param {!JavaClass<T>} clazz
    * @return {function(new:T)}
    * @template T
