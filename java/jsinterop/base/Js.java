@@ -186,7 +186,7 @@ public final class Js {
   }
 
   /** Coerces any object to number using {@code +} operation. */
-  public static double coerceToDouble(@Nullable Object d) {
+  public static double coerceToDouble(@DoNotAutobox @Nullable Object d) {
     return InternalJsUtil.coerceToDouble(d);
   }
 
