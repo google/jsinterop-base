@@ -77,22 +77,25 @@ public final class Js {
   }
 
   public static @Nullable Any[] asArray(Object obj) {
-    checkType(InternalJsUtil.isArray(obj));
+    checkType(obj instanceof Any[]);
     return uncheckedCast(obj);
   }
 
+  @SuppressWarnings("ReferenceEquality") // GWT is not good at optimizing equals
   public static String asString(Object obj) {
-    checkType(obj instanceof String);
+    checkType(Js.typeof(obj) == "string");
     return uncheckedCast(obj);
   }
 
+  @SuppressWarnings("ReferenceEquality") // GWT is not good at optimizing equals
   public static boolean asBoolean(Object obj) {
-    checkType(obj instanceof Boolean);
+    checkType(Js.typeof(obj) == "boolean");
     return InternalJsUtil.asBoolean(obj);
   }
 
+  @SuppressWarnings("ReferenceEquality") // GWT is not good at optimizing equals
   public static double asDouble(Object obj) {
-    checkType(obj instanceof Double);
+    checkType(Js.typeof(obj) == "number");
     return InternalJsUtil.asDouble(obj);
   }
 
