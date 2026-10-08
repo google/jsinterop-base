@@ -194,6 +194,12 @@ class InternalJsUtil {
   }-*/;
 
   // J2CL_ONLY @JsMethod
+  @HasNoSideEffects
+  public static native String typeOf(@Nullable Object obj) /*-{
+    return typeof obj;
+  }-*/;
+
+  // J2CL_ONLY @JsMethod
   public static native <T> JsConstructorFn<T> toCtor(Class<T> clazz) /*-{
     return clazz.@java.lang.Class::jsConstructor;
   }-*/;

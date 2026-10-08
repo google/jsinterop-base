@@ -189,6 +189,15 @@ class InternalJsUtil {
   }
 
   /**
+   * @param {*} obj
+   * @return {string}
+   * @public
+   */
+  static typeOf(obj) {
+    return typeof obj;
+  }
+
+  /**
    * @param {!JavaClass<T>} clazz
    * @return {function(new:T)}
    * @template T

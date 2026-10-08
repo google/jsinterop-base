@@ -21,7 +21,6 @@ import static jsinterop.base.InternalPreconditions.checkType;
 import javaemul.internal.annotations.DoNotAutobox;
 import javaemul.internal.annotations.HasNoSideEffects;
 import javaemul.internal.annotations.UncheckedCast;
-import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsProperty;
 import org.checkerframework.checker.nullness.qual.PolyNull;
 import org.jspecify.annotations.Nullable;
@@ -45,9 +44,10 @@ public final class Js {
   @JsProperty(namespace = "<window>", name = "debugger")
   public static native void debugger();
 
-  @JsMethod(namespace = "<window>")
   @HasNoSideEffects
-  public static native String typeof(@Nullable Object obj);
+  public static String typeof(@DoNotAutobox @Nullable Object obj) {
+    return InternalJsUtil.typeOf(obj);
+  }
 
   // J2CL_ONLY @JsProperty(namespace=JsPackage.GLOBAL, name = "goog.global")
   public static native JsPropertyMap<@Nullable Object> global() /*-{
