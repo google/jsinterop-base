@@ -208,5 +208,11 @@ class InternalJsUtil {
     return new (ctor.bind.apply(ctor, [null].concat(args)));
   }-*/;
 
+  // J2CL_ONLY @JsMethod(namespace = JsPackage.GLOBAL, name = "Array.isArray")
+  @HasNoSideEffects
+  public static native boolean isArray(@Nullable Object obj) /*-{
+    return Array.isArray(obj);
+  }-*/;
+
   private InternalJsUtil() {} // Hide constructor for utility class.
 }
