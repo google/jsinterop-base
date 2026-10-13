@@ -44,7 +44,9 @@ public class JsPropertyMapTest extends GWTTestCase {
   public void testNestedGet() {
     JsPropertyMap<Object> o = JsPropertyMap.of();
     o.set("a", JsPropertyMap.of("b", JsPropertyMap.of("c", o)));
-    assertThat(o.nestedGet("a.b.c")).isSameInstanceAs(o);
+    // In Wasm, each conversion of a JavaScript object to Object creates a new wrapper, so identity
+    // needs to be checked with JavaScript semantics (b/540448377).
+    assertThat(Js.isTripleEqual(o.nestedGet("a.b.c"), o)).isTrue();
     assertThat(o.nestedGet("k.l.m")).isNull();
   }
 

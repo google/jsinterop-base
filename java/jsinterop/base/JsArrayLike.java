@@ -16,7 +16,10 @@
  */
 package jsinterop.base;
 
+import static jsinterop.base.InternalPreconditions.checkElementIndex;
+
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import java.util.AbstractList;
 import java.util.Arrays;
 import java.util.List;
 import javaemul.internal.annotations.DoNotAutobox;
@@ -66,9 +69,31 @@ public interface JsArrayLike<T extends @Nullable Object> {
     return InternalJsUtil.deleteAt(this, index);
   }
 
-
   @JsOverlay
   default List<T> asList() {
+    if (InternalJsUtil.isWasm()) {
+      // Java arrays are not JavaScript arrays in Wasm, so return a view of the array-like itself.
+      return new AbstractList<T>() {
+        @Override
+        @SuppressWarnings("nullness") // getAt() returns @Nullable T.
+        public T get(int index) {
+          checkElementIndex(index, size());
+          return getAt(index);
+        }
+
+        @Override
+        public T set(int index, T value) {
+          T previous = get(index);
+          setAt(index, value);
+          return previous;
+        }
+
+        @Override
+        public int size() {
+          return getLength();
+        }
+      };
+    }
     // Since it is hidden behind Arrays.asList, it is safe to do uncheckedCast.
     T[] asArray = Js.<T[]>uncheckedCast(this);
     return Arrays.asList(asArray);

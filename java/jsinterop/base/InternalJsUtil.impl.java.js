@@ -206,6 +206,15 @@ class InternalJsUtil {
   static toCtor(clazz) {
     return /** @type {?} */ (clazz.f_ctor__java_lang_Class_);
   }
+
+  /**
+   * Returns false. Under J2Wasm, calls to InternalJsUtil.isWasm() are replaced with `true`.
+   * @return {boolean}
+   * @public
+   */
+  static isWasm() {
+    return false;
+  }
 }
 
 exports = InternalJsUtil;

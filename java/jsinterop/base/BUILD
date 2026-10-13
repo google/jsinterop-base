@@ -3,7 +3,7 @@
 
 load("@google_bazel_common//tools/javadoc:javadoc.bzl", "javadoc_library")
 load("@rules_java//java:defs.bzl", "java_library")
-load("@j2cl//build_defs:rules.bzl", "j2cl_library")
+load("@j2cl//build_defs:rules.bzl", "j2cl_library", "j2wasm_library")
 
 package(
     default_applicable_licenses = ["//:license"],
@@ -44,6 +44,21 @@ javadoc_library(
     ],
 )
 
+j2wasm_library(
+    name = "base-j2wasm",
+    srcs = [
+        "InternalJsUtil.impl.java.js",
+        ":processed_j2wasm_srcs",
+    ],
+    deps = [
+        "//third_party:checker_framework_annotations-j2wasm",
+        "//third_party:error_prone_annotations-j2wasm",
+        "//third_party:jspecify_annotations-j2wasm",
+        "@j2cl//:jsinterop-annotations-j2wasm",
+        "@j2cl//jre/java:javaemul_internal_annotations-j2wasm",
+    ],
+)
+
 j2cl_library(
     name = "base-j2cl",
     srcs = [":processed_j2cl_srcs"] + glob(["*.js"]),
@@ -58,14 +73,18 @@ j2cl_library(
     ],
 )
 
-# Uncomments code that is commented with '// J2CL_ONLY'
-genrule(
-    name = "processed_j2cl_srcs",
-    srcs = glob(["**/*.java"]),
-    outs = ["base-j2cl.srcjar"],
-    cmd = """
+# Uncomments code that is commented with the given markers, e.g. '// J2CL_ONLY '. The markers are
+# replaced with whitespace to ensure all character offset position references remain accurate.
+_PROCESS_SRCS_CMD = """
 # Exit on any command failure, if a variable is unset, or a pipeline failure (respectively).
 set -euo pipefail
+
+# Build a sed expression for each marker that replaces '// <marker> ' with as many spaces.
+declare -a sed_args
+for marker in %s; do
+  prefix="// $${marker} "
+  sed_args+=(-e "s|$${prefix}|$${prefix//?/ }|g")
+done
 
 tmpdir=$$(mktemp -d)
 # Ensure we cleanup the tmpdir on exit
@@ -77,13 +96,27 @@ declare -a file_mapping
 for src in $(SRCS); do
   tmpfile=$$(mktemp "$${tmpdir}/tmp.XXXXXXXXX")
   file_mapping+=("$${src}=$${tmpfile}")
-  # Replace the J2CL_ONLY comment with whitespace to ensure all character offset position references
-  # remain accurate.
-  sed 's|// J2CL_ONLY |             |g' $${src} > $${tmpfile}
+  sed "$${sed_args[@]}" $${src} > $${tmpfile}
 done
 
 # Zip everything up using the mapping we built.
 $(location @bazel_tools//tools/zip:zipper) c $@ "$${file_mapping[@]}"
-""",
+"""
+
+# Uncomments code that is commented with '// J2CL_ONLY' (used by both J2CL and J2Wasm).
+genrule(
+    name = "processed_j2cl_srcs",
+    srcs = glob(["**/*.java"]),
+    outs = ["base-j2cl.srcjar"],
+    cmd = _PROCESS_SRCS_CMD % "J2CL_ONLY",
+    tools = ["@bazel_tools//tools/zip:zipper"],
+)
+
+# Like processed_j2cl_srcs but also uncomments code that is commented with '// J2WASM_ONLY'.
+genrule(
+    name = "processed_j2wasm_srcs",
+    srcs = glob(["**/*.java"]),
+    outs = ["base-j2wasm.srcjar"],
+    cmd = _PROCESS_SRCS_CMD % "J2CL_ONLY J2WASM_ONLY",
     tools = ["@bazel_tools//tools/zip:zipper"],
 )

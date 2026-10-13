@@ -37,16 +37,28 @@ public class AnyTest extends GWTTestCase {
   }
 
   public void testAsArrayLike() {
-    String[] stringArray = {"abc"};
-    assertThat(Js.asAny(stringArray).asArrayLike().getAt(0)).isEqualTo("abc");
+    Any[] anyArray = {Js.asAny("abc")};
+    assertThat(Js.asAny(anyArray).asArrayLike().getAt(0)).isEqualTo("abc");
+
+    if (!InternalJsUtil.isWasm()) {
+      // Java arrays are JavaScript arrays only in J2CL.
+      String[] stringArray = {"abc"};
+      assertThat(Js.asAny(stringArray).asArrayLike().getAt(0)).isEqualTo("abc");
+    }
 
     assertThrowsHiddenClassCastException(() -> Js.asAny(new Object()).asArrayLike());
   }
 
   @SuppressWarnings("TruthIncompatibleType")
   public void testAsArray() {
-    String[] stringArray = {"abc"};
-    assertThat(Js.asAny(stringArray).asArray()[0]).isEqualTo("abc");
+    Any[] anyArray = {Js.asAny("abc")};
+    assertThat(Js.asAny(anyArray).asArray()[0]).isEqualTo("abc");
+
+    if (!InternalJsUtil.isWasm()) {
+      // Java arrays are JavaScript arrays only in J2CL.
+      String[] stringArray = {"abc"};
+      assertThat(Js.asAny(stringArray).asArray()[0]).isEqualTo("abc");
+    }
 
     assertThrowsHiddenClassCastException(() -> Js.asAny(new Object()).asArray());
   }
@@ -143,6 +155,10 @@ public class AnyTest extends GWTTestCase {
   }
 
   public void testCast() {
+    if (InternalJsUtil.isWasm()) {
+      // TODO(b/183769034): Re-enable when CCE is supported.
+      return;
+    }
     assertThrowsClassCastException(
         () -> {
           String unused = Js.asAny(5).cast();
@@ -151,6 +167,10 @@ public class AnyTest extends GWTTestCase {
 
   @SuppressWarnings("TruthIncompatibleType")
   public void testUncheckedCast() {
+    if (InternalJsUtil.isWasm()) {
+      // Wasm cannot honor `@UncheckedCast` and still emits a Wasm `ref.cast` on the return value.
+      return;
+    }
     Double fakeNumber = Js.asAny("dangerous").uncheckedCast();
     assertThat((Object) fakeNumber).isEqualTo("dangerous");
   }

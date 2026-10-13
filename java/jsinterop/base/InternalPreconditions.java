@@ -24,7 +24,8 @@ import static java.lang.System.getProperty;
  */
 public final class InternalPreconditions {
 
-  private static final boolean IS_TYPE_CHECKED = getProperty("jsinterop.checks") == "ENABLED";
+  private static final boolean IS_TYPE_CHECKED =
+      getProperty("jsinterop.checks", "DISABLED") == "ENABLED";
 
   private static final boolean IS_ASSERTED = getProperty("jre.checkedMode") == "ENABLED";
 
@@ -43,6 +44,24 @@ public final class InternalPreconditions {
   public static void checkCriticalType(boolean expression) {
     if (!expression) {
       throw new ClassCastException();
+    }
+  }
+
+  public static void checkElementIndex(int index, int size) {
+    if (IS_TYPE_CHECKED) {
+      checkCriticalElementIndex(index, size);
+    } else if (IS_ASSERTED) {
+      try {
+        checkCriticalElementIndex(index, size);
+      } catch (Exception e) {
+        throw new AssertionError(e);
+      }
+    }
+  }
+
+  private static void checkCriticalElementIndex(int index, int size) {
+    if (index < 0 || index >= size) {
+      throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
     }
   }
 

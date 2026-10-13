@@ -28,3 +28,8 @@ alias(
     name = "jsinterop-base-j2cl",
     actual = "//java/jsinterop/base:base-j2cl",
 )
+
+alias(
+    name = "jsinterop-base-j2wasm",
+    actual = "//java/jsinterop/base:base-j2wasm",
+)

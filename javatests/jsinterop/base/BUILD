@@ -20,6 +20,7 @@ j2cl_library(
         "//third_party:truth-j2cl",
         "@j2cl//:jsinterop-annotations-j2cl",
         "@j2cl//:junit",
+        "@j2cl//jre/java:javaemul_internal_annotations-j2cl",
     ],
 )
 
@@ -40,6 +41,19 @@ j2cl_test(
 j2cl_test(
     name = "AllJ2clTests_uncompiled",
     test_class = "jsinterop.base.AllTests",
+    runtime_deps = [":testlib"],
+)
+
+j2cl_test(
+    name = "AllJ2clOnlyTests",
+    compile = 1,
+    test_class = "jsinterop.base.AllJ2clOnlyTests",
+    runtime_deps = [":testlib"],
+)
+
+j2cl_test(
+    name = "AllJ2clOnlyTests_uncompiled",
+    test_class = "jsinterop.base.AllJ2clOnlyTests",
     runtime_deps = [":testlib"],
 )
 

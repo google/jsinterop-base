@@ -20,6 +20,7 @@ import com.google.gwt.core.client.UnsafeNativeLong;
 import javaemul.internal.annotations.HasNoSideEffects;
 import org.jspecify.annotations.Nullable;
 
+// J2CL_ONLY import javaemul.internal.annotations.Wasm;
 // J2CL_ONLY import jsinterop.annotations.JsMethod;
 // J2CL_ONLY import jsinterop.annotations.JsPackage;
 // J2CL_ONLY import jsinterop.annotations.JsType;
@@ -199,16 +200,19 @@ class InternalJsUtil {
     return typeof obj;
   }-*/;
 
+  // J2WASM_ONLY @GwtIncompatible
   // J2CL_ONLY @JsMethod
   public static native <T> JsConstructorFn<T> toCtor(Class<T> clazz) /*-{
     return clazz.@java.lang.Class::jsConstructor;
   }-*/;
 
+  // J2WASM_ONLY @GwtIncompatible
   // J2CL_ONLY @JsMethod(namespace="java.lang.Class", name="$get")
   public static native <T> Class<T> toClass(JsConstructorFn<T> ctor) /*-{
     return ctor.prototype.@java.lang.Object::___clazz;
   }-*/;
 
+  // J2WASM_ONLY @GwtIncompatible
   // J2CL_ONLY @JsMethod(namespace=jsinterop.annotations.JsPackage.GLOBAL, name="Reflect.construct")
   public static native <T> T construct(JsConstructorFn<T> ctor, @Nullable Object[] args) /*-{
     return new (ctor.bind.apply(ctor, [null].concat(args)));
@@ -218,6 +222,12 @@ class InternalJsUtil {
   @HasNoSideEffects
   public static native boolean isArray(@Nullable Object obj) /*-{
     return Array.isArray(obj);
+  }-*/;
+
+  /** Returns {@code true} if the code is running as WebAssembly. */
+  // J2CL_ONLY @Wasm("i32.const 1")
+  public static native boolean isWasm() /*-{
+    return false;
   }-*/;
 
   private InternalJsUtil() {} // Hide constructor for utility class.

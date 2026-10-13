@@ -21,6 +21,7 @@ import static jsinterop.base.ExceptionAssert.assertThrowsClassCastException;
 import static jsinterop.base.ExceptionAssert.assertThrowsHiddenClassCastException;
 
 import com.google.gwt.junit.client.GWTTestCase;
+import javaemul.internal.annotations.Wasm;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
@@ -46,11 +47,20 @@ public class JsTest extends GWTTestCase {
   }
 
   public void testUncheckedCast() {
-    String unused = Js.uncheckedCast(3.5);
+    Double unusedDouble = Js.uncheckedCast(3);
+    if (InternalJsUtil.isWasm()) {
+      // Wasm cannot honor `@UncheckedCast` and still emits a Wasm `ref.cast` on the return value.
+      return;
+    }
+    String unusedString = Js.uncheckedCast(3.5);
   }
 
   public void testCast() {
     Double unusedDouble = Js.cast(3.5);
+    if (InternalJsUtil.isWasm()) {
+      // TODO(b/183769034): Re-enable when CCE is supported.
+      return;
+    }
     assertThrowsClassCastException(
         () -> {
           String unusedString = Js.cast(3.5);
@@ -64,8 +74,11 @@ public class JsTest extends GWTTestCase {
   }
 
   public void testAsArrayLike() {
-    Js.asArrayLike(new String[0]);
-    Js.asArrayLike(Js.arguments());
+    Js.asArrayLike(new Any[0]);
+    if (!InternalJsUtil.isWasm()) {
+      // Java arrays are JavaScript arrays only in J2CL.
+      Js.asArrayLike(new String[0]);
+    }
     Js.asArrayLike(null); // Js.asArrayLike is similar to casting so null should be accepted.
 
     assertThrowsHiddenClassCastException(() -> Js.asArrayLike(5));
@@ -185,7 +198,10 @@ public class JsTest extends GWTTestCase {
   public void testTripleEqual() {
     assertThat(Js.isTripleEqual(null, null)).isTrue();
     assertThat(Js.isTripleEqual(Js.undefined(), Js.undefined())).isTrue();
-    assertThat(Js.isTripleEqual(Js.undefined(), null)).isFalse();
+    if (!InternalJsUtil.isWasm()) {
+      // Wasm converts both JS `undefined` and `null` to Wasm `null`, losing the distinction.
+      assertThat(Js.isTripleEqual(Js.undefined(), null)).isFalse();
+    }
   }
 
   public void testCoerceToInt() {
@@ -199,8 +215,8 @@ public class JsTest extends GWTTestCase {
     assertThat(Js.coerceToInt("0")).isEqualTo(0);
     assertThat(Js.coerceToInt("NaN")).isEqualTo(0);
     assertThat(Js.coerceToInt("random string")).isEqualTo(0);
-    assertThat(Js.coerceToInt(new Object())).isEqualTo(0);
-    assertThat(Js.coerceToInt(new Object[0])).isEqualTo(0);
+    assertThat(Js.coerceToInt(JsPropertyMap.of())).isEqualTo(0);
+    assertThat(Js.coerceToInt(new Any[0])).isEqualTo(0);
     assertThat(Js.coerceToInt(true)).isEqualTo(1);
     assertThat(Js.coerceToInt(false)).isEqualTo(0);
     assertThat(Js.coerceToInt(null)).isEqualTo(0);
@@ -217,12 +233,17 @@ public class JsTest extends GWTTestCase {
     assertThat(Js.coerceToDouble("-Infinity")).isNegativeInfinity();
     assertThat(Js.coerceToDouble("NaN")).isNaN();
     assertThat(Js.coerceToDouble("random string")).isNaN();
-    assertThat(Js.coerceToDouble(new Object())).isNaN();
+    assertThat(Js.coerceToDouble(JsPropertyMap.of())).isNaN();
     assertThat(Js.coerceToDouble(null)).isEqualTo(0d);
   }
 
   public void testArguments() throws Exception {
+    if (InternalJsUtil.isWasm()) {
+      // Js.arguments() is not available in J2Wasm.
+      return;
+    }
     JsArrayLike<Object> arrayLike = getArguments("a", "b", "c");
+    Js.asArrayLike(arrayLike);
     assertThat(arrayLike.getLength()).isEqualTo(3);
     assertThat(arrayLike.getAt(0)).isEqualTo("a");
     assertThat(arrayLike.getAt(1)).isEqualTo("b");
@@ -230,6 +251,7 @@ public class JsTest extends GWTTestCase {
   }
 
   // The extra indirection here prevents GWT optimization over params.
+  @Wasm("unreachable") // GetArgumentsHelper is not available in J2Wasm.
   @JsMethod(name = "getArguments", namespace = "jsinterop.base.GetArgumentsHelper")
   private static native JsArrayLike<Object> getArguments(Object... args);
 }

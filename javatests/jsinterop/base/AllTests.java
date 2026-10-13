@@ -20,12 +20,11 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+/**
+ * Tests that run on both J2CL and J2Wasm.
+ *
+ * <p>Tests for APIs that are not available in J2Wasm go in {@code AllJ2clOnlyTests}.
+ */
 @RunWith(Suite.class)
-@SuiteClasses({
-  AnyTest.class,
-  JsArrayLikeTest.class,
-  JsConstructorFnTest.class,
-  JsPropertyMapTest.class,
-  JsTest.class
-})
+@SuiteClasses({AnyTest.class, JsArrayLikeTest.class, JsPropertyMapTest.class, JsTest.class})
 public class AllTests {}

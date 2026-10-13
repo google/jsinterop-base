@@ -38,6 +38,7 @@ public final class Js {
   @JsProperty(namespace = "<window>", name = "undefined")
   public static native @Nullable Object undefined();
 
+  // J2WASM_ONLY @GwtIncompatible("Wasm functions do not have a JavaScript arguments object.")
   @JsProperty(namespace = "<window>", name = "arguments")
   public static native JsArrayLike<@Nullable Object> arguments();
 
@@ -54,6 +55,7 @@ public final class Js {
     return $wnd;
   }-*/;
 
+  // J2WASM_ONLY @GwtIncompatible("Class doesn't encapsulate the JS constructor in Wasm.")
   public static <T> JsConstructorFn<T> asConstructorFn(Class<T> clazz) {
     JsConstructorFn<T> fn = InternalJsUtil.toCtor(clazz);
     checkType(fn != null);
