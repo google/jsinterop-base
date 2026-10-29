@@ -17,7 +17,6 @@
 
 goog.module('jsinterop.base.InternalJsUtil');
 
-const JavaClass = goog.requireType('java.lang.Class');
 const Long = goog.require('goog.math.Long');
 
 class InternalJsUtil {
@@ -198,13 +197,14 @@ class InternalJsUtil {
   }
 
   /**
-   * @param {!JavaClass<T>} clazz
+   * @param {!Object} clazz
    * @return {function(new:T)}
    * @template T
+   * @suppress {missingProperties}
    * @public
    */
   static toCtor(clazz) {
-    return /** @type {?} */ (clazz.f_ctor__java_lang_Class_);
+    return clazz.f_ctor__java_lang_Class_;
   }
 
   /**
